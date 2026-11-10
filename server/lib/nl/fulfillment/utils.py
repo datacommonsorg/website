@@ -140,6 +140,9 @@ def add_chart_to_utterance(
     info_message: str = '',
     entities: List[Entity] = [],
     sv_place_latest_date: Sv2Place2Date = None) -> bool:
+  if len(state.uttr.chartCandidates) >= params.MAX_CHART_CANDIDATES:
+    state.uttr.counters.err('max_chart_candidates_reached', 1)
+    return False
   is_special_dc = False
   if state.uttr.insight_ctx and params.is_special_dc(state.uttr.insight_ctx):
     is_special_dc = True
@@ -148,13 +151,19 @@ def add_chart_to_utterance(
     # TODO: What's the flow where the instance is string?
     place_type = place_type.value
   # Make a copy of chart-vars since it change.
+  chart_vars = copy.deepcopy(chart_vars)
+  # Only keep the plotted SVs in a single-topic orig_sv_map. Otherwise every
+  # per-SV chart carries the full topic SV list.
+  if len(chart_vars.orig_sv_map) == 1 and not chart_vars.is_topic_peer_group:
+    orig_sv = next(iter(chart_vars.orig_sv_map))
+    chart_vars.orig_sv_map = {orig_sv: chart_vars.svs}
   ch = ChartSpec(chart_type=chart_type,
                  svs=copy.deepcopy(chart_vars.svs),
                  props=copy.deepcopy(chart_vars.props),
                  entities=copy.deepcopy(entities),
                  event=chart_vars.event,
                  places=copy.deepcopy(places),
-                 chart_vars=copy.deepcopy(chart_vars),
+                 chart_vars=chart_vars,
                  place_type=place_type,
                  ranking_types=copy.deepcopy(state.ranking_types),
                  ranking_count=ranking_count,

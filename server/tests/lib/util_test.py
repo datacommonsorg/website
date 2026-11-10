@@ -1800,8 +1800,9 @@ class TestFeatureFlagsTest(unittest.TestCase):
         data = json.load(f)
 
       features = [
-          item.get("name") for item in data if isinstance(item, dict) and
-          "name" in item and not item.get("deprecated", False)
+          item.get("name")
+          for item in data
+          if isinstance(item, dict) and "name" in item
       ]
       duplicate_features = [f for f in features if features.count(f) > 1]
 

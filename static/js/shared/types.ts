@@ -145,7 +145,7 @@ interface SeriesSummary {
 }
 
 export interface ProvenanceSummary {
-  importName: string;
+  importName?: string;
   observationCount: number;
   timeSeriesCount: number;
   releaseFrequency?: number;

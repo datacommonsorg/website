@@ -425,10 +425,14 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
                               'source-selector-facet-options-section')
 
     # Verify that the expected option is selected, in this case it has P1Y ObsPeriod.
-    for option in find_elems(facet_options, By.TAG_NAME, 'label'):
-      is_option_selected = find_elem(option, By.TAG_NAME, 'input').is_selected()
-      if is_option_selected:
-        list_items = find_elems(option, By.TAG_NAME, 'ul')
-        self.assertIn('Observation period • Yearly (P1Y)',
-                      str([item.text for item in list_items]))
-        break
+    # The URL-specified facet is applied after the facet list loads, so wait for it.
+    def p1y_option_selected(_):
+      for option in find_elems(facet_options, By.TAG_NAME, 'label'):
+        if find_elem(option, By.TAG_NAME, 'input').is_selected():
+          list_items = find_elems(option, By.TAG_NAME, 'ul')
+          return 'Observation period • Yearly (P1Y)' in str(
+              [item.text for item in list_items])
+      return False
+
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        p1y_option_selected, 'Expected the P1Y facet option to be selected')

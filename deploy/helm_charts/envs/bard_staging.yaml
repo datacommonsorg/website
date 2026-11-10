@@ -64,11 +64,6 @@ nl:
         location: us-central1
         prediction_endpoint_id: "1309973546495115264"
 
-nodejs:
-  enabled: true
-  replicas: 5
-  nodePool: "default-pool"
-
 serviceGroups:
   recon: null
   svg:

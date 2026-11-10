@@ -13,8 +13,8 @@
                       "endDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_16559184819460950966",
-                      "Count_Person_Male_16559184819460950966"
+                      "Count_Person_Female_10169881228856630405",
+                      "Count_Person_Male_10169881228856630405"
                     ],
                     "title": "Population by Gender in New York",
                     "type": "LINE"
@@ -194,7 +194,7 @@
                       "endDate": "2019"
                     },
                     "statVarKey": [
-                      "Median_Age_Person_Female_2550419630908544036"
+                      "Median_Age_Person_Female_5861401611713998024"
                     ],
                     "title": "Women's Median Age in New York",
                     "type": "LINE"
@@ -385,7 +385,7 @@
                       "endDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_85OrMoreYears_Female_16559184819460950966"
+                      "Count_Person_85OrMoreYears_Female_10169881228856630405"
                     ],
                     "title": "Women Over 85 in New York",
                     "type": "LINE"
@@ -519,8 +519,8 @@
             "name": "Population: Years 3 Onwards, Female, Enrolled In School",
             "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
           },
-          "Count_Person_85OrMoreYears_Female_16559184819460950966": {
-            "facetId": "16559184819460950966",
+          "Count_Person_85OrMoreYears_Female_10169881228856630405": {
+            "facetId": "10169881228856630405",
             "name": "Women over 85",
             "statVar": "Count_Person_85OrMoreYears_Female"
           },
@@ -544,8 +544,8 @@
             "name": "Women Non Institutionalized",
             "statVar": "Count_Person_Civilian_Female_NonInstitutionalized"
           },
-          "Count_Person_Female_16559184819460950966": {
-            "facetId": "16559184819460950966",
+          "Count_Person_Female_10169881228856630405": {
+            "facetId": "10169881228856630405",
             "name": "Women",
             "statVar": "Count_Person_Female"
           },
@@ -599,8 +599,8 @@
             "name": "Women Identifying as White Alone",
             "statVar": "Count_Person_Female_WhiteAlone"
           },
-          "Count_Person_Male_16559184819460950966": {
-            "facetId": "16559184819460950966",
+          "Count_Person_Male_10169881228856630405": {
+            "facetId": "10169881228856630405",
             "name": "Men",
             "statVar": "Count_Person_Male"
           },
@@ -619,8 +619,8 @@
             "name": "Women's Median Age",
             "statVar": "Median_Age_Person_Female"
           },
-          "Median_Age_Person_Female_2550419630908544036": {
-            "facetId": "2550419630908544036",
+          "Median_Age_Person_Female_5861401611713998024": {
+            "facetId": "5861401611713998024",
             "name": "Women's Median Age",
             "statVar": "Median_Age_Person_Female"
           }
@@ -675,25 +675,11 @@
           "Count_Person_Female_WhiteAlone"
         ]
       },
-      "Count_Person_Female_HispanicOrLatino": {
-        "age": [
-          "Count_Person_20To24Years_Female_HispanicOrLatino",
-          "Count_Person_25To29Years_Female_HispanicOrLatino",
-          "Count_Person_30To34Years_Female_HispanicOrLatino",
-          "Count_Person_5To9Years_Female_HispanicOrLatino"
-        ]
-      },
-      "Count_Person_Male": {
-        "age": [
-          "Count_Person_15To44Years_Male",
-          "Count_Person_21OrMoreYears_Male",
-          "Count_Person_62OrMoreYears_Male"
-        ]
-      },
       "Median_Age_Person_Female": {
         "race": [
           "Median_Age_Person_Female_AsianAlone",
           "Median_Age_Person_Female_BlackOrAfricanAmericanAlone",
+          "Median_Age_Person_Female_HispanicOrLatino",
           "Median_Age_Person_Female_WhiteAlone"
         ]
       }

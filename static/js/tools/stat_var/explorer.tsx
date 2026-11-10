@@ -22,7 +22,11 @@ import React, { Component } from "react";
 
 import { formatNumber } from "../../i18n/i18n";
 import { StatVarSummary } from "../../shared/types";
-import { Provenance, ProvenancePropType } from "./provenance";
+import {
+  getProvenanceDisplayName,
+  Provenance,
+  ProvenancePropType,
+} from "./provenance";
 
 interface ExplorerPropType {
   description: string;
@@ -98,7 +102,9 @@ class Explorer extends Component<ExplorerPropType, unknown> {
       a: ProvenancePropType,
       b: ProvenancePropType
     ): number {
-      return a.summary.importName.localeCompare(b.summary.importName);
+      return getProvenanceDisplayName(a.provId, a.summary).localeCompare(
+        getProvenanceDisplayName(b.provId, b.summary)
+      );
     });
     return provenanceSummaryList;
   }

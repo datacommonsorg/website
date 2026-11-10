@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # #### Stage 1: Build mixer. ####
-FROM golang:1.24.0 AS mixer
+FROM golang:1.26-bookworm AS mixer
 
 WORKDIR /workspace
 
@@ -49,7 +49,7 @@ RUN protoc \
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/mixer cmd/main.go
 
 
-# #### Stage 2: Build python servers (website and NL). ####
+# #### Stage 2: Build python server (website). ####
 FROM --platform=linux/amd64 python:3.11.14-slim as py-servers
 
 ARG PIP_DISABLE_PIP_VERSION_CHECK=1
@@ -61,33 +61,20 @@ WORKDIR /workspace
 RUN apt-get update && apt-get -y upgrade && apt-get install -y git
 
 # Copy requirements.
-# Copy nl_requirements.txt since it is referenced by embeddings requirements.txt
 COPY server/requirements.txt ./server/requirements.txt
-COPY nl_server/requirements.txt ./nl_server/requirements.txt
-COPY nl_requirements.txt ./nl_requirements.txt
-COPY torch_requirements.txt ./torch_requirements.txt
 
 # Create a virtual env and install requirements.
 RUN python -m venv ./venv
 ENV PATH="/workspace/venv/bin:$PATH"
-RUN pip3 install --upgrade pip setuptools \
-    && pip3 install --no-cache-dir -r /workspace/server/requirements.txt \
-    && pip3 install --no-cache-dir -r /workspace/torch_requirements.txt --index-url https://download.pytorch.org/whl/cpu \
-    && pip3 install --no-cache-dir -r /workspace/nl_server/requirements.txt \
-    && pip3 install --no-cache-dir datacommons-mcp
+RUN pip3 install --no-cache-dir --upgrade pip setuptools \
+    && pip3 install --no-cache-dir -r /workspace/server/requirements.txt
 
 # Copy website app script.
 COPY web_app.py ./web_app.py
 # Copy server module.
 COPY server/. ./server/
-# Copy NL app script.
-COPY nl_app.py ./nl_app.py
-# Copy nl_server module.
-COPY nl_server/. ./nl_server/
 # Copy the shared module.
 COPY shared/. ./shared/
-# Copy yaml files.
-COPY deploy/nl/. /datacommons/nl/
 
 
 # #### Stage 3: Build static website assets. ####
@@ -116,21 +103,21 @@ WORKDIR /workspace/static
 RUN npm run-script build
 
 
-# #### Stage 4: Download base dc model and embeddings from GCS. ####
-FROM --platform=linux/amd64 google/cloud-sdk:slim as download
-
-# Remove auth check since these are public buckets and we don't have credentials within the container.
-# Copy model and embeddings.
-RUN gcloud config set auth/disable_credentials True \
-    && mkdir -p /tmp/datcom-nl-models \
-    && gcloud storage cp --recursive \
-        gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/ \
-        gs://datcom-nl-models/embeddings_medium_2024_05_09_18_01_32.ft_final_v20230717230459.all-MiniLM-L6-v2.csv \
-        /tmp/datcom-nl-models/
+# #### Stage 4: Envoy binary. ####
+FROM --platform=linux/amd64 envoyproxy/envoy:v1.31.0 AS envoy
 
 
 # #### Final stage: Runtime env. ####
-FROM gcr.io/datcom-ci/datacommons-services-runtime:2024-08-08 as runner
+FROM --platform=linux/amd64 python:3.11.14-slim AS runner
+
+# Copy envoy binary.
+COPY --from=envoy /usr/local/bin/envoy /usr/local/bin/envoy
+
+# Apply security patches for OS base packages and install nginx
+RUN apt-get update && apt-get upgrade -y \
+    && apt-get install -y --no-install-recommends nginx \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 ARG MIXER_HASH=""
 ARG WEBSITE_HASH=""
@@ -149,12 +136,7 @@ ENV WEBSITE_MIXER_API_ROOT=http://127.0.0.1:8081 \
     USE_CLOUDSQL=false \
     DC_API_ROOT=https://api.datacommons.org \
     ENABLE_MODEL=true \
-    ENABLE_MCP=true \
     DC_TYPE=custom \
-    DC_API_BASE_URL=http://127.0.0.1:8081/v2 \
-    CUSTOM_DC_URL=http://127.0.0.1:7070 \
-    DC_AGENT_API_ROOT=http://127.0.0.1:8081/v2 \
-    DC_USE_AGENT_API=true \
     RESOLVE_WITH_SPANNER_EMBEDDINGS=true
 
 WORKDIR /workspace
@@ -168,13 +150,10 @@ COPY --from=mixer /workspace/deploy/featureflags deploy/featureflags
 COPY --from=mixer /workspace/mixer-grpc.pb .
 # nginx.
 COPY build/cdc_services/nginx.conf .
-# Website and NL servers.
+# Website server.
 COPY --from=py-servers /workspace/ .
-COPY --from=py-servers /datacommons/ /datacommons
 # Static website assets.
 COPY --from=static /workspace/server ./server
-# Downloaded model and embeddings.
-COPY --from=download /tmp/datcom-nl-models /tmp/datcom-nl-models
 
 # Copy executable script.
 COPY build/cdc_services/run.sh .

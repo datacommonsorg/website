@@ -5,11 +5,11 @@
 
 This container includes:
 - Python 3.11.4
-- Golang 1.24.0
+- Golang 1.26.10
 - Go plugins:
   - protoc-gen-go 1.30.0
   - protoc-gen-go-grpc 1.3.0
-  - golangci-lint 2.3.0
+  - golangci-lint 2.15.0
 - Protoc 3.21.12
 - GCloud SDK 469.0.0
 - Command line tools:

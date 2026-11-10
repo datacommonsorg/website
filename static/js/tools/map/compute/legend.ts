@@ -102,7 +102,7 @@ export function useComputeLegendDomain(
         }
         const metatext = getMetaText({
           ...series.seriesKey,
-          importName: provenance.importName,
+          provenanceId: provId,
         });
         if (!(metatext in metahashMap)) {
           continue;

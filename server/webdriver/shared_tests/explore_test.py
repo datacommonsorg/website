@@ -428,6 +428,7 @@ class ExplorePageTestMixin():
     place_dcid = "country%2FFRA"
     stat_var = "Count_Person"
     import_name = "WikipediaStatsData"
+    provenance_id = "dc%2Fbase%2FWikipediaStatsData"
     measurement_method = "Wikipedia"
 
     self.driver.get(
@@ -468,7 +469,7 @@ class ExplorePageTestMixin():
         "chartType": "TIMELINE_WITH_HIGHLIGHT",
         "sv": stat_var,
         "p": place_dcid,
-        "imp": import_name,
+        "imp": provenance_id,
         "mm": measurement_method
     }
     self._assert_url_params(hyperlink_href, expected_href_params)

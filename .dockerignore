@@ -12,7 +12,13 @@ pytest_log.txt
 
 **/eval/**/result
 
+**/.venv*
+
 import/simple/sample/
 **/.data
 **/testdata
 **/test_data
+import/simple/tests/
+
+# Delve debug binaries
+**/__debug_bin*

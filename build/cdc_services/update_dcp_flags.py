@@ -72,7 +72,6 @@ def update_website_flags():
         for flag in data:
             if flag.get('name') in (
                 'enable_nl_v2node_fetchall',
-                'use_v2_resolve_for_nl_search_vars',
                 'enable_schema_driven_topic_resolution'
             ):
                 flag['enabled'] = True

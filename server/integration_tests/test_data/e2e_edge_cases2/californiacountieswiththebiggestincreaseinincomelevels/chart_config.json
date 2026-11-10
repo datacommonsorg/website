@@ -14,12 +14,12 @@
                       "geoId/06085",
                       "geoId/06081",
                       "geoId/06001",
-                      "geoId/06051",
                       "geoId/06041",
+                      "geoId/06051",
                       "geoId/06069",
-                      "geoId/06005",
+                      "geoId/06013",
                       "geoId/06097",
-                      "geoId/06013"
+                      "geoId/06061"
                     ],
                     "statVarKey": [
                       "Median_Income_Person10"
@@ -85,11 +85,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06051",
+                    "placeDcidOverride": "geoId/06041",
                     "statVarKey": [
                       "Median_Income_Person_growth_abs"
                     ],
-                    "title": "Mono County",
+                    "title": "Marin County",
                     "type": "LINE"
                   }
                 ]
@@ -97,11 +97,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06041",
+                    "placeDcidOverride": "geoId/06051",
                     "statVarKey": [
                       "Median_Income_Person_growth_abs"
                     ],
-                    "title": "Marin County",
+                    "title": "Mono County",
                     "type": "LINE"
                   }
                 ]
@@ -121,11 +121,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06005",
+                    "placeDcidOverride": "geoId/06013",
                     "statVarKey": [
                       "Median_Income_Person_growth_abs"
                     ],
-                    "title": "Amador County",
+                    "title": "Contra Costa County",
                     "type": "LINE"
                   }
                 ]
@@ -145,11 +145,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06013",
+                    "placeDcidOverride": "geoId/06061",
                     "statVarKey": [
                       "Median_Income_Person_growth_abs"
                     ],
-                    "title": "Contra Costa County",
+                    "title": "Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -198,6 +198,30 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "geoId/06085",
+                    "statVarKey": [
+                      "Median_Income_Person_growth_pct"
+                    ],
+                    "title": "Santa Clara County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/06015",
+                    "statVarKey": [
+                      "Median_Income_Person_growth_pct"
+                    ],
+                    "title": "Del Norte County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "geoId/06005",
                     "statVarKey": [
                       "Median_Income_Person_growth_pct"
@@ -234,35 +258,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06085",
-                    "statVarKey": [
-                      "Median_Income_Person_growth_pct"
-                    ],
-                    "title": "Santa Clara County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "geoId/06103",
                     "statVarKey": [
                       "Median_Income_Person_growth_pct"
                     ],
                     "title": "Tehama County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06049",
-                    "statVarKey": [
-                      "Median_Income_Person_growth_pct"
-                    ],
-                    "title": "Modoc County",
                     "type": "LINE"
                   }
                 ]
@@ -847,12 +847,12 @@
                       "geoId/06085",
                       "geoId/06081",
                       "geoId/06075",
-                      "geoId/06001",
                       "geoId/06041",
-                      "geoId/06013",
+                      "geoId/06001",
                       "geoId/06069",
+                      "geoId/06013",
+                      "geoId/06003",
                       "geoId/06087",
-                      "geoId/06051",
                       "geoId/06055"
                     ],
                     "statVarKey": [
@@ -907,18 +907,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06001",
-                    "statVarKey": [
-                      "Median_Income_Household_growth_abs"
-                    ],
-                    "title": "Alameda County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "geoId/06041",
                     "statVarKey": [
                       "Median_Income_Household_growth_abs"
@@ -931,11 +919,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06013",
+                    "placeDcidOverride": "geoId/06001",
                     "statVarKey": [
                       "Median_Income_Household_growth_abs"
                     ],
-                    "title": "Contra Costa County",
+                    "title": "Alameda County",
                     "type": "LINE"
                   }
                 ]
@@ -955,11 +943,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06087",
+                    "placeDcidOverride": "geoId/06013",
                     "statVarKey": [
                       "Median_Income_Household_growth_abs"
                     ],
-                    "title": "Santa Cruz County",
+                    "title": "Contra Costa County",
                     "type": "LINE"
                   }
                 ]
@@ -967,11 +955,23 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06051",
+                    "placeDcidOverride": "geoId/06003",
                     "statVarKey": [
                       "Median_Income_Household_growth_abs"
                     ],
-                    "title": "Mono County",
+                    "title": "Alpine County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/06087",
+                    "statVarKey": [
+                      "Median_Income_Household_growth_abs"
+                    ],
+                    "title": "Santa Cruz County",
                     "type": "LINE"
                   }
                 ]
@@ -1032,18 +1032,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06015",
-                    "statVarKey": [
-                      "Median_Income_Household_growth_pct"
-                    ],
-                    "title": "Del Norte County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "geoId/06081",
                     "statVarKey": [
                       "Median_Income_Household_growth_pct"
@@ -1056,11 +1044,23 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06051",
+                    "placeDcidOverride": "geoId/06003",
                     "statVarKey": [
                       "Median_Income_Household_growth_pct"
                     ],
-                    "title": "Mono County",
+                    "title": "Alpine County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/06015",
+                    "statVarKey": [
+                      "Median_Income_Household_growth_pct"
+                    ],
+                    "title": "Del Norte County",
                     "type": "LINE"
                   }
                 ]
@@ -1080,11 +1080,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06049",
+                    "placeDcidOverride": "geoId/06077",
                     "statVarKey": [
                       "Median_Income_Household_growth_pct"
                     ],
-                    "title": "Modoc County",
+                    "title": "San Joaquin County",
                     "type": "LINE"
                   }
                 ]
@@ -1104,11 +1104,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06079",
+                    "placeDcidOverride": "geoId/06049",
                     "statVarKey": [
                       "Median_Income_Household_growth_pct"
                     ],
-                    "title": "San Luis Obispo County",
+                    "title": "Modoc County",
                     "type": "LINE"
                   }
                 ]
@@ -2363,12 +2363,12 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "geoId/06037",
                       "geoId/06065",
+                      "geoId/06037",
                       "geoId/06073",
                       "geoId/06085",
-                      "geoId/06001",
                       "geoId/06059",
+                      "geoId/06001",
                       "geoId/06071",
                       "geoId/06067",
                       "geoId/06013",
@@ -2391,11 +2391,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06037",
+                    "placeDcidOverride": "geoId/06065",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_WithEarnings_growth_abs"
                     ],
-                    "title": "Los Angeles County",
+                    "title": "Riverside County",
                     "type": "LINE"
                   }
                 ]
@@ -2403,11 +2403,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06065",
+                    "placeDcidOverride": "geoId/06037",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_WithEarnings_growth_abs"
                     ],
-                    "title": "Riverside County",
+                    "title": "Los Angeles County",
                     "type": "LINE"
                   }
                 ]
@@ -2439,11 +2439,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06001",
+                    "placeDcidOverride": "geoId/06059",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_WithEarnings_growth_abs"
                     ],
-                    "title": "Alameda County",
+                    "title": "Orange County",
                     "type": "LINE"
                   }
                 ]
@@ -2451,11 +2451,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06059",
+                    "placeDcidOverride": "geoId/06001",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_WithEarnings_growth_abs"
                     ],
-                    "title": "Orange County",
+                    "title": "Alameda County",
                     "type": "LINE"
                   }
                 ]
@@ -2577,11 +2577,35 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "geoId/06115",
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_WithEarnings_growth_pct"
+                    ],
+                    "title": "Yuba County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "geoId/06001",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_WithEarnings_growth_pct"
                     ],
                     "title": "Alameda County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/06047",
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_WithEarnings_growth_pct"
+                    ],
+                    "title": "Merced County",
                     "type": "LINE"
                   }
                 ]
@@ -2601,35 +2625,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06013",
-                    "statVarKey": [
-                      "Count_Person_16OrMoreYears_WithEarnings_growth_pct"
-                    ],
-                    "title": "Contra Costa County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "geoId/06085",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_WithEarnings_growth_pct"
                     ],
                     "title": "Santa Clara County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06115",
-                    "statVarKey": [
-                      "Count_Person_16OrMoreYears_WithEarnings_growth_pct"
-                    ],
-                    "title": "Yuba County",
                     "type": "LINE"
                   }
                 ]
@@ -2679,11 +2679,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06001",
+                    "placeDcidOverride": "geoId/06065",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_WithEarnings_growth_pc"
                     ],
-                    "title": "Alameda County",
+                    "title": "Riverside County",
                     "type": "LINE"
                   }
                 ]
@@ -2703,11 +2703,23 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06065",
+                    "placeDcidOverride": "geoId/06001",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_WithEarnings_growth_pc"
                     ],
-                    "title": "Riverside County",
+                    "title": "Alameda County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/06115",
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_WithEarnings_growth_pc"
+                    ],
+                    "title": "Yuba County",
                     "type": "LINE"
                   }
                 ]
@@ -2727,18 +2739,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06013",
-                    "statVarKey": [
-                      "Count_Person_16OrMoreYears_WithEarnings_growth_pc"
-                    ],
-                    "title": "Contra Costa County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "geoId/06067",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_WithEarnings_growth_pc"
@@ -2751,11 +2751,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06115",
+                    "placeDcidOverride": "geoId/06013",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_WithEarnings_growth_pc"
                     ],
-                    "title": "Yuba County",
+                    "title": "Contra Costa County",
                     "type": "LINE"
                   }
                 ]
@@ -3606,9 +3606,9 @@
                     "comparisonPlaces": [
                       "geoId/06065",
                       "geoId/06073",
-                      "geoId/06037",
                       "geoId/06085",
                       "geoId/06001",
+                      "geoId/06037",
                       "geoId/06071",
                       "geoId/06067",
                       "geoId/06059",
@@ -3656,18 +3656,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06037",
-                    "statVarKey": [
-                      "Count_Person_16OrMoreYears_Male_WithEarnings_growth_abs"
-                    ],
-                    "title": "Los Angeles County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "geoId/06085",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Male_WithEarnings_growth_abs"
@@ -3685,6 +3673,18 @@
                       "Count_Person_16OrMoreYears_Male_WithEarnings_growth_abs"
                     ],
                     "title": "Alameda County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/06037",
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_Male_WithEarnings_growth_abs"
+                    ],
+                    "title": "Los Angeles County",
                     "type": "LINE"
                   }
                 ]
@@ -3806,18 +3806,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06001",
-                    "statVarKey": [
-                      "Count_Person_16OrMoreYears_Male_WithEarnings_growth_pct"
-                    ],
-                    "title": "Alameda County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "geoId/06067",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Male_WithEarnings_growth_pct"
@@ -3830,11 +3818,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06013",
+                    "placeDcidOverride": "geoId/06001",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Male_WithEarnings_growth_pct"
                     ],
-                    "title": "Contra Costa County",
+                    "title": "Alameda County",
                     "type": "LINE"
                   }
                 ]
@@ -3842,11 +3830,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06085",
+                    "placeDcidOverride": "geoId/06047",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Male_WithEarnings_growth_pct"
                     ],
-                    "title": "Santa Clara County",
+                    "title": "Merced County",
                     "type": "LINE"
                   }
                 ]
@@ -3866,11 +3854,23 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06047",
+                    "placeDcidOverride": "geoId/06013",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Male_WithEarnings_growth_pct"
                     ],
-                    "title": "Merced County",
+                    "title": "Contra Costa County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/06115",
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_Male_WithEarnings_growth_pct"
+                    ],
+                    "title": "Yuba County",
                     "type": "LINE"
                   }
                 ]
@@ -3908,11 +3908,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06001",
+                    "placeDcidOverride": "geoId/06065",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Male_WithEarnings_growth_pc"
                     ],
-                    "title": "Alameda County",
+                    "title": "Riverside County",
                     "type": "LINE"
                   }
                 ]
@@ -3932,11 +3932,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06065",
+                    "placeDcidOverride": "geoId/06077",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Male_WithEarnings_growth_pc"
                     ],
-                    "title": "Riverside County",
+                    "title": "San Joaquin County",
                     "type": "LINE"
                   }
                 ]
@@ -3944,11 +3944,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06077",
+                    "placeDcidOverride": "geoId/06001",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Male_WithEarnings_growth_pc"
                     ],
-                    "title": "San Joaquin County",
+                    "title": "Alameda County",
                     "type": "LINE"
                   }
                 ]
@@ -3968,18 +3968,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06013",
-                    "statVarKey": [
-                      "Count_Person_16OrMoreYears_Male_WithEarnings_growth_pc"
-                    ],
-                    "title": "Contra Costa County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "geoId/06067",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Male_WithEarnings_growth_pc"
@@ -3992,11 +3980,23 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06005",
+                    "placeDcidOverride": "geoId/06013",
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_Male_WithEarnings_growth_pc"
                     ],
-                    "title": "Amador County",
+                    "title": "Contra Costa County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/06047",
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_Male_WithEarnings_growth_pc"
+                    ],
+                    "title": "Merced County",
                     "type": "LINE"
                   }
                 ]

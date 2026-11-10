@@ -16,6 +16,7 @@
 
 import {
   formatString,
+  getExploreLink,
   getStatVarName,
   ReplacementStrings,
 } from "../tile_utils";
@@ -139,4 +140,44 @@ test("getStatVarName", () => {
       throw e;
     }
   }
+});
+
+describe("getExploreLink", () => {
+  const statVarSpecs = [
+    {
+      statVar: "Count_Person",
+      denom: "",
+      unit: "",
+      scaling: 1,
+      log: false,
+    },
+  ];
+
+  test("emits the provenance ID as the imp param", () => {
+    // Test: Facet provenance ID is carried in the imp hash param.
+    // Situation: Facet metadata has provenanceId 'dc/base/CensusACS5YearSurvey'.
+    // Expectation: Link hash contains the encoded provenance ID as imp.
+    const link = getExploreLink({
+      chartType: "TIMELINE_WITH_HIGHLIGHT",
+      placeDcids: ["country/USA"],
+      statVarSpecs,
+      facetMetadata: { provenanceId: "dc/base/CensusACS5YearSurvey" },
+    });
+    expect(link.split("#")[1]).toContain(
+      "imp=dc%2Fbase%2FCensusACS5YearSurvey"
+    );
+  });
+
+  test("does not fall back to importName", () => {
+    // Test: No importName fallback for the imp hash param.
+    // Situation: Facet metadata has only importName set, no provenanceId.
+    // Expectation: Link contains no imp param.
+    const link = getExploreLink({
+      chartType: "TIMELINE_WITH_HIGHLIGHT",
+      placeDcids: ["country/USA"],
+      statVarSpecs,
+      facetMetadata: { importName: "CensusACS5YearSurvey" },
+    });
+    expect(link).not.toContain("imp=");
+  });
 });

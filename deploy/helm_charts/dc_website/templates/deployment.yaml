@@ -47,11 +47,6 @@ spec:
         - name: ingress-config
           configMap:
             name: ingress-config
-        {{- if .Values.nl.enabled }}
-        - name: nl-config
-          configMap:
-            name: nl-config
-        {{- end }}
         {{- if .Values.website.redis.enabled }}
         - name: redis-config
           configMap:
@@ -109,48 +104,6 @@ spec:
             # or data config change.
             - name: BOUNCE
               value: "dummy"
-        {{- if .Values.nl.enabled }}
-        - name: nl
-          image: "gcr.io/datcom-ci/datacommons-nl{{- if .Values.nl.image.tag }}:{{ .Values.nl.image.tag }}{{- end }}"
-          resources:
-            limits:
-              memory: {{ .Values.nl.memory }}
-            requests:
-              memory: {{ .Values.nl.memory }}
-          env:
-            - name: FLASK_ENV
-              value: {{ required "Missing: website.flaskEnv" .Values.website.flaskEnv }}
-            - name: NUM_WORKERS
-              value: {{ .Values.nl.workers | quote }}
-          volumeMounts:
-            - name: nl-config
-              mountPath: /datacommons/nl
-          startupProbe:
-            httpGet:
-              path: /healthz
-              port: 6060
-            failureThreshold: 30
-            periodSeconds: 10
-            timeoutSeconds: 5
-          readinessProbe:
-            httpGet:
-              path: /healthz
-              port: 6060
-            # long timeout here (and in the liveness probe) because NL server
-            # can only take NUM_WORKERS number of requests at a time, so when
-            # there's already NUM_WORKERS number of requests, need to wait
-            # before /healthz can be served.
-            timeoutSeconds: 300
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: 6060
-            timeoutSeconds: 300
-            periodSeconds: 10
-          ports:
-            - containerPort: 6060
-        {{- end }}
 
 {{- if .Values.nodejs.enabled }}
 ---
@@ -225,4 +178,87 @@ spec:
             httpGet:
               path: /nodejs/healthz
               port: 8080
+{{- end }}
+
+{{- if .Values.narratives.enabled }}
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: website-agentic-apps
+  namespace: {{ .Values.namespace.name }}
+spec:
+  replicas: {{ .Values.narratives.replicas }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: {{ div .Values.narratives.replicas 4 | add 1 }}
+      maxUnavailable: {{ div .Values.narratives.replicas 4 | add 1 }}
+  selector:
+    matchLabels:
+      app: website-agentic-apps
+  template:
+    metadata:
+      labels:
+        app: website-agentic-apps
+    spec:
+      {{- if .Values.narratives.nodePool }}
+      nodeSelector:
+        cloud.google.com/gke-nodepool: {{ .Values.narratives.nodePool }}
+      {{- end }}
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      terminationGracePeriodSeconds: 125
+      containers:
+        - name: narratives
+          image: "gcr.io/datcom-ci/datacommons-narratives{{- if .Values.narratives.image.tag }}:{{ .Values.narratives.image.tag }}{{- end }}"
+          imagePullPolicy: {{ .Values.website.image.pullPolicy }}
+          args: []
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              memory: {{ .Values.narratives.memory | quote }}
+            requests:
+              cpu: {{ .Values.narratives.cpu | default "500m" | quote }}
+              memory: {{ .Values.narratives.memory | quote }}
+          env:
+            - name: PORT
+              value: "8080"
+            - name: BASE_PATH
+              value: {{ .Values.narratives.basePath | quote }}
+            - name: ENABLE_CHAT
+              value: {{ .Values.narratives.enableChat | quote }}
+            - name: ALLOWED_ORIGIN
+              value: "https://{{ required "Missing: domain" .Values.domain }}"
+            - name: MCP_SERVER_URL
+              value: {{ .Values.narratives.mcpServerUrl | quote }}
+            - name: GOOGLE_GENAI_USE_VERTEXAI
+              value: {{ .Values.narratives.useVertexAi | quote }}
+            - name: GOOGLE_CLOUD_PROJECT
+              value: {{ required "Missing: project" .Values.project | quote }}
+            - name: GOOGLE_CLOUD_LOCATION
+              value: {{ .Values.narratives.cloudLocation | quote }}
+            - name: DC_API_KEY_SECRET
+              value: {{ .Values.narratives.dcApiKeySecret | quote }}
+            - name: TRANSCRIPT_HMAC_SECRET_NAME
+              value: {{ .Values.narratives.transcriptHmacSecretName | quote }}
+          startupProbe:
+            httpGet:
+              path: {{ .Values.narratives.basePath }}/healthz
+              port: 8080
+            failureThreshold: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.narratives.basePath }}/healthz
+              port: 8080
+            failureThreshold: 3
+            periodSeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.narratives.basePath }}/healthz
+              port: 8080
+            periodSeconds: 10
 {{- end }}

@@ -128,10 +128,9 @@ export function findMatchingFacets(
     const highlightFacet = facetSelector?.facetMetadata;
     if (
       !highlightFacet ||
-      (!_.isEmpty(highlightFacet.importName) &&
-        (!_.isEmpty(f.importName)
-          ? highlightFacet.importName !== f.importName
-          : f.provenanceId !== `dc/base/${highlightFacet.importName}`)) ||
+      (!_.isEmpty(highlightFacet.provenanceId) &&
+        f.provenanceId !== highlightFacet.provenanceId &&
+        f.provenanceId !== `dc/base/${highlightFacet.provenanceId}`) ||
       (!_.isEmpty(highlightFacet.measurementMethod) &&
         highlightFacet.measurementMethod !== f.measurementMethod) ||
       (!_.isEmpty(highlightFacet.unit) && highlightFacet.unit !== f.unit) ||

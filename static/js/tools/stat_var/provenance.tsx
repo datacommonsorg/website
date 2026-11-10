@@ -30,12 +30,26 @@ interface ProvenancePropType {
   url: string;
 }
 
+/**
+ * Returns the display name for a provenance. The import name is not
+ * guaranteed to be present (e.g. Spanner-backed summaries), so this falls back
+ * to the last segment of the provenance id.
+ */
+function getProvenanceDisplayName(
+  provId: string,
+  summary: ProvenanceSummary
+): string {
+  return summary.importName || provId.split("/").pop() || provId;
+}
+
 class Provenance extends Component<ProvenancePropType, unknown> {
   render(): JSX.Element {
     return (
       <div className="card p-0">
         <div className="provenance-summary">
-          <h4>{this.props.summary.importName}</h4>
+          <h4>
+            {getProvenanceDisplayName(this.props.provId, this.props.summary)}
+          </h4>
           <ul className="detail-text">
             <li>
               dcid:{" "}
@@ -144,4 +158,4 @@ class Provenance extends Component<ProvenancePropType, unknown> {
   }
 }
 
-export { Provenance, ProvenancePropType };
+export { getProvenanceDisplayName, Provenance, ProvenancePropType };

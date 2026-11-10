@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 from functools import wraps
 import unittest
 from unittest import mock
@@ -25,8 +26,22 @@ CSV_HEADERS = "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:C
 
 TIDY_CSV_HEADERS = (
     "Entity DCID,Entity name,ISO code,Variable DCID,Variable name,Date,Value,"
-    "Unit DCID,Unit,Measurement method,Provenance URL,Import name,"
+    "Unit DCID,Unit,Measurement method,Provenance URL,Provenance ID,"
     "Observation period,Scaling factor\r\n")
+
+
+def _without_import_name(fixture):
+  """Returns a copy of a fixture with importName replaced by provenanceId.
+
+  Mixer is dropping importName from facets, while provenanceId is guaranteed
+  on every facet (Bigtable synthesizes dc/base/<importName>). This matches the
+  fixture to current Mixer responses without editing the shared fixtures,
+  which other tests depend on.
+  """
+  result = copy.deepcopy(fixture)
+  for facet in result["facets"].values():
+    facet["provenanceId"] = "dc/base/" + facet.pop("importName")
+  return result
 
 
 def with_request_context(headers=None):
@@ -256,7 +271,7 @@ class TestGetStatsWithinPlaceCsvTidyFormat(unittest.TestCase):
           set(stat_vars) != set(expected_stat_vars)):
         return {}
       if date == expected_date:
-        return mock_data.POINT_WITHIN_2015_ALL_FACETS
+        return _without_import_name(mock_data.POINT_WITHIN_2015_ALL_FACETS)
 
     mock_point_within.side_effect = point_within_side_effect
 
@@ -271,11 +286,11 @@ class TestGetStatsWithinPlaceCsvTidyFormat(unittest.TestCase):
     assert resp.status_code == 200
     assert resp.data.decode("utf-8") == (
         TIDY_CSV_HEADERS +
-        "geoId/01,Alabama,US-AL,Count_Person,Population,2015,3120960,,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,CensusPEP,,\r\n"
+        "geoId/01,Alabama,US-AL,Count_Person,Population,2015,3120960,,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,dc/base/CensusPEP,,\r\n"
         +
-        "geoId/02,,,Count_Person,Population,2015,625216,,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,CensusPEP,,\r\n"
+        "geoId/02,,,Count_Person,Population,2015,625216,,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,dc/base/CensusPEP,,\r\n"
         +
-        "geoId/06,California,US-CA,Count_Person,Population,2015,9931715,,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,CensusPEP,,\r\n"
+        "geoId/06,California,US-CA,Count_Person,Population,2015,9931715,,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,dc/base/CensusPEP,,\r\n"
     )
 
   @mock.patch('server.routes.shared_api.csv.fetch.multiple_property_values')
@@ -296,7 +311,7 @@ class TestGetStatsWithinPlaceCsvTidyFormat(unittest.TestCase):
       if (parent_place == expected_parent_place and
           child_type == expected_child_type and
           stat_vars == expected_stat_vars):
-        return mock_data.SERIES_WITHIN_ALL_FACETS
+        return _without_import_name(mock_data.SERIES_WITHIN_ALL_FACETS)
       return {}
 
     mock_series_within.side_effect = series_within_side_effect
@@ -312,17 +327,17 @@ class TestGetStatsWithinPlaceCsvTidyFormat(unittest.TestCase):
     assert resp.status_code == 200
     assert resp.data.decode("utf-8") == (
         TIDY_CSV_HEADERS +
-        "geoId/01,Alabama,US-AL,Count_Person,Population,2015,1030475,testUnit,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,CensusPEP,,\r\n"
+        "geoId/01,Alabama,US-AL,Count_Person,Population,2015,1030475,testUnit,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,dc/base/CensusPEP,,\r\n"
         +
-        "geoId/01,Alabama,US-AL,Count_Person,Population,2017,1052482,testUnit,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,CensusPEP,,\r\n"
+        "geoId/01,Alabama,US-AL,Count_Person,Population,2017,1052482,testUnit,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,dc/base/CensusPEP,,\r\n"
         +
-        "geoId/01,Alabama,US-AL,Count_Person,Population,2018,1060665,testUnit,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,CensusPEP,,\r\n"
+        "geoId/01,Alabama,US-AL,Count_Person,Population,2018,1060665,testUnit,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,dc/base/CensusPEP,,\r\n"
         +
-        "geoId/06,California,US-CA,Count_Person,Population,2015,2866939,testUnit,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,CensusPEP,,\r\n"
+        "geoId/06,California,US-CA,Count_Person,Population,2015,2866939,testUnit,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,dc/base/CensusPEP,,\r\n"
         +
-        "geoId/06,California,US-CA,Count_Person,Population,2016,2917563,testUnit,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,CensusPEP,,\r\n"
+        "geoId/06,California,US-CA,Count_Person,Population,2016,2917563,testUnit,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,dc/base/CensusPEP,,\r\n"
         +
-        "geoId/06,California,US-CA,Count_Person,Population,2017,2969905,testUnit,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,CensusPEP,,\r\n"
+        "geoId/06,California,US-CA,Count_Person,Population,2017,2969905,testUnit,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,dc/base/CensusPEP,,\r\n"
     )
 
   @mock.patch('server.routes.shared_api.csv.fetch.multiple_property_values')
@@ -340,7 +355,8 @@ class TestGetStatsWithinPlaceCsvTidyFormat(unittest.TestCase):
     expected_stat_vars = ["Count_Person"]
     expected_date = "2015"
 
-    mock_point_within.return_value = mock_data.POINT_WITHIN_2015_ALL_FACETS
+    mock_point_within.return_value = _without_import_name(
+        mock_data.POINT_WITHIN_2015_ALL_FACETS)
 
     req_json = {
         "parentPlace": expected_parent_place,
@@ -354,5 +370,5 @@ class TestGetStatsWithinPlaceCsvTidyFormat(unittest.TestCase):
     assert resp.status_code == 200
     assert resp.data.decode("utf-8") == (
         TIDY_CSV_HEADERS +
-        "geoId/01,Alabama,US-AL,Count_Person,Population,2015,3120960,,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,CensusPEP,,\r\n"
+        "geoId/01,Alabama,US-AL,Count_Person,Population,2015,3120960,,,CensusPEPSurvey,https://www.census.gov/programs-surveys/popest.html,dc/base/CensusPEP,,\r\n"
     )

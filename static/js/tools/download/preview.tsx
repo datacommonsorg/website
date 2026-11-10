@@ -48,7 +48,7 @@ const DOWNLOADED_RESET_DELAY_MS = 1500;
 // server/routes/shared_api/csv.py — keep both in sync when renaming.
 const PREVIEW_HIDDEN_COLUMNS = new Set<string>([
   "Unit DCID",
-  "Import name",
+  "Provenance ID",
   "Observation period",
   "Scaling factor",
 ]);

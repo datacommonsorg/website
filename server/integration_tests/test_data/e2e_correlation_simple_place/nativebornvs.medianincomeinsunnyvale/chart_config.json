@@ -69,7 +69,7 @@
                     "statVarKey": [
                       "Count_Person_Native"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Native in Sunnyvale",
+                    "title": "Population: Native in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -77,18 +77,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Years 5 Onwards, USC Native in Sunnyvale",
+                    "description": "Population: Native in Sunnyvale",
                     "statVarKey": [
                       "Count_Person_Native"
                     ],
-                    "title": "Population: Years 5 Onwards, USC Native in Sunnyvale",
+                    "title": "Population: Native in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Years 5 Onwards, USC Native"
+            "title": "Population: Native"
           },
           {
             "columns": [
@@ -237,7 +237,7 @@
             "statVar": "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
           },
           "Count_Person_Native": {
-            "name": "Population: Years 5 Onwards, USC Native",
+            "name": "Population: Native",
             "statVar": "Count_Person_Native"
           },
           "Count_Person_PlaceOfBirthAsia": {

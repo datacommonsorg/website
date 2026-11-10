@@ -193,7 +193,7 @@ const buildMockedFetchResponses = (): {
     },
     facets: {
       myfacet: {
-        importName: "myimport",
+        provenanceId: "dc/base/myimport",
         measurementMethod: "mymethod",
         provenanceUrl: "https://example.com",
         unit: "USD",
@@ -291,12 +291,28 @@ const buildMockedFetchResponses = (): {
     },
     facets: {
       myfacet: {
-        importName: "myimport",
+        provenanceId: "dc/base/mypopulationimport",
         measurementMethod: "mymethod",
         provenanceUrl: "https://www.example.com",
       },
     },
   } as SeriesApiResponse;
+  // Per-capita denominators are also requested scoped to the numerator facet.
+  mockedResponsesGet[
+    `/api/observations/series/within?${toURLSearchParams({
+      childType: ["State"],
+      facetIds: ["myfacet"],
+      parentEntity: ["country/MOCK"],
+      variables: ["Count_Person"],
+    })}`
+  ] =
+    mockedResponsesGet[
+      `/api/observations/series/within?${toURLSearchParams({
+        childType: ["State"],
+        parentEntity: ["country/MOCK"],
+        variables: ["Count_Person"],
+      })}`
+    ];
 
   mockedResponsesGet[
     `/api/observations/series/within?${toURLSearchParams({
@@ -387,7 +403,7 @@ const buildMockedFetchResponses = (): {
     },
     facets: {
       myfacet: {
-        importName: "myimport",
+        provenanceId: "dc/base/myimport",
         measurementMethod: "mymethod",
         provenanceUrl: "https://example.com",
         unit: "USD",
@@ -526,6 +542,50 @@ describe("DataCommonsWebClient", () => {
       expect(row.variable.perCapita?.perCapitaValue).toBeCloseTo(0.1);
       expect(row.variable.perCapita?.observation.value).toBeGreaterThan(0);
     });
+  });
+
+  // Test: Observation metadata exposes provenanceId instead of importName.
+  // Situation: Series request via statVarSpecs with a Count_Person denominator;
+  //   mocked facets carry provenanceId and no importName.
+  // Expectation: Rows and CSV header carry provenanceId for the variable and
+  //   its per-capita denominator; no importName key or column.
+  test("Series data rows and csv use provenanceId metadata", async () => {
+    const params = {
+      childType: "State",
+      fieldDelimiter: ".",
+      parentEntity: "country/MOCK",
+      variables: [],
+      statVarSpecs: [
+        {
+          statVar: "Has_Data",
+          denom: "Count_Person",
+          unit: "",
+          scaling: 1,
+          log: false,
+        },
+        { statVar: "No_Data", denom: "", unit: "", scaling: 1, log: false },
+      ],
+    };
+    const rows = await client.getDataRowSeries(params);
+    expect(rows.length).toBe(15);
+    rows.forEach((row) => {
+      const metadata = row.variable.observation.metadata;
+      expect(metadata.provenanceId).toBe("dc/base/myimport");
+      expect("importName" in metadata).toBe(false);
+      expect(row.variable.perCapita?.observation.metadata.provenanceId).toBe(
+        "dc/base/mypopulationimport"
+      );
+      expect(
+        "importName" in (row.variable.perCapita?.observation.metadata ?? {})
+      ).toBe(false);
+    });
+
+    const header = (await client.getCsvSeries(params)).split("\n")[0];
+    expect(header).toContain("variable.observation.metadata.provenanceId");
+    expect(header).toContain(
+      "variable.perCapita.observation.metadata.provenanceId"
+    );
+    expect(header).not.toContain("importName");
   });
 
   test("Get data row series filtered by date", async () => {

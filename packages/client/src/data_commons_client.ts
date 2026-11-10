@@ -937,7 +937,7 @@ class DataCommonsClient {
         date: perCapitaObservation.date,
         value: perCapitaObservation.value,
         metadata: {
-          importName: _.get(perCapitaFacet, "importName", null),
+          provenanceId: _.get(perCapitaFacet, "provenanceId", null),
           scalingFactor: _.get(perCapitaFacet, "scalingFactor", null),
           provenanceUrl: _.get(perCapitaFacet, "provenanceUrl", null),
           unit: _.get(perCapitaFacet, "unit", null),
@@ -1090,7 +1090,7 @@ class DataCommonsClient {
         observation: {
           date: observation.date,
           metadata: {
-            importName: _.get(facet, "importName", null),
+            provenanceId: _.get(facet, "provenanceId", null),
             provenanceUrl: _.get(facet, "provenanceUrl", null),
             scalingFactor: _.get(facet, "scalingFactor", null),
             unit: _.get(facet, "unit", null),

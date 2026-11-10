@@ -35,7 +35,11 @@ export interface StatVarSpec {
 }
 
 export interface StatMetadata {
+  /**
+   * @deprecated Mixer no longer returns importName; use provenanceId.
+   */
   importName?: string | null;
+  provenanceId?: string | null;
   provenanceUrl?: string | null;
   measurementMethod?: string | null;
   observationPeriod?: string | null;

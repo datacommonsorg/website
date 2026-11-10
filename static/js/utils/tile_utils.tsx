@@ -699,9 +699,9 @@ export function getExploreLink(options: GetExploreLinkOptions): string {
 
   const facet = facetMetadata;
   if (facet) {
-    if (facet.importName) {
+    if (facet.provenanceId) {
       hash += `&${URL_HASH_PARAMS.IMPORT_NAME}=${encodeURIComponent(
-        facet.importName
+        facet.provenanceId
       )}`;
     }
     if (facet.measurementMethod) {
