@@ -33,7 +33,6 @@ import {
   NUM_X_TICKS,
   NUM_Y_TICKS,
   SVGNS,
-  TEXT_FONT_FAMILY,
   XLINKNS,
 } from "./draw_constants";
 import {
@@ -392,13 +391,7 @@ export function drawLineChart(
     .domain([minV, maxV])
     .range([height - MARGIN.bottom, marginTop])
     .nice(NUM_Y_TICKS);
-  const leftWidth = addYAxis(
-    yAxis,
-    width,
-    yScale,
-    TEXT_FONT_FAMILY,
-    options?.unit
-  );
+  const leftWidth = addYAxis(yAxis, width, yScale, options?.unit);
 
   const xScale = d3
     .scaleTime()
@@ -668,7 +661,6 @@ export function drawGroupLineChart(
     tempYAxis,
     width - legendWidth,
     yScale,
-    TEXT_FONT_FAMILY,
     options?.unit
   );
 
@@ -702,7 +694,7 @@ export function drawGroupLineChart(
   const yPosTop = MARGIN.top + YLABEL.height;
   yScale.rangeRound([yPosBottom, yPosTop]);
   tempYAxis.remove();
-  addYAxis(yAxis, width - legendWidth, yScale, TEXT_FONT_FAMILY, options?.unit);
+  addYAxis(yAxis, width - legendWidth, yScale, options?.unit);
   updateXAxis(xAxis, bottomHeight, height, yScale);
 
   // add ylabel
