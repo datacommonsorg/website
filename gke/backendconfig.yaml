@@ -61,4 +61,4 @@ spec:
     checkIntervalSec: 15
     port: 8080
     type: HTTP
-    requestPath: /narratives/healthz
+    requestPath: /labs/discover/healthz

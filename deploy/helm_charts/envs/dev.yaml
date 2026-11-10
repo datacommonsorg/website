@@ -112,7 +112,7 @@ cronTesting:
 
 narratives:
   enabled: false
-  basePath: "/narratives"
+  basePath: "/labs/discover"
   enableChat: true
   image:
     tag: ""

@@ -158,10 +158,10 @@ cronTesting:
 # Config for Narratives Server
 ###############################################################################
 narratives:
-  # Set to false to remove the Narratives Deployment, Service, and /narratives
-  # Ingress routes completely.
+  # Set to false to remove the Narratives Deployment, Service, and
+  # /labs/discover Ingress routes completely.
   enabled: false
-  basePath: "/narratives"
+  basePath: "/labs/discover"
   # Emergency off switch: set to false to reject new chat turns immediately
   # (no Gemini or MCP calls) while keeping the static UI and shared stories up.
   enableChat: true
