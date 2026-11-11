@@ -827,9 +827,9 @@ body.no-header-search-bar {
   margin-left: 8px;
   color: var.$color-green;
   &::before {
-    content: '•'
+    content: '•';
   }
   &::after {
-    content: '•'
+    content: '•';
   }
 }
