@@ -59,7 +59,7 @@ nl:
         prediction_endpoint_id: "4332900447158272000"
 nodejs:
   enabled: true
-  replicas: 25
+  replicas: 5
   nodePool: "default-pool"
 serviceGroups:
   recon: null
