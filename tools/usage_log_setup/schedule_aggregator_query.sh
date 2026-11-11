@@ -73,7 +73,11 @@ FORMATTED_QUERY=$( \
   sed "s|{{CACHE_LOGS_TABLE}}|${CACHE_LOGS_TABLE}|g" | \
   # 7. Substitute the CACHE_LOGS_DATASET -- this is the dataset with the website cache logs
   sed "s|{{CACHE_LOGS_DATASET}}|${CACHE_LOGS_DATASET}|g" | \
-  # 8. Substitute the QUERY_COMMAND -- this determines if we create or insert into the table
+  # 8. Substitute the GRAPH_PROJECT_ID -- this is the project with Spanner Graph tables
+  sed "s|{{GRAPH_PROJECT_ID}}|${GRAPH_PROJECT_ID:-${DESTINATION_PROJECT_ID}}|g" | \
+  # 9. Substitute the GRAPH_DATASET -- this is the dataset with Spanner Graph Node and Edge tables
+  sed "s|{{GRAPH_DATASET}}|${GRAPH_DATASET:-spanner_dc_graph_prod_DEFAULT}|g" | \
+  # 10. Substitute the QUERY_COMMAND -- this determines if we create or insert into the table
   sed "s|{{QUERY_COMMAND}}|${QUERY_COMMAND}|g" \
 )
 
@@ -100,6 +104,8 @@ if ${DO_CREATE_TABLE}; then
       sed "s|{{AGGREGATION_TABLE}}|${AGGREGATION_TABLE}|g" | \
       sed "s|{{CACHE_LOGS_TABLE}}|${CACHE_LOGS_TABLE}|g" | \
       sed "s|{{CACHE_LOGS_DATASET}}|${CACHE_LOGS_DATASET}|g" | \
+      sed "s|{{GRAPH_PROJECT_ID}}|${GRAPH_PROJECT_ID:-${DESTINATION_PROJECT_ID}}|g" | \
+      sed "s|{{GRAPH_DATASET}}|${GRAPH_DATASET:-spanner_dc_graph_prod_DEFAULT}|g" | \
       sed "s|{{QUERY_COMMAND}}|${SCHEDULED_QUERY_COMMAND}|g" \
     )
 fi
