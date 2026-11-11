@@ -29,7 +29,7 @@
             "title": "Statistical Trends",
             "badge": "New",
             "url": "/labs/discover/",
-            "featureFlag": "narratives_menu_item",
+            "featureFlag": "labs_discover_menu_item",
             "description": "Explore statistical trends based on your query, drawn from Data Commons and synthesized with Gemini AI."
           }
         ]

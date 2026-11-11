@@ -282,7 +282,7 @@ class TestFeatureFlags(unittest.TestCase):
     self.app.config["DB_COHORT_FORCE_NON_SPANNER_IPS"] = ""
 
   def test_filter_by_feature_flag(self):
-    """Drops nested dicts gated on a disabled `featureFlag`, keeps the rest."""
+    """Drops list dicts gated on a disabled flag and strips `featureFlag`."""
     data = [{
         "items": [
             {
@@ -303,4 +303,28 @@ class TestFeatureFlags(unittest.TestCase):
       }])
     mock_feature_flags(self.app, [TEST_FEATURE_FLAG], True)
     with self.app.test_request_context('/'):
-      self.assertEqual(filter_by_feature_flag(data), data)
+      self.assertEqual(filter_by_feature_flag(data), [{
+          "items": [{
+              "title": "always"
+          }, {
+              "title": "gated"
+          }]
+      }])
+
+  def test_labs_discover_menu_item_flag(self):
+    """Header menu shows Statistical Trends only when its flag is on."""
+    flag = "labs_discover_menu_item"
+    mock_feature_flags(self.app, [flag], False)
+    html = self.client.get("/").get_data(as_text=True)
+    self.assertNotIn("Statistical Trends", html)
+    html = self.client.get(f"/?{FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM}={flag}"
+                          ).get_data(as_text=True)
+    self.assertIn("Statistical Trends", html)
+
+    mock_feature_flags(self.app, [flag], True)
+    html = self.client.get("/").get_data(as_text=True)
+    self.assertIn("Statistical Trends", html)
+    self.assertNotIn("featureFlag", html)
+    html = self.client.get(f"/?{FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM}={flag}"
+                          ).get_data(as_text=True)
+    self.assertNotIn("Statistical Trends", html)
