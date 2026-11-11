@@ -16,6 +16,9 @@
 
 /* The content of the mobile version of the header */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, {
   ReactElement,
   useEffect,
@@ -52,6 +55,7 @@ const MenuMobile = ({
   labels,
   routes,
 }: MenuMobileProps): ReactElement => {
+  const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [selectedPrimaryItemIndex, setSelectedPrimaryItemIndex] = useState<
     number | null
@@ -101,15 +105,33 @@ const MenuMobile = ({
   );
 
   const tabIndex = open ? 0 : -1;
+  const slideLeft = selectedPrimaryItemIndex !== null;
 
   return (
-    <div className="menu-mobile">
-      <div className="header-links">
+    <div
+      css={css`
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: ${theme.spacing.md}px;
+        @media (max-width: 340px) {
+          gap: ${theme.spacing.sm}px;
+        }
+      `}
+    >
+      <div>
         {headerLinks.map((menuItem) => (
           <a
             key={menuItem.label}
-            className="menu-main-link"
             href={resolveHref(menuItem.url, routes)}
+            css={css`
+              ${theme.typography.family.text};
+              ${theme.typography.menu.xs};
+              color: ${theme.colors.text.secondary.base};
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+            `}
             onClick={(): boolean => {
               triggerGAEvent(GA_EVENT_HEADER_CLICK, {
                 [GA_PARAM_ID]: `mobile main ${menuItem.id}`,
@@ -122,31 +144,124 @@ const MenuMobile = ({
           </a>
         ))}
       </div>
-      <button className="menu-toggle" onClick={toggleDrawer}>
+      <button
+        onClick={toggleDrawer}
+        css={css`
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border: 0;
+          margin: 0;
+          padding: 0;
+          background-color: transparent;
+          cursor: pointer;
+          color: ${theme.colors.text.secondary.base};
+          font-size: 32px;
+          transform: translateY(1px);
+          @media (max-width: 340px) {
+            font-size: 24px;
+          }
+        `}
+      >
         <Menu />
       </button>
 
-      <div className={`overlay ${open ? "open" : ""}`} onClick={toggleDrawer} />
+      <div
+        onClick={toggleDrawer}
+        css={css`
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background-color: rgba(0, 0, 0, 0.5);
+          z-index: 999;
+          opacity: ${open ? "1" : "0"};
+          pointer-events: ${open ? "auto" : "none"};
+          transition: opacity 0.3s ease;
+        `}
+      />
 
       <div
-        className={`drawer ${open ? "open" : ""}`}
-        style={{ width: open ? "" : 0 }}
         ref={drawerRef}
+        css={css`
+          position: fixed;
+          top: 0;
+          right: 0;
+          height: 100%;
+          background-color: ${theme.colors.background.primary.base};
+          overflow: hidden;
+          white-space: nowrap;
+          transition: width 0.3s ease;
+          ${theme.elevation.header.secondary};
+          z-index: 1000;
+          width: ${open ? "480px" : "0"};
+          @media (max-width: 580px) {
+            width: ${open ? "320px" : "0"};
+          }
+          @media (max-width: 400px) {
+            width: ${open ? "280px" : "0"};
+          }
+        `}
       >
-        <div className="paper">
-          <div className="header">
+        <div
+          css={css`
+            display: block;
+            width: 480px;
+            @media (max-width: 580px) {
+              width: 320px;
+            }
+            @media (max-width: 400px) {
+              width: 280px;
+            }
+          `}
+        >
+          <div
+            css={css`
+              position: relative;
+              display: flex;
+              justify-content: space-between;
+              flex-direction: row-reverse;
+              align-items: center;
+              padding: ${theme.spacing.sm}px ${theme.spacing.md}px;
+              height: 50px;
+              border-bottom: 1px solid #cccccc;
+            `}
+          >
             <button
               onClick={toggleDrawer}
-              className="menu-toggle menu-toggle-close"
               tabIndex={tabIndex}
+              css={css`
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border: 0;
+                margin: 0;
+                padding: 0;
+                background-color: transparent;
+                cursor: pointer;
+                color: ${theme.colors.text.secondary.base};
+                font-size: 24px;
+              `}
             >
               <Close />
             </button>
             {selectedPrimaryItemIndex !== null && (
               <button
                 onClick={handleBackClick}
-                className="menu-toggle menu-toggle-back"
                 tabIndex={tabIndex}
+                css={css`
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  border: 0;
+                  margin: 0;
+                  padding: 0;
+                  background-color: transparent;
+                  cursor: pointer;
+                  color: ${theme.colors.text.secondary.base};
+                  font-size: 24px;
+                `}
               >
                 <ArrowBack />
               </button>
@@ -154,50 +269,121 @@ const MenuMobile = ({
           </div>
 
           <div
-            className={`slide-wrapper ${
-              selectedPrimaryItemIndex !== null ? "slide-left" : ""
-            }`}
+            css={css`
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              width: 200%;
+              min-height: calc(100vh - 50px);
+              transition: transform 0.3s ease;
+              transform: translateX(${slideLeft ? "-50%" : "0"});
+            `}
           >
-            <div className="panel left-panel">
-              <ul className="menu-items">
+            <div
+              css={css`
+                box-sizing: border-box;
+                width: 100%;
+                max-height: calc(100vh - 50px);
+                overflow-y: auto;
+                white-space: normal;
+                padding: ${theme.spacing.md}px;
+                padding-bottom: 100px;
+              `}
+            >
+              <ul
+                css={css`
+                  display: flex;
+                  flex-direction: column;
+                  gap: ${theme.spacing.md}px;
+                  padding: 0;
+                  margin: 0;
+                  list-style: none;
+                `}
+              >
                 {menu.map((item, index) => (
-                  <li key={index}>
+                  <li
+                    key={index}
+                    css={css`
+                      display: flex;
+                      justify-content: space-between;
+                    `}
+                  >
                     {item.url ? (
                       <a
                         href={resolveHref(item.url, routes)}
-                        className="menu-item-link"
+                        tabIndex={tabIndex}
+                        css={css`
+                          ${theme.typography.family.text};
+                          ${theme.typography.menu.lg};
+                          background-color: transparent;
+                          display: flex;
+                          justify-content: space-between;
+                          align-items: center;
+                          padding: ${theme.spacing.sm}px 0;
+                          width: 100%;
+                          border: 0;
+                          margin: 0;
+                          color: ${theme.colors.text.primary.base};
+                        `}
                         onClick={(): boolean => {
                           triggerGAEvent(GA_EVENT_HEADER_CLICK, {
                             [GA_PARAM_ID]: `mobile submenu ${item.id}`,
                           });
                           return true;
                         }}
-                        tabIndex={tabIndex}
                       >
                         {labels[item.label]}
                       </a>
                     ) : (
-                      <>
-                        <button
-                          onClick={(): void =>
-                            handlePrimaryItemClick(index, item.id)
-                          }
-                          className="menu-item-button"
-                          tabIndex={tabIndex}
+                      <button
+                        onClick={(): void =>
+                          handlePrimaryItemClick(index, item.id)
+                        }
+                        tabIndex={tabIndex}
+                        css={css`
+                          ${theme.typography.family.text};
+                          ${theme.typography.menu.lg};
+                          background-color: transparent;
+                          display: flex;
+                          justify-content: space-between;
+                          align-items: center;
+                          padding: ${theme.spacing.sm}px 0;
+                          width: 100%;
+                          border: 0;
+                          margin: 0;
+                          color: ${theme.colors.text.primary.base};
+                        `}
+                      >
+                        <span>{labels[item.label]}</span>
+                        <span
+                          css={css`
+                            display: flex;
+                            align-items: center;
+                            font-size: 24px;
+                          `}
                         >
-                          <span>{labels[item.label]}</span>
-                          <span className="icon">
-                            <ArrowForward />
-                          </span>
-                        </button>
-                      </>
+                          <ArrowForward />
+                        </span>
+                      </button>
                     )}
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="panel right-panel">
+            <div
+              css={css`
+                box-sizing: border-box;
+                width: 100%;
+                max-height: calc(100vh - 50px);
+                overflow-y: auto;
+                white-space: normal;
+                display: flex;
+                flex-direction: column;
+                gap: ${theme.spacing.xl}px;
+                padding: ${theme.spacing.md}px;
+                padding-bottom: 100px;
+              `}
+            >
               <MenuMobileRichMenu
                 menuItem={selectedPrimaryItem}
                 routes={routes}
