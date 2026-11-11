@@ -34,7 +34,7 @@ export const DOM_ID = "dom-id";
 export const CHART_ID = "chart-id";
 // Font family to use for all the text on the charts. If this is updated, need
 // to also update CHAR_WIDTHS and CHAR_AVG_WIDTHS.
-export const FONT_FAMILY = "Roboto";
+export const FONT_FAMILY = "Roboto, sans-serif";
 // Font size to use for all the text on the charts. If this is updated, need to
 // also update CHAR_WIDTHS, CHAR_AVG_WIDTHS, and CHAR_HEIGHT.
 export const FONT_SIZE = "10px";
