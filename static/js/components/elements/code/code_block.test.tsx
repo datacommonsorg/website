@@ -31,7 +31,7 @@ import React from "react";
 import theme from "../../../theme/theme";
 import { CodeBlock, HighlightLanguage, SpecialTerms } from "./code_block";
 
-const PAYLOAD = '<img src=x onerror="alert(document.domain)">';
+const XSS_PAYLOAD = '<img src=x onerror="alert(document.domain)">';
 
 function renderCodeBlock(
   code: string,
@@ -50,13 +50,13 @@ describe("CodeBlock", () => {
   const cases: { language: HighlightLanguage; code: string }[] = [
     {
       language: "python",
-      code: `client.observation.fetch(entity_dcids=["geoId/06", "${PAYLOAD}"])`,
+      code: `client.observation.fetch(entity_dcids=["geoId/06", "${XSS_PAYLOAD}"])`,
     },
     {
       language: "bash",
-      code: `curl -d '{"entity": {"dcids": ["geoId/06", "${PAYLOAD}"]}}'`,
+      code: `curl -d '{"entity": {"dcids": ["geoId/06", "${XSS_PAYLOAD}"]}}'`,
     },
-    { language: "csv", code: `place,value\n${PAYLOAD},1` },
+    { language: "csv", code: `place,value\n${XSS_PAYLOAD},1` },
   ];
 
   it.each(cases)(
