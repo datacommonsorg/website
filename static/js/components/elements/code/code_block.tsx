@@ -225,7 +225,10 @@ function PrismRenderer({
         }
       }
     }
-    return Prism.Token.stringify(processedTokens, language);
+    // Token.stringify does not escape string content, so the tokens must be
+    // HTML-encoded first (as Prism.highlight does). The result is injected
+    // with dangerouslySetInnerHTML, and the code can contain untrusted text.
+    return Prism.Token.stringify(Prism.util.encode(processedTokens), language);
   }, [code, language, specialTerms]);
 
   const finalClassName = `language-${language} ${className ?? ""}`;
