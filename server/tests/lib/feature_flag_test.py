@@ -21,6 +21,7 @@ from flask import g
 from server.__init__ import create_app
 from server.lib.feature_flags import FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM
 from server.lib.feature_flags import FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM
+from server.lib.feature_flags import filter_by_feature_flag
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.feature_flags import is_feature_override_disabled
 from server.lib.feature_flags import is_feature_override_enabled
@@ -279,3 +280,27 @@ class TestFeatureFlags(unittest.TestCase):
     # Clean up configs
     self.app.config["DB_COHORT_FORCE_SPANNER_IPS"] = ""
     self.app.config["DB_COHORT_FORCE_NON_SPANNER_IPS"] = ""
+
+  def test_filter_by_feature_flag(self):
+    """Drops nested dicts gated on a disabled `featureFlag`, keeps the rest."""
+    data = [{
+        "items": [
+            {
+                "title": "always"
+            },
+            {
+                "title": "gated",
+                "featureFlag": TEST_FEATURE_FLAG
+            },
+        ]
+    }]
+    mock_feature_flags(self.app, [TEST_FEATURE_FLAG], False)
+    with self.app.test_request_context('/'):
+      self.assertEqual(filter_by_feature_flag(data), [{
+          "items": [{
+              "title": "always"
+          }]
+      }])
+    mock_feature_flags(self.app, [TEST_FEATURE_FLAG], True)
+    with self.app.test_request_context('/'):
+      self.assertEqual(filter_by_feature_flag(data), data)

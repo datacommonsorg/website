@@ -24,6 +24,13 @@
             "title": "Data Download Tool",
             "url": "{tools.download}",
             "description": "Download data for selected statistical variables"
+          },
+          {
+            "title": "Statistical Trends",
+            "badge": "New",
+            "url": "/labs/discover/",
+            "featureFlag": "narratives_menu_item",
+            "description": "Explore statistical trends based on your query, drawn from Data Commons and synthesized with Gemini AI."
           }
         ]
       },
