@@ -35,14 +35,9 @@ import { NamedTypedPlace, StatVarSpec } from "../../js/shared/types";
 import { TileConfig } from "../../js/types/subject_page_proto_types";
 import { mapDataToCsv } from "../../js/utils/chart_csv_utils";
 import { getChartTitle } from "../../js/utils/tile_utils";
-import {
-  CHART_ID,
-  MAP_LEGEND_CONSTANT_WIDTH,
-  SVG_HEIGHT,
-  SVG_WIDTH,
-} from "../constants";
+import { MAP_LEGEND_CONSTANT_WIDTH, SVG_HEIGHT, SVG_WIDTH } from "../constants";
 import { TileResult } from "../types";
-import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
+import { getProcessedSvg, getSources, getSvgXml } from "./utils";
 
 function getTileProp(
   id: string,
@@ -157,15 +152,8 @@ export async function getMapTileResult(
       vars: [statVarSpec.statVar],
     };
     if (useChartUrl) {
-      result.chartUrl = getChartUrl(
-        tileConfig,
-        place.dcid,
-        [statVarSpec],
-        enclosedPlaceType,
-        null,
-        urlRoot,
-        apikey
-      );
+      // Chart images are no longer served (/nodejs/chart was removed), so
+      // return the data without a chart.
       return result;
     }
     const svg = getMapChartSvg(tileProp, chartData);
@@ -173,38 +161,6 @@ export async function getMapTileResult(
     return result;
   } catch (e) {
     console.log("Failed to get map tile result for: " + id);
-    return null;
-  }
-}
-
-/**
- * Gets the map chart for a given tile config
- * @param tileConfig the tile config for the chart
- * @param place the place to get the chart for
- * @param enclosedPlaceType the enclosed place type to get the chart for
- * @param statVarSpec list of stat var specs to show in the chart
- * @param apiRoot API root to use to fetch data
- */
-export async function getMapChart(
-  tileConfig: TileConfig,
-  place: NamedTypedPlace,
-  enclosedPlaceType: string,
-  statVarSpec: StatVarSpec,
-  apiRoot: string
-): Promise<SVGSVGElement> {
-  const tileProp = getTileProp(
-    CHART_ID,
-    tileConfig,
-    place,
-    enclosedPlaceType,
-    statVarSpec,
-    apiRoot
-  );
-  try {
-    const chartData = await fetchData(tileProp);
-    return getMapChartSvg(tileProp, chartData);
-  } catch (e) {
-    console.log("Failed to get map chart.");
     return null;
   }
 }

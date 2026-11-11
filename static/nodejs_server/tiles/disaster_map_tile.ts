@@ -18,7 +18,6 @@
  * Functions for getting results for a disaster map tile
  */
 
-import { fetchDisasterEventData } from "../../js/components/subject_page/disaster_event_block";
 import {
   DisasterEventMapTilePropType,
   DisasterMapChartData,
@@ -32,14 +31,10 @@ import {
   EventTypeSpec,
   TileConfig,
 } from "../../js/types/subject_page_proto_types";
-import {
-  getDate,
-  getSeverityFilters,
-} from "../../js/utils/disaster_event_map_utils";
 import { getChartTitle } from "../../js/utils/tile_utils";
-import { CHART_ID, SVG_HEIGHT, SVG_WIDTH } from "../constants";
+import { SVG_HEIGHT, SVG_WIDTH } from "../constants";
 import { TileResult } from "../types";
-import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
+import { getProcessedSvg, getSources, getSvgXml } from "./utils";
 
 function getTileProp(
   id: string,
@@ -100,8 +95,7 @@ export async function getDisasterMapTileResult(
   disasterEventDataPromise: Promise<Record<string, DisasterEventPointData>>,
   apiRoot: string,
   urlRoot: string,
-  useChartUrl: boolean,
-  apikey?: string
+  useChartUrl: boolean
 ): Promise<TileResult> {
   let tileEventData = null;
   try {
@@ -130,15 +124,8 @@ export async function getDisasterMapTileResult(
       vars: [],
     };
     if (useChartUrl) {
-      result.chartUrl = getChartUrl(
-        tileConfig,
-        place.dcid,
-        [],
-        enclosedPlaceType,
-        eventTypeSpec,
-        urlRoot,
-        apikey
-      );
+      // Chart images are no longer served (/nodejs/chart was removed), so
+      // return the data without a chart.
       return result;
     }
     const svg = getDisasterMapSvg(tileProp, chartData, eventTypeSpec);
@@ -146,48 +133,6 @@ export async function getDisasterMapTileResult(
     return result;
   } catch (e) {
     console.log("Failed to get disaster event map tile result for: " + id);
-    return null;
-  }
-}
-
-/**
- * Gets the disaster map chart for a given tile config
- * @param tileConfig the tile config for the chart
- * @param place the place to get the chart for
- * @param enclosedPlaceType the enclosed place type to get the chart for
- * @param eventTypeSpec map of event types to show in the chart to their specs
- * @param apiRoot API root to use to fetch data
- */
-export async function getDisasterMapChart(
-  tileConfig: TileConfig,
-  place: NamedTypedPlace,
-  enclosedPlaceType: string,
-  eventTypeSpec: Record<string, EventTypeSpec>,
-  apiRoot: string
-): Promise<SVGSVGElement> {
-  try {
-    const disasterEventData = await fetchDisasterEventData(
-      eventTypeSpec,
-      place.dcid,
-      // TODO: update the endpoint to also take a date for the tile
-      getDate(CHART_ID, {}, place),
-      getSeverityFilters(eventTypeSpec, CHART_ID),
-      null,
-      apiRoot
-    );
-    const tileProp = getTileProp(
-      CHART_ID,
-      tileConfig,
-      place,
-      enclosedPlaceType,
-      eventTypeSpec,
-      disasterEventData,
-      apiRoot
-    );
-    const chartData = await fetchChartData(tileProp);
-    return getDisasterMapSvg(tileProp, chartData, eventTypeSpec);
-  } catch (e) {
-    console.log("Failed to get disaster map chart.");
     return null;
   }
 }

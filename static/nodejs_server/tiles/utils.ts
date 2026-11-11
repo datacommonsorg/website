@@ -18,27 +18,17 @@
  * Util functions used by node js server
  */
 
-import _ from "lodash";
 import * as xmlserializer from "xmlserializer";
-import * as zlib from "zlib";
 
 import { SVGNS, XLINKNS } from "../../js/constants/svg_constants";
-import { StatVarSpec } from "../../js/shared/types";
 import { urlToDisplayText } from "../../js/shared/util";
 import {
-  EventTypeSpec,
-  TileConfig,
-} from "../../js/types/subject_page_proto_types";
-import {
-  CHART_PARAMS,
-  COMPRESSED_VAL_ENCODING,
   FONT_FAMILY,
   FONT_SIZE,
   SVG_HEIGHT,
   SVG_PADDING,
   SVG_WIDTH,
 } from "../constants";
-import { ChartProps } from "../types";
 
 /**
  * Gets a list of source objects with name and url from a set of source urls.
@@ -121,75 +111,4 @@ export function getSvgXml(chartSvg: SVGSVGElement): string {
   }
   const svgXml = xmlserializer.serializeToString(chartSvg);
   return "data:image/svg+xml," + encodeURIComponent(svgXml);
-}
-
-/**
- * Gets the url that will return a chart for a specific set of properties.
- * @param tileConfig tile config of the chart
- * @param placeDcid place to use for the chart
- * @param statVarSpec list of stat var specs to use for the chart
- * @param enclosedPlaceType enclosed place type to use for the chart
- * @param eventTypeSpec map of event type to its event type spec to use for the
- *                      chart
- * @param urlRoot url root to use for the returned url
- */
-export function getChartUrl(
-  tileConfig: TileConfig,
-  placeDcid: string,
-  statVarSpec: StatVarSpec[],
-  enclosedPlaceType: string,
-  eventTypeSpec: Record<string, EventTypeSpec>,
-  urlRoot: string,
-  apikey?: string
-): string {
-  const tileConfigParamVal = _.cloneDeep(tileConfig);
-  // tile config that gets passed in the url doesn't need statVarKey because
-  // it's used to generate the statVarSpec which itself gets passed in the url.
-  delete tileConfigParamVal.statVarKey;
-  const chartProps: ChartProps = {
-    enclosedPlaceType,
-    eventTypeSpec,
-    place: placeDcid,
-    statVarSpec,
-    tileConfig: tileConfigParamVal,
-  };
-  const paramMapping = {
-    [CHART_PARAMS.API_KEY]: apikey,
-    [CHART_PARAMS.PROPS]: compressChartProps(chartProps),
-  };
-  let url = `${urlRoot}/nodejs/chart?`;
-  Object.keys(paramMapping)
-    .sort()
-    .forEach((paramKey, idx) => {
-      const paramVal = paramMapping[paramKey];
-      if (!paramVal) {
-        return;
-      }
-      url += `${idx === 0 ? "" : "&"}${paramKey}=${paramVal}`;
-    });
-  return encodeURI(url);
-}
-
-export function compressChartProps(chartProps: ChartProps): string {
-  const chartPropsStr = JSON.stringify(chartProps);
-  let compressedStr = zlib.deflateSync(chartPropsStr).toString("base64");
-  // base64 encoding includes the characters +/= which need to be manually
-  // escaped.
-  for (const c in COMPRESSED_VAL_ENCODING) {
-    compressedStr = compressedStr.replaceAll(c, COMPRESSED_VAL_ENCODING[c]);
-  }
-  return compressedStr;
-}
-
-export function decompressChartProps(propString: string): ChartProps {
-  let decompressedStr = propString;
-  for (const c in COMPRESSED_VAL_ENCODING) {
-    decompressedStr = decompressedStr.replaceAll(COMPRESSED_VAL_ENCODING[c], c);
-  }
-  // Convert all the manually escaped characters back to their original
-  // characters.
-  decompressedStr = zlib
-    .inflateSync(Buffer.from(decompressedStr, "base64"))
-    .toString();
-  return JSON.parse(decompressedStr);
 }
