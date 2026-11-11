@@ -35,7 +35,8 @@
 -#}
 <!DOCTYPE html>
 
-<html lang={{ locale }} id={{ page_id }}>
+{#- `?transition_animation=true`: fade the page in (e.g. arriving from the narratives app). Styles in core.scss. #}
+<html lang={{ locale }} id={{ page_id }}{% if request.args.get('transition_animation') == 'true' %} class="transition-animation"{% endif %}>
 
 <head>
   {# Enable Google Analytics with cookieless tracking. #}
@@ -60,6 +61,7 @@
   <title>{{ title }}{{' - ' if title else ''}}Data Commons</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 
   {% block meta %}
   <meta property="og:type" content="website" />
