@@ -196,7 +196,16 @@ spec:
     {{- if .Values.nodejs.enabled }}
     - http:
         paths:
-        - path: /nodejs/*
+        # Only route the endpoints that are still in use. Other /nodejs/ paths
+        # fall through to the website service.
+        - path: /nodejs/query
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: website-nodejs-service
+              port:
+                number: 8080
+        - path: /nodejs/healthz
           pathType: ImplementationSpecific
           backend:
             service:
