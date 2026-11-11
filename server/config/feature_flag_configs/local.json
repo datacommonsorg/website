@@ -97,6 +97,12 @@
     "description": "Feature flag to show the complete metadata modal. If not set, the older modal will be used as a fallback."
   },
   {
+    "name": "narratives",
+    "enabled": true,
+    "owner": "pablonoel",
+    "description": "Shows the Narratives (Statistical Trends) header link and enables view transitions to/from it. Enable only where the Narratives server is deployed (narratives.enabled in deploy/helm_charts/envs)."
+  },
+  {
     "name": "new_ranking_page",
     "enabled": false,
     "owner": "juliawu",

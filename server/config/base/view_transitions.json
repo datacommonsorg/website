@@ -1,0 +1,12 @@
+[
+  {
+    "path": "/labs/discover",
+    "featureFlag": "narratives",
+    "description": "Narratives app. Navigations between DC pages and any URL under this prefix get a cross-document view transition (see server/templates/base.html)."
+  },
+  {
+    "path": "/narratives",
+    "featureFlag": "narratives",
+    "description": "Narratives app. Navigations between DC pages and any URL under this prefix get a cross-document view transition (see server/templates/base.html)."
+  }
+]

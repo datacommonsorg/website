@@ -82,6 +82,46 @@
     rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=block">
   <link rel="stylesheet" href={{url_for('static', filename='css/core.min.css', t=config['VERSION'])}}>
+  {% if VIEW_TRANSITION_PATHS %}
+  {#- Cross-document view transition (browser cross-fade), only for navigations
+      to/from paths in config/base/view_transitions.json (e.g. the same-origin
+      Narratives app). Other navigations are skipped.
+      Must be inline and parser-blocking so `pagereveal` is registered before
+      first render. Narratives' index.html has the mirror-image opt-in. #}
+  <style>
+    @media (prefers-reduced-motion: no-preference) {
+      @view-transition { navigation: auto; }
+    }
+    /* The destination page's CSS sets the duration; keep in sync with Narratives. */
+    ::view-transition-old(root),
+    ::view-transition-new(root) { animation-duration: 1s; }
+  </style>
+  <script>
+    (function () {
+      var bases = {{ VIEW_TRANSITION_PATHS | tojson }};
+      function isTransitionTarget(entry) {
+        if (!entry || !entry.url) return false;
+        var path = new URL(entry.url).pathname;
+        return bases.some(function (base) {
+          return path === base || path.indexOf(base + '/') === 0;
+        });
+      }
+      // Leaving this page: only animate when heading into a listed path.
+      addEventListener('pageswap', function (e) {
+        if (e.viewTransition && !isTransitionTarget(e.activation && e.activation.entry)) {
+          e.viewTransition.skipTransition();
+        }
+      });
+      // Arriving on this page: only animate when coming from a listed path.
+      addEventListener('pagereveal', function (e) {
+        var activation = window.navigation && navigation.activation;
+        if (e.viewTransition && !isTransitionTarget(activation && activation.from)) {
+          e.viewTransition.skipTransition();
+        }
+      });
+    })();
+  </script>
+  {% endif %}
   {% block head %}
   {% endblock %}
   {% if OVERRIDE_CSS_PATH %}
