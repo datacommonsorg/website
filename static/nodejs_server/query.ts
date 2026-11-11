@@ -252,7 +252,6 @@ function getDisasterBlockTileResults(
               tileEventTypeSpec,
               disasterEventDataPromise,
               apiRoot,
-              urlRoot,
               useChartUrl
             )
           );

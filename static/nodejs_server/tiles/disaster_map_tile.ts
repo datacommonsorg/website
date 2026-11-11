@@ -94,7 +94,6 @@ export async function getDisasterMapTileResult(
   eventTypeSpec: Record<string, EventTypeSpec>,
   disasterEventDataPromise: Promise<Record<string, DisasterEventPointData>>,
   apiRoot: string,
-  urlRoot: string,
   useChartUrl: boolean
 ): Promise<TileResult> {
   let tileEventData = null;
