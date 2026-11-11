@@ -45,9 +45,17 @@ if [[ $ENV == "" ]]; then
   exit 1
 fi
 
-PROJECT_ID=$(yq eval '.project' ../deploy/helm_charts/envs/$ENV.yaml)
-CLUSTER_PREFIX=$(yq eval '.cluster_prefix' ../deploy/helm_charts/envs/$ENV.yaml)
-NARRATIVES_ENABLED=$(yq eval '.narratives.enabled // "false"' ../deploy/helm_charts/envs/$ENV.yaml)
+DEFAULT_VALUES_YAML="../deploy/helm_charts/dc_website/values.yaml"
+CONFIG_YAML="../deploy/helm_charts/envs/$ENV.yaml"
+
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
+CLUSTER_PREFIX=$(yq eval '.cluster_prefix' $CONFIG_YAML)
+NARRATIVES_ENABLED=$(yq eval '.narratives.enabled // "false"' $CONFIG_YAML)
+NARRATIVES_BASE_PATH=$(yq eval '.narratives.basePath // ""' $CONFIG_YAML)
+if [[ -z $NARRATIVES_BASE_PATH ]]; then
+  NARRATIVES_BASE_PATH=$(yq eval '.narratives.basePath' $DEFAULT_VALUES_YAML)
+fi
+NARRATIVES_BASE_PATH="${NARRATIVES_BASE_PATH%/}"
 
 if [[ $LOCATION == "" ]]; then
   LOCATION="us-central1"
@@ -58,7 +66,8 @@ CLUSTER_NAME=$CLUSTER_PREFIX-$LOCATION
 gcloud container clusters get-credentials $CLUSTER_NAME \
   --region=$LOCATION --project=$PROJECT_ID
 
-# Update mci config
+# Update backendconfig and mci config
+cp backendconfig.yaml.tpl backendconfig.yaml
 cp mci.yaml.tpl mci.yaml
 export IP=$(gcloud compute addresses list --global --filter='name:dc-website-ip' --format='value(ADDRESS)')
 yq eval -i '.metadata.annotations."networking.gke.io/static-ip" = env(IP)' mci.yaml
@@ -66,8 +75,16 @@ yq eval -i '.metadata.annotations."networking.gke.io/static-ip" = env(IP)' mci.y
 if [[ -z $SETUP_NODEJS ]]; then
   yq eval -i 'del(.spec.template.spec.rules.[].http.paths[] | select(.backend.serviceName == "website-nodejs-mcs"))' mci.yaml
 fi
-# If narratives is not enabled in the environment config, remove the narratives paths from mci.yaml
-if [[ $NARRATIVES_ENABLED != "true" ]]; then
+# Populate or remove the narratives paths and backendconfig based on narratives.enabled
+if [[ $NARRATIVES_ENABLED == "true" ]]; then
+  export NARRATIVES_BASE_PATH
+  export NARRATIVES_WILDCARD_PATH="${NARRATIVES_BASE_PATH}/*"
+  export NARRATIVES_HEALTH_PATH="${NARRATIVES_BASE_PATH}/healthz"
+  yq eval -i '(select(.metadata.name == "backendconfig-narratives") | .spec.healthCheck.requestPath) = env(NARRATIVES_HEALTH_PATH)' backendconfig.yaml
+  yq eval -i '(.spec.template.spec.rules.[].http.paths[] | select(.path == "<NARRATIVES_BASE_PATH>").path) = env(NARRATIVES_BASE_PATH)' mci.yaml
+  yq eval -i '(.spec.template.spec.rules.[].http.paths[] | select(.path == "<NARRATIVES_BASE_PATH>/*").path) = env(NARRATIVES_WILDCARD_PATH)' mci.yaml
+else
+  yq eval -i 'select(.metadata.name != "backendconfig-narratives")' backendconfig.yaml
   yq eval -i 'del(.spec.template.spec.rules.[].http.paths[] | select(.backend.serviceName == "website-narratives-mcs"))' mci.yaml
 fi
 

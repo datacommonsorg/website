@@ -27,6 +27,7 @@ import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { DataPointMetadata, NamedPlace } from "../shared/types";
 import { isTemperatureStatVar, isWetBulbStatVar } from "../tools/shared_util";
 import { getColorFn } from "./base";
+import { TEXT_FONT_FAMILY } from "./draw_constants";
 
 export const LEGEND_MARGIN_VERTICAL = 6;
 export const LEGEND_MARGIN_RIGHT = 5;
@@ -321,6 +322,7 @@ export function generateLegend(
     .call((g) =>
       g
         .selectAll(".tick text")
+        .style("font-family", TEXT_FONT_FAMILY)
         .attr("transform", `translate(${LEGEND_IMG_WIDTH}, 0)`)
     )
     .call((g) => g.select(".domain").remove());

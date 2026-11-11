@@ -73,7 +73,7 @@ You should have owner/editor role to perform the following tasks.
 
    # (Optional) If enabling Narratives on this environment, configure its prerequisites (Vertex AI API, IAM, secrets).
    # Note: For environments using MultiClusterIngress (autopush, staging, prod), also run update_config_cluster.sh
-   # (see "Update cluster config" below) so website-mci routes /narratives and /narratives/* to website-narratives-mcs.
+   # (see "Update cluster config" below) so website-mci routes the configured narratives.basePath to website-narratives-mcs.
    ./setup_narratives.sh <ENV>
 
    # Deploy helm
@@ -93,7 +93,7 @@ You should have owner/editor role to perform the following tasks.
 
 ## Narratives emergency off switch
 
-When Narratives is enabled on a cluster (`narratives.enabled: true`), you can disable chat or take down the `/narratives/` deployment (for example, during unexpected traffic spikes, runaway Gemini spend, upstream MCP/Vertex AI outages, or safety incidents) in two ways:
+When Narratives is enabled on a cluster (`narratives.enabled: true`), you can disable chat or take down the Narratives deployment (for example, during unexpected traffic spikes, runaway Gemini spend, upstream MCP/Vertex AI outages, or safety incidents) in two ways:
 
 1. **Immediate (<30 seconds via `kubectl`, no PR required):**
 
@@ -118,7 +118,7 @@ When Narratives is enabled on a cluster (`narratives.enabled: true`), you can di
 
    Because subsequent Cloud Deploy releases render the Helm chart from Git and will overwrite ad-hoc `kubectl` changes, persist the change in `deploy/helm_charts/envs/<ENV>.yaml`:
    - Set `narratives.enableChat: false` to keep the UI online with chat disabled.
-   - Set `narratives.enabled: false` to remove the `website-agentic-apps` Deployment, `website-narratives-service` Service, and `/narratives` Ingress paths entirely.
+   - Set `narratives.enabled: false` to remove the `website-agentic-apps` Deployment, `website-narratives-service` Service, and `narratives.basePath` Ingress paths entirely.
 
 ## DNS setup
 
@@ -152,11 +152,11 @@ where `<ENV>` refers to the name of the instance and `<REGION>` is the region of
 
 ## Update cluster config
 
-If multi-cluster ingress and service needs to be updated, then for each region that needs to be updated, run the following commands. The "-n" flag determines whether or not to set up a nodejs server (include "-n" to setup nodejs).
+If multi-cluster ingress and service needs to be updated, then for each region that needs to be updated, run the following commands. Pass `-n` only if the environment runs the Node.js server.
 
 ```bash
 gcloud config set project <PROJECT>
-./update_config_cluster.sh -e <ENV> -l <REGION> -n
+./update_config_cluster.sh -e <ENV> -l <REGION>
 ```
 
 where `<ENV>` refers to the name of the instance and `<REGION>` is the region of the cluster.
