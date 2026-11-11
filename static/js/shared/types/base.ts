@@ -83,8 +83,6 @@ export interface HeaderMenuItem {
   linkType?: LinkType;
   //a description of the item. This will go below the link, and is optional.
   description?: string;
-  //an optional short label shown as a pill after the title (e.g. "New").
-  badge?: string;
   //an optional list of links that appear below the description.
   links?: HeaderMenuItemLink[];
 }

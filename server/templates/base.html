@@ -85,14 +85,14 @@
   {% if VIEW_TRANSITION_PATHS %}
   {#- Cross-document view transition (browser cross-fade), only for navigations
       to/from paths in config/base/view_transitions.json (e.g. the same-origin
-      Narratives app). Other navigations are skipped.
+      app at /labs/discover). Other navigations are skipped.
       Must be inline and parser-blocking so `pagereveal` is registered before
-      first render. Narratives' index.html has the mirror-image opt-in. #}
+      first render. The destination app's index.html has the mirror-image opt-in. #}
   <style>
     @media (prefers-reduced-motion: no-preference) {
       @view-transition { navigation: auto; }
     }
-    /* The destination page's CSS sets the duration; keep in sync with Narratives. */
+    /* The destination page's CSS sets the duration; keep in sync with the destination app. */
     ::view-transition-old(root),
     ::view-transition-new(root) { animation-duration: 300ms; }
   </style>

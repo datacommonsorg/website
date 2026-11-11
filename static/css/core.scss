@@ -819,17 +819,3 @@ body.no-header-search-bar {
     }
   }
 }
-
-// Pill after a header menu item title (header.json `badge`, e.g. "New").
-// Top-level so desktop and mobile rich menus both get it.
-.item-badge {
-  display: inline-block;
-  margin-left: 8px;
-  color: var.$color-green;
-  &::before {
-    content: '•';
-  }
-  &::after {
-    content: '•';
-  }
-}

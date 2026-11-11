@@ -518,8 +518,7 @@ def create_app():
   # Provides locale and other common parameters in all templates
   @app.context_processor
   def inject_common_parameters():
-    header_menu = filter_by_feature_flag(
-        libutil.get_json(app.config['HEADER_JSON_PATH']), request)
+    header_menu = libutil.get_json(app.config['HEADER_JSON_PATH'])
     footer_menu = libutil.get_json(app.config['FOOTER_JSON_PATH'])
     view_transitions = filter_by_feature_flag(app.config['VIEW_TRANSITIONS'],
                                               request)

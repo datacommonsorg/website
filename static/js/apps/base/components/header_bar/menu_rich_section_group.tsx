@@ -79,14 +79,10 @@ const MenuRichSectionGroup = ({
                   </span>
                 )}
                 {item.title}
-                {item.badge && <span className="item-badge">{item.badge}</span>}
               </a>
             </h4>
           ) : (
-            <h5>
-              {item.title}
-              {item.badge && <span className="item-badge">{item.badge}</span>}
-            </h5>
+            <h5>{item.title}</h5>
           )}
 
           {item.description && <p>{item.description}</p>}
