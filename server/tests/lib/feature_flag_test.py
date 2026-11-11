@@ -285,14 +285,22 @@ class TestFeatureFlags(unittest.TestCase):
     """Drops nested dicts gated on a disabled `featureFlag`, keeps the rest."""
     data = [{
         "items": [
-            {"title": "always"},
-            {"title": "gated", "featureFlag": TEST_FEATURE_FLAG},
+            {
+                "title": "always"
+            },
+            {
+                "title": "gated",
+                "featureFlag": TEST_FEATURE_FLAG
+            },
         ]
     }]
     mock_feature_flags(self.app, [TEST_FEATURE_FLAG], False)
     with self.app.test_request_context('/'):
-      self.assertEqual(filter_by_feature_flag(data),
-                       [{"items": [{"title": "always"}]}])
+      self.assertEqual(filter_by_feature_flag(data), [{
+          "items": [{
+              "title": "always"
+          }]
+      }])
     mock_feature_flags(self.app, [TEST_FEATURE_FLAG], True)
     with self.app.test_request_context('/'):
       self.assertEqual(filter_by_feature_flag(data), data)
