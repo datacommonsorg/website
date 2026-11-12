@@ -45,30 +45,7 @@ USE_SEPARATE_PROPERTY_VALUE_CALLS = 'use_separate_property_value_calls'
 USE_SEPARATE_PROPERTY_VALUE_CALLS_FOR_SPANNER = 'use_separate_property_value_calls_for_spanner'
 USE_CONFIG_THRESHOLD_FOR_SPANNER_EMBEDDING = 'use_config_threshold_for_spanner_embedding'
 ENABLE_SCHEMA_DRIVEN_TOPIC_RESOLUTION = 'enable_schema_driven_topic_resolution'
-
-
-def filter_by_feature_flag(node, request=None):
-  """Recursively drops list elements that are dicts whose `featureFlag` key
-  names a disabled flag, and strips `featureFlag` from everything kept.
-
-  Lets JSON configs (e.g. header.json) gate entries with
-  `"featureFlag": "<name>"` instead of per-entry code. Only list elements are
-  gated: a gated dict at the root or as a dict value is kept.
-  """
-  if isinstance(node, list):
-    return [
-        filter_by_feature_flag(n, request)
-        for n in node
-        if not (isinstance(n, dict) and 'featureFlag' in n and
-                not is_feature_enabled(n['featureFlag'], request=request))
-    ]
-  if isinstance(node, dict):
-    return {
-        k: filter_by_feature_flag(v, request)
-        for k, v in node.items()
-        if k != 'featureFlag'
-    }
-  return node
+VIEW_TRANSITIONS_FEATURE_FLAG = 'view_transitions'
 
 
 def is_feature_override_enabled(feature_name: str, request=None) -> bool:
