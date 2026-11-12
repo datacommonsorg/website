@@ -124,4 +124,5 @@ narratives:
   cloudLocation: "global"
   dcApiKeySecret: "mixer-api-key"
   transcriptHmacSecretName: "narratives-transcript-hmac-secret"
-  modelArmorTemplate: "projects/datcom-website-dev/locations/us-central1/templates/narratives-dev"
+  modelArmorLocation: "us-central1"
+  modelArmorTemplateId: "discover-dev"

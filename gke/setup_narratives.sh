@@ -44,6 +44,12 @@ if [[ -z "$ENV" ]]; then
   exit 1
 fi
 
+VALUES_YAML="${DIR}/../deploy/helm_charts/dc_website/values.yaml"
+if [[ ! -f "$VALUES_YAML" ]]; then
+  echo "Default values config not found: $VALUES_YAML" >&2
+  exit 1
+fi
+
 CONFIG_YAML="${DIR}/../deploy/helm_charts/envs/${ENV}.yaml"
 if [[ ! -f "$CONFIG_YAML" ]]; then
   echo "Environment config not found: $CONFIG_YAML" >&2
@@ -57,7 +63,19 @@ if [[ -z "$PROJECT_ID" || "$PROJECT_ID" == "null" ]]; then
 fi
 DC_API_KEY_SECRET=$(yq eval '.narratives.dcApiKeySecret // "mixer-api-key"' "$CONFIG_YAML")
 HMAC_SECRET_ID=$(yq eval '.narratives.transcriptHmacSecretName // "narratives-transcript-hmac-secret"' "$CONFIG_YAML")
-MODEL_ARMOR_TEMPLATE=$(yq eval '.narratives.modelArmorTemplate // ""' "$CONFIG_YAML")
+MODEL_ARMOR_LOCATION=$(yq eval '.narratives.modelArmorLocation // ""' "$CONFIG_YAML")
+if [[ -z "$MODEL_ARMOR_LOCATION" || "$MODEL_ARMOR_LOCATION" == "null" ]]; then
+  MODEL_ARMOR_LOCATION=$(yq eval '.narratives.modelArmorLocation // ""' "$VALUES_YAML")
+fi
+if [[ -z "$MODEL_ARMOR_LOCATION" || "$MODEL_ARMOR_LOCATION" == "null" ]]; then
+  echo "Error: 'narratives.modelArmorLocation' is missing or empty in $CONFIG_YAML and $VALUES_YAML" >&2
+  exit 1
+fi
+MODEL_ARMOR_TEMPLATE_ID=$(yq eval '.narratives.modelArmorTemplateId // ""' "$CONFIG_YAML")
+if [[ "$MODEL_ARMOR_TEMPLATE_ID" == *"/"* ]]; then
+  echo "Error: 'narratives.modelArmorTemplateId' in ${CONFIG_YAML} must be a template ID (e.g. 'discover-${ENV}'), not a full resource path." >&2
+  exit 1
+fi
 SERVICE_ACCOUNT="website-robot@${PROJECT_ID}.iam.gserviceaccount.com"
 
 # 1. Enable Vertex AI, Model Armor, and Sensitive Data Protection APIs if not already enabled.
@@ -105,23 +123,41 @@ else
 fi
 
 # 5. Verify or create the default Model Armor template if configured in <ENV>.yaml.
-if [[ -z "$MODEL_ARMOR_TEMPLATE" || "$MODEL_ARMOR_TEMPLATE" == "null" ]]; then
-  echo "Note: '.narratives.modelArmorTemplate' is unset in ${CONFIG_YAML}."
-  echo "Remember to create a Model Armor template (or set '.narratives.modelArmorTemplate' to 'projects/${PROJECT_ID}/locations/us-central1/templates/narratives-${ENV}' and re-run ./setup_narratives.sh ${ENV}) before enabling Narratives publicly."
-elif gcloud model-armor templates describe "$MODEL_ARMOR_TEMPLATE" --project="$PROJECT_ID" >/dev/null 2>&1; then
-  echo "Model Armor template ${MODEL_ARMOR_TEMPLATE} already exists."
+if [[ -z "$MODEL_ARMOR_TEMPLATE_ID" || "$MODEL_ARMOR_TEMPLATE_ID" == "null" ]]; then
+  echo "Note: '.narratives.modelArmorTemplateId' is unset in ${CONFIG_YAML} (default location: ${MODEL_ARMOR_LOCATION})."
+  echo "Remember to create a Model Armor template in ${MODEL_ARMOR_LOCATION} (or set '.narratives.modelArmorTemplateId' to 'discover-${ENV}' and re-run ./setup_narratives.sh ${ENV}) before enabling Narratives publicly."
 else
-  echo "Creating default Model Armor template ${MODEL_ARMOR_TEMPLATE}..."
-  gcloud model-armor templates create "$MODEL_ARMOR_TEMPLATE" \
-    --project="$PROJECT_ID" \
-    --pi-and-jailbreak-filter-settings-enforcement=enabled \
-    --pi-and-jailbreak-filter-settings-confidence-level=medium-and-above \
-    --malicious-uri-filter-settings-enforcement=enabled \
-    --basic-config-filter-enforcement=enabled \
-    --rai-settings-filters=filterType=HATE_SPEECH,confidenceLevel=MEDIUM_AND_ABOVE \
-    --rai-settings-filters=filterType=HARASSMENT,confidenceLevel=MEDIUM_AND_ABOVE \
-    --rai-settings-filters=filterType=DANGEROUS,confidenceLevel=MEDIUM_AND_ABOVE \
-    --rai-settings-filters=filterType=SEXUALLY_EXPLICIT,confidenceLevel=MEDIUM_AND_ABOVE
+  MODEL_ARMOR_TEMPLATE="projects/${PROJECT_ID}/locations/${MODEL_ARMOR_LOCATION}/templates/${MODEL_ARMOR_TEMPLATE_ID}"
+  # `gcloud model-armor templates` does not route requests using the location in
+  # the template path; set `api_endpoint_overrides/modelarmor` for this process
+  # (preserving the mTLS endpoint when Certificate-Based Access is active).
+  USE_MTLS=$(gcloud config get-value context_aware/use_client_certificate 2>/dev/null || true)
+  ALWAYS_MTLS=$(gcloud config get-value context_aware/always_use_mtls_endpoint 2>/dev/null || true)
+  if [[ "${USE_MTLS,,}" == "true" || "$USE_MTLS" == "1" || "${ALWAYS_MTLS,,}" == "true" || "$ALWAYS_MTLS" == "1" ]]; then
+    MODEL_ARMOR_ENDPOINT="https://modelarmor.${MODEL_ARMOR_LOCATION}.rep.mtls.googleapis.com/"
+  else
+    MODEL_ARMOR_ENDPOINT="https://modelarmor.${MODEL_ARMOR_LOCATION}.rep.googleapis.com/"
+  fi
+  export CLOUDSDK_API_ENDPOINT_OVERRIDES_MODELARMOR="$MODEL_ARMOR_ENDPOINT"
+
+  if DESCRIBE_ERR=$(gcloud model-armor templates describe "$MODEL_ARMOR_TEMPLATE" --project="$PROJECT_ID" --format=none 2>&1); then
+    echo "Model Armor template ${MODEL_ARMOR_TEMPLATE} already exists."
+  elif [[ "$DESCRIBE_ERR" =~ NOT_FOUND|[Nn]ot[[:space:]][Ff]ound ]]; then
+    echo "Creating default Model Armor template ${MODEL_ARMOR_TEMPLATE}..."
+    gcloud model-armor templates create "$MODEL_ARMOR_TEMPLATE" \
+      --project="$PROJECT_ID" \
+      --pi-and-jailbreak-filter-settings-enforcement=enabled \
+      --pi-and-jailbreak-filter-settings-confidence-level=medium-and-above \
+      --malicious-uri-filter-settings-enforcement=enabled \
+      --basic-config-filter-enforcement=enabled \
+      --rai-settings-filters=filterType=HATE_SPEECH,confidenceLevel=MEDIUM_AND_ABOVE \
+      --rai-settings-filters=filterType=HARASSMENT,confidenceLevel=MEDIUM_AND_ABOVE \
+      --rai-settings-filters=filterType=DANGEROUS,confidenceLevel=MEDIUM_AND_ABOVE \
+      --rai-settings-filters=filterType=SEXUALLY_EXPLICIT,confidenceLevel=MEDIUM_AND_ABOVE
+  else
+    echo "$DESCRIBE_ERR" >&2
+    exit 1
+  fi
 fi
 
 echo "Successfully configured Narratives prerequisites for ${ENV}."
