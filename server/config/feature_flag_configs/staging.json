@@ -91,6 +91,12 @@
     "description": "Enables the follow up questions generated from related topics to general audience."
   },
   {
+    "name": "labs_discover_menu_item",
+    "enabled": false,
+    "owner": "pablonoel",
+    "description": "Shows the Statistical Trends link (/labs/discover/) in the header menu. Enable only where that app is deployed."
+  },
+  {
     "name": "metadata_modal",
     "enabled": true,
     "owner": "nick-next",
