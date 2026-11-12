@@ -92,7 +92,7 @@
   },
   {
     "name": "labs_discover_menu_item",
-    "enabled": true,
+    "enabled": false,
     "owner": "pablonoel",
     "description": "Shows the Statistical Trends link (/labs/discover/) in the header menu. Enable only where that app is deployed."
   },
