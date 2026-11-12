@@ -52,7 +52,8 @@ export const NUM_Y_TICKS = 5;
 
 export const SVGNS = "http://www.w3.org/2000/svg";
 
-export const TEXT_FONT_FAMILY = "Roboto";
+export const TEXT_FONT_FAMILY =
+  "var(--dc-font-family, var(--font-family-sans-serif, sans-serif)), sans-serif";
 
 export const TOOLTIP_ID = "draw-tooltip";
 
