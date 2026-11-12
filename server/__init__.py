@@ -38,6 +38,7 @@ from server.lib.feature_flags import DATA_OVERVIEW_FEATURE_FLAG
 from server.lib.feature_flags import ENABLE_NL_AGENT_DETECTOR
 from server.lib.feature_flags import filter_by_feature_flag
 from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import VIEW_TRANSITIONS_FEATURE_FLAG
 import server.lib.i18n as i18n
 from server.lib.nl.common.bad_words import EMPTY_BANNED_WORDS
 from server.lib.nl.common.bad_words import load_bad_words
@@ -469,6 +470,11 @@ def create_app():
 
   app.config['HEADER_JSON_PATH'] = header_json_path
   app.config['FOOTER_JSON_PATH'] = footer_json_path
+  # Same-origin path prefixes whose navigations to/from DC pages get a
+  # cross-document view transition (see base.html), when the
+  # view_transitions flag is on.
+  app.config['VIEW_TRANSITIONS'] = [] if cfg.CUSTOM else libutil.get_json(
+      "config/base/view_transitions.json")
 
   # Set whether to filter stat vars with low geographic coverage in the
   # map and scatter tools.
@@ -516,10 +522,13 @@ def create_app():
     header_menu = filter_by_feature_flag(
         libutil.get_json(app.config['HEADER_JSON_PATH']), request)
     footer_menu = libutil.get_json(app.config['FOOTER_JSON_PATH'])
+    view_transitions = app.config['VIEW_TRANSITIONS'] if is_feature_enabled(
+        VIEW_TRANSITIONS_FEATURE_FLAG, request=request) else []
 
     common_variables = {
         'HEADER_MENU': json.dumps(header_menu),
         'FOOTER_MENU': json.dumps(footer_menu),
+        'VIEW_TRANSITION_PATHS': [t['path'] for t in view_transitions],
     }
     locale_variable = dict(locale=get_locale())
     return {**common_variables, **locale_variable}

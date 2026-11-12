@@ -161,5 +161,11 @@
     "enabled": true,
     "owner": "alyssaguo",
     "description": "Enables using the Vertex AI search application for stat var searches."
+  },
+  {
+    "name": "view_transitions",
+    "enabled": false,
+    "owner": "pablonoel",
+    "description": "Enables cross-document view transitions between DC pages and the same-origin app paths listed in config/base/view_transitions.json. Enable only where those apps are deployed."
   }
 ]

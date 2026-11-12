@@ -1,0 +1,6 @@
+[
+  {
+    "path": "/labs/discover",
+    "description": "Labs Discover app. Navigations between DC pages and any URL under this prefix get a cross-document view transition (see server/templates/base.html)."
+  }
+]
