@@ -115,42 +115,6 @@ function getRankingUnitResult(
         : "",
     vars: statVarSpec.map((spec) => spec.statVar),
   };
-  // Currently cannot draw ranking table in nodejs
-  /*
-  if (useChartUrl) {
-    // Get a tile config to pass in the chart url so that only one ranking unit
-    // will be created. i.e., only one of highest or lowest.
-    const urlTileConfig = _.cloneDeep(tileConfig);
-    urlTileConfig.rankingTileSpec = {
-      ...tileConfig.rankingTileSpec,
-      showHighest: isHighest,
-      showLowest: !isHighest,
-    };
-    // Get a list of stat var specs so that only one ranking unit will be created.
-    // i.e., If the tile is a multi-column tile, use the entire list of stat var
-    // specs, otherwise, only use the spec for the current stat var.
-    const urlSvSpec = tileConfig.rankingTileSpec.showMultiColumn
-      ? statVarSpec
-      : statVarSpec.filter((spec) => spec.statVar === sv);
-    result.chartUrl = getChartUrl(
-      urlTileConfig,
-      place,
-      urlSvSpec,
-      enclosedPlaceType,
-      null,
-      urlRoot,
-      apikey
-    );
-    return result;
-  }
-  const svg = getRankingChartSvg(
-    rankingGroup,
-    sv,
-    enclosedPlaceType,
-    tileConfig,
-    apiRoot
-  );
-  result.svg = getSvgXml(svg);*/
   return result;
 }
 

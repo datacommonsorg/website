@@ -32,9 +32,9 @@ import { NamedTypedPlace, StatVarSpec } from "../../js/shared/types";
 import { TileConfig } from "../../js/types/subject_page_proto_types";
 import { scatterDataToCsv } from "../../js/utils/chart_csv_utils";
 import { getChartTitle } from "../../js/utils/tile_utils";
-import { CHART_ID, SVG_HEIGHT, SVG_WIDTH } from "../constants";
+import { SVG_HEIGHT, SVG_WIDTH } from "../constants";
 import { TileResult } from "../types";
-import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
+import { getProcessedSvg, getSources, getSvgXml } from "./utils";
 
 function getTileProp(
   id: string,
@@ -112,15 +112,8 @@ export async function getScatterTileResult(
       vars: statVarSpec.map((spec) => spec.statVar),
     };
     if (useChartUrl) {
-      result.chartUrl = getChartUrl(
-        tileConfig,
-        place.dcid,
-        statVarSpec,
-        enclosedPlaceType,
-        null,
-        urlRoot,
-        apikey
-      );
+      // Chart images are no longer served (/nodejs/chart was removed), so
+      // return the data without a chart.
       return result;
     }
     const svgContainer = document.createElement("div");
@@ -138,52 +131,6 @@ export async function getScatterTileResult(
     return result;
   } catch (e) {
     console.log("Failed to get scatter tile result for: " + id);
-    return null;
-  }
-}
-
-/**
- * Gets the scatter chart for a given tile config
- * @param tileConfig the tile config for the chart
- * @param place the place to get the chart for
- * @param enclosedPlaceType the enclosed place type to get the chart for
- * @param statVarSpec list of stat var specs to show in the chart
- * @param apiRoot API root to use to fetch data
- */
-export async function getScatterChart(
-  tileConfig: TileConfig,
-  place: NamedTypedPlace,
-  enclosedPlaceType: string,
-  statVarSpec: StatVarSpec[],
-  apiRoot: string
-): Promise<SVGSVGElement> {
-  const tileProp = getTileProp(
-    CHART_ID,
-    tileConfig,
-    place,
-    enclosedPlaceType,
-    statVarSpec,
-    apiRoot
-  );
-  try {
-    const chartData = await fetchData(tileProp);
-    const chartTitle = getChartTitle(
-      tileConfig.title,
-      getReplacementStrings(tileProp, chartData)
-    );
-    const svgContainer = document.createElement("div");
-    draw(
-      chartData,
-      svgContainer,
-      SVG_HEIGHT,
-      null /* tooltipHtml */,
-      tileConfig.scatterTileSpec,
-      SVG_WIDTH,
-      chartTitle
-    );
-    return getProcessedSvg(svgContainer.querySelector("svg"));
-  } catch (e) {
-    console.log("Failed to get scatter chart.");
     return null;
   }
 }

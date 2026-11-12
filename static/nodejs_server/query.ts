@@ -252,9 +252,7 @@ function getDisasterBlockTileResults(
               tileEventTypeSpec,
               disasterEventDataPromise,
               apiRoot,
-              urlRoot,
-              useChartUrl,
-              apikey
+              useChartUrl
             )
           );
         default:

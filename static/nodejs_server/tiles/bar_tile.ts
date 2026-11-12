@@ -33,14 +33,13 @@ import { dataGroupsToCsv } from "../../js/utils/chart_csv_utils";
 import { convertToSortType } from "../../js/utils/subject_page_utils";
 import { getChartTitle } from "../../js/utils/tile_utils";
 import {
-  CHART_ID,
   DOM_ID,
   SVG_HEIGHT,
   SVG_WIDTH,
   TOOLFORMER_RAG_MODE,
 } from "../constants";
 import { TileResult } from "../types";
-import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
+import { getProcessedSvg, getSources, getSvgXml } from "./utils";
 
 function getPlaces(tileConfig: TileConfig, place: string): string[] {
   return tileConfig.comparisonPlaces || [place];
@@ -146,15 +145,8 @@ export async function getBarTileResult(
       vars: statVarSpec.map((spec) => spec.statVar),
     };
     if (useChartUrl) {
-      result.chartUrl = getChartUrl(
-        tileConfig,
-        place,
-        statVarSpec,
-        enclosedPlaceType,
-        null,
-        urlRoot,
-        apikey
-      );
+      // Chart images are no longer served (/nodejs/chart was removed), so
+      // return the data without a chart.
       return result;
     }
     const svg = getBarChartSvg(tileProp, chartData, chartTitle);
@@ -162,42 +154,6 @@ export async function getBarTileResult(
     return result;
   } catch (e) {
     console.log("Failed to get bar tile result for: " + id);
-    return null;
-  }
-}
-
-/**
- * Gets the bar chart for a given tile config
- * @param tileConfig the tile config for the chart
- * @param place the place to get the chart for
- * @param enclosedPlaceType the enclosed place type to get the chart for
- * @param statVarSpec list of stat var specs to show in the chart
- * @param apiRoot API root to use to fetch data
- */
-export async function getBarChart(
-  tileConfig: TileConfig,
-  place: string,
-  enclosedPlaceType: string,
-  statVarSpec: StatVarSpec[],
-  apiRoot: string
-): Promise<SVGSVGElement> {
-  const tileProp = getTileProp(
-    CHART_ID,
-    tileConfig,
-    place,
-    enclosedPlaceType,
-    statVarSpec,
-    apiRoot
-  );
-  try {
-    const chartData = await fetchData(tileProp);
-    const chartTitle = getChartTitle(
-      tileConfig.title,
-      getReplacementStrings(chartData)
-    );
-    return getBarChartSvg(tileProp, chartData, chartTitle);
-  } catch (e) {
-    console.log("Failed to get bar chart");
     return null;
   }
 }

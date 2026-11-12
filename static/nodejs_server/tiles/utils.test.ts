@@ -15,78 +15,7 @@
  */
 import { TEXT_FONT_FAMILY } from "../../js/chart/draw_constants";
 import { FONT_FAMILY } from "../constants";
-import { ChartProps } from "../types";
-import {
-  compressChartProps,
-  decompressChartProps,
-  getProcessedSvg,
-} from "./utils";
-
-const TEST_PLACE = "testPlace";
-const TEST_PLACE_TYPE = "placeType";
-const TEST_SV_SPEC = [
-  {
-    denom: "denom1",
-    log: false,
-    name: "sv1",
-    scaling: 1,
-    statVar: "svDcid1",
-    unit: "",
-  },
-  {
-    denom: "denom2",
-    log: false,
-    name: "sv2",
-    scaling: 1,
-    statVar: "svDcid2",
-    unit: "",
-  },
-];
-const TEST_CONFIG = {
-  barTileSpec: { maxPlaces: 15, sort: "DESCENDING" },
-  description: "",
-  statVarKey: [],
-  type: "BAR",
-};
-const TEST_EVENT_TYPE_SPEC = {
-  testSpec: {
-    color: "blue",
-    defaultSeverityFilter: {
-      lowerLimit: 100,
-      prop: "area",
-      unit: "m2",
-      upperLimit: 1000,
-    },
-    displayProp: [],
-    endDateProp: [],
-    eventTypeDcids: ["stormDcid"],
-    id: "testSpec",
-    name: "testSpecName",
-  },
-};
-
-test("compress and decompress chart props", () => {
-  const cases: ChartProps[] = [
-    {
-      enclosedPlaceType: TEST_PLACE_TYPE,
-      eventTypeSpec: TEST_EVENT_TYPE_SPEC,
-      place: TEST_PLACE,
-      statVarSpec: TEST_SV_SPEC,
-      tileConfig: TEST_CONFIG,
-    },
-  ];
-
-  for (const c of cases) {
-    const compressedChartProp = compressChartProps(c);
-    const decompressedChartProp = decompressChartProps(compressedChartProp);
-    try {
-      expect(decompressedChartProp).toEqual(c);
-    } catch (e) {
-      console.log(`Failed for case with chartProp: ${c}`);
-      throw e;
-    }
-  }
-});
+import { getProcessedSvg } from "./utils";
 
 test("getProcessedSvg strips inline font-family and sets server font", () => {
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
