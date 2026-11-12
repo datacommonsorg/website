@@ -120,21 +120,6 @@ svg:
   blocklistFile: []
 
 ###############################################################################
-# Config for NodeJS Server
-###############################################################################
-nodejs:
-  # If nodejs is enabled, must also enable nl.
-  # When enabling the NodeJS server for the first time for a project, need to
-  # update the cluster config by following instructions here: https://github.com/datacommonsorg/website/blob/master/gke/README.md
-  enabled: false
-  image:
-    tag: ""
-  env: "gke"
-  replicas:
-  apiRoot:
-  nodePool:
-
-###############################################################################
 # Config for Cron Testing Job
 ###############################################################################
 cronTesting:
@@ -142,13 +127,10 @@ cronTesting:
   # These are the in-cluster service endpoints that are set during script
   # deployment runtime.
   webApiRoot:
-  nodejsApiRoot:
   # whether or not sanity tests are enabled
   enableSanity: true
   # whether or not adversarial tests are enabled
   enableAdversarial: true
-  # whether or not nodejs query tests are enabled
-  enableNodejs: false
   # node pool to use
   nodePool:
   # schedule to run the cron tests on

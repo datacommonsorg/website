@@ -34,23 +34,6 @@ spec:
 apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:
-  name: backendconfig-nodejs
-  namespace: website
-spec:
-  timeoutSec: 60
-  connectionDraining:
-    drainingTimeoutSec: 60
-  healthCheck:
-    checkIntervalSec: 15
-    port: 8080
-    type: HTTP
-    requestPath: /nodejs/healthz
-
----
-
-apiVersion: cloud.google.com/v1
-kind: BackendConfig
-metadata:
   name: backendconfig-narratives
   namespace: website
 spec:

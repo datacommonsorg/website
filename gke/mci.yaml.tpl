@@ -34,10 +34,6 @@ spec:
             backend:
                 serviceName: website-mcs
                 servicePort: 8080
-          - path: /nodejs/*
-            backend:
-                serviceName: website-nodejs-mcs
-                servicePort: 8080
           - path: <NARRATIVES_BASE_PATH>
             backend:
                 serviceName: website-narratives-mcs

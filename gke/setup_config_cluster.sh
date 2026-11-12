@@ -18,23 +18,6 @@ set -e
 ENV=$1
 REGION=$2
 
-function help {
-  echo "Usage: $0 -n"
-  echo "-n       Setup nodejs service"
-  exit 1
-}
-
-while getopts ":n?" OPTION; do
-  case $OPTION in
-    n)
-      export SETUP_NODEJS=true
-      ;;
-    *)
-      help
-      ;;
-  esac
-done
-
 # https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-for-anthos-setup
 
 DEFAULT_VALUES_YAML="../deploy/helm_charts/dc_website/values.yaml"
@@ -58,10 +41,6 @@ cp backendconfig.yaml.tpl backendconfig.yaml
 cp mci.yaml.tpl mci.yaml
 export IP=$(yq eval '.ip' $CONFIG_YAML)
 yq eval -i '.metadata.annotations."networking.gke.io/static-ip" = env(IP)' mci.yaml
-# If not setting up nodejs service, remove the nodejs path from the mci.yaml
-if [[ -z $SETUP_NODEJS ]]; then
-  yq eval -i 'del(.spec.template.spec.rules.[].http.paths[] | select(.backend.serviceName == "website-nodejs-mcs"))' mci.yaml
-fi
 # Populate or remove the narratives paths and backendconfig based on narratives.enabled
 if [[ $NARRATIVES_ENABLED == "true" ]]; then
   export NARRATIVES_BASE_PATH
@@ -78,10 +57,6 @@ fi
 kubectl apply -f backendconfig.yaml
 kubectl apply -f mci.yaml
 kubectl apply -f website_mcs.yaml
-# If setting up nodejs service, apply the mcs yaml definition for nodejs
-if [[ $SETUP_NODEJS ]]; then
-  kubectl apply -f website_nodejs_mcs.yaml
-fi
 # If narratives is enabled, apply the mcs yaml definition for narratives
 if [[ $NARRATIVES_ENABLED == "true" ]]; then
   kubectl apply -f website_narratives_mcs.yaml

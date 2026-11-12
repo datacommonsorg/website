@@ -18,7 +18,6 @@
 set -e
 
 echo "Website domain: $WEB_API_ROOT"
-echo "Nodejs domain: $NODEJS_API_ROOT"
 echo "Testing env: $TESTING_ENV"
 
 export GOOGLE_CLOUD_PROJECT=datcom
@@ -29,28 +28,6 @@ echo "Starting website cron tests"
 echo "====================================================================================="
 date_str=$(TZ="America/Los_Angeles" date +"%Y_%m_%d_%H_%M_%S")
 echo "====================================================================================="
-
-# Run nodejs query tests if ENABLE_NODEJS is "true" and NODEJS_API_ROOT is set.
-if [[ $ENABLE_NODEJS == "true" && $NODEJS_API_ROOT != "" ]]; then
-  echo "====================================================================================="
-  echo "Starting nodejs tests against domain: $NODEJS_API_ROOT"
-  echo "====================================================================================="
-  python3 nodejs_query.py --base_url="$NODEJS_API_ROOT"
-  gcloud storage cp ./output/* gs://datcom-website-periodic-testing/$TESTING_ENV/$date_str/nodejs_query/
-  rm -rf ./output/*
-  failure_email="failure_email.json"
-  python3 differ.py -m diff -e "$TESTING_ENV" -t "$date_str" -g "$TESTING_ENV/$date_str/nodejs_query" -f "$failure_email"
-  if [[ -e "$failure_email" ]]; then
-    python3 send_email.py --recipient="datacommons-alerts+tests@google.com" --email_content="$failure_email"
-  fi
-  echo "Finished the nodejs Test."
-  echo "====================================================================================="
-  rm -rf ./output/*
-else
-  echo "====================================================================================="
-  echo "Skipping nodejs tests (ENABLE_NODEJS is '${ENABLE_NODEJS}' and NODEJS_API_ROOT is '${NODEJS_API_ROOT}')"
-  echo "====================================================================================="
-fi
 
 # Run sanity tests if ENABLE_SANITY is "true"
 if [[ $ENABLE_SANITY == "true" ]]; then

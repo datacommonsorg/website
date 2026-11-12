@@ -247,7 +247,7 @@ gcloud auth configure-docker
 # Builds and pushes website image to GCR
 ./scripts/push_image.sh datcom-ci DEV
 ```
-*   This will push the `datacommons-website`, `datacommons-nl`, and `datacommons-nodejs` images tagged with `dev-<git-hash>` (e.g., `dev-72c634f`).
+*   This will push the `datacommons-website` and `datacommons-nl` images tagged with `dev-<git-hash>` (e.g., `dev-72c634f`).
   *   **Note**: This script does not push a mixer image.
   * Check for the image in [Artifact Registry (datacommons-website)](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io/datacommons-website?project=datcom-ci)
 

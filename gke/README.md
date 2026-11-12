@@ -81,14 +81,10 @@ You should have owner/editor role to perform the following tasks.
    ```
 
 1. (Optional) If you're using multiple clusters, run the following script to
-   setup multi-cluster ingress and services. Use the "-n" flag to include the nodejs server in the setup.
+   setup multi-cluster ingress and services.
 
    ```bash
-   # Set up multi-cluster ingress and service WITHOUT nodejs
    ./setup_config_cluster.sh <ENV> <REGION>
-
-   # Set up multi-cluster ingress and service WITH nodejs
-   ./setup_config_cluster.sh <ENV> <REGION> -n
    ```
 
 ## Narratives emergency off switch
@@ -163,7 +159,7 @@ where `<ENV>` refers to the name of the instance and `<REGION>` is the region of
 
 ## Add a cron testing job
 
-Note: By default, the added cron testing job will run every 4 hours. If you want the job to run on a different schedule, update the `schedule` field in [cron_testing_job.yaml.tpl](./cron_testing_job.yaml.tpl) before setting up the job. Specific test suites (Sanity, Adversarial, Node.js Query) can be controlled via `enableSanity`, `enableAdversarial`, and `enableNodejs` under `cronTesting` in the environment Helm charts. Note that `enableNodejs` defaults to `false` pending Node.js server deprecation.
+Note: By default, the added cron testing job will run every 4 hours. If you want the job to run on a different schedule, update the `schedule` field in [cron_testing_job.yaml.tpl](./cron_testing_job.yaml.tpl) before setting up the job. Specific test suites (Sanity, Adversarial) can be controlled via `enableSanity` and `enableAdversarial` under `cronTesting` in the environment Helm charts.
 
 To set up cron testing for a cluster, run:
 
