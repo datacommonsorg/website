@@ -25,6 +25,7 @@ from server.lib.feature_flags import filter_by_feature_flag
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.feature_flags import is_feature_override_disabled
 from server.lib.feature_flags import is_feature_override_enabled
+from server.lib.feature_flags import VIEW_TRANSITIONS_FEATURE_FLAG
 from server.tests.utils import mock_feature_flags
 
 TEST_FEATURE_FLAG = "test_feature_flag"
@@ -283,7 +284,7 @@ class TestFeatureFlags(unittest.TestCase):
 
   def test_view_transitions_flag(self):
     """base.html renders the view transition block only when its flag is on."""
-    flag = "view_transitions"
+    flag = VIEW_TRANSITIONS_FEATURE_FLAG
     mock_feature_flags(self.app, [flag], False)
     html = self.client.get("/").get_data(as_text=True)
     self.assertNotIn("@view-transition", html)
