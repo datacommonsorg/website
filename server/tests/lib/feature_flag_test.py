@@ -25,6 +25,7 @@ from server.lib.feature_flags import filter_by_feature_flag
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.feature_flags import is_feature_override_disabled
 from server.lib.feature_flags import is_feature_override_enabled
+from server.lib.feature_flags import VIEW_TRANSITIONS_FEATURE_FLAG
 from server.tests.utils import mock_feature_flags
 
 TEST_FEATURE_FLAG = "test_feature_flag"
@@ -280,6 +281,24 @@ class TestFeatureFlags(unittest.TestCase):
     # Clean up configs
     self.app.config["DB_COHORT_FORCE_SPANNER_IPS"] = ""
     self.app.config["DB_COHORT_FORCE_NON_SPANNER_IPS"] = ""
+
+  def test_view_transitions_flag(self):
+    """base.html renders the view transition block only when its flag is on."""
+    flag = VIEW_TRANSITIONS_FEATURE_FLAG
+    mock_feature_flags(self.app, [flag], False)
+    html = self.client.get("/").get_data(as_text=True)
+    self.assertNotIn("@view-transition", html)
+    html = self.client.get(f"/?{FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM}={flag}"
+                          ).get_data(as_text=True)
+    self.assertIn("@view-transition", html)
+
+    mock_feature_flags(self.app, [flag], True)
+    html = self.client.get("/").get_data(as_text=True)
+    self.assertIn("@view-transition", html)
+    self.assertIn('"/labs/discover"', html)
+    html = self.client.get(f"/?{FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM}={flag}"
+                          ).get_data(as_text=True)
+    self.assertNotIn("@view-transition", html)
 
   def test_filter_by_feature_flag(self):
     """Drops list dicts gated on a disabled flag and strips `featureFlag`."""
