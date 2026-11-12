@@ -133,7 +133,7 @@ else
   # (preserving the mTLS endpoint when Certificate-Based Access is active).
   USE_MTLS=$(gcloud config get-value context_aware/use_client_certificate 2>/dev/null || true)
   ALWAYS_MTLS=$(gcloud config get-value context_aware/always_use_mtls_endpoint 2>/dev/null || true)
-  if [[ "${USE_MTLS,,}" == "true" || "$USE_MTLS" == "1" || "${ALWAYS_MTLS,,}" == "true" || "$ALWAYS_MTLS" == "1" ]]; then
+  if [[ "$USE_MTLS" =~ ^([Tt][Rr][Uu][Ee]|1)$ || "$ALWAYS_MTLS" =~ ^([Tt][Rr][Uu][Ee]|1)$ ]]; then
     MODEL_ARMOR_ENDPOINT="https://modelarmor.${MODEL_ARMOR_LOCATION}.rep.mtls.googleapis.com/"
   else
     MODEL_ARMOR_ENDPOINT="https://modelarmor.${MODEL_ARMOR_LOCATION}.rep.googleapis.com/"
