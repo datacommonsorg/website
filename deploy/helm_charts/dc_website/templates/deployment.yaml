@@ -243,6 +243,12 @@ spec:
               value: {{ .Values.narratives.dcApiKeySecret | quote }}
             - name: TRANSCRIPT_HMAC_SECRET_NAME
               value: {{ .Values.narratives.transcriptHmacSecretName | quote }}
+            - name: MODEL_ARMOR_TEMPLATE
+              {{- if .Values.narratives.modelArmorTemplateId }}
+              value: {{ printf "projects/%s/locations/%s/templates/%s" (required "Missing: project" .Values.project) (required "Missing: narratives.modelArmorLocation" .Values.narratives.modelArmorLocation) .Values.narratives.modelArmorTemplateId | quote }}
+              {{- else }}
+              value: ""
+              {{- end }}
           startupProbe:
             httpGet:
               path: {{ .Values.narratives.basePath }}/healthz

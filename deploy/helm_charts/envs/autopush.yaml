@@ -125,3 +125,5 @@ narratives:
   cloudLocation: "global"
   dcApiKeySecret: "mixer-api-key"
   transcriptHmacSecretName: "narratives-transcript-hmac-secret"
+  modelArmorLocation: "us-central1"
+  modelArmorTemplateId: "discover-autopush"
