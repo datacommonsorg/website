@@ -13,19 +13,19 @@ fastapi==0.135.3
 opentelemetry-api==1.37.0
 opentelemetry-sdk==1.37.0
 opentelemetry-exporter-otlp-proto-http==1.37.0
-google-adk==1.28.1
+google-adk==1.38.0
 google-auth==2.49.1
 google-auth-oauthlib==1.2.0
 google-api-core>=2.18.0,<3.0.0
 google-cloud-logging>=3.11.0,<4.0.0
-google-cloud-aiplatform==1.145.0
+google-cloud-aiplatform==1.165.1
 google-cloud-bigtable==2.32.0
 google-cloud-core==2.4.1
 google-cloud-discoveryengine==0.13.12
 google-cloud-language
 google-cloud-secret-manager==2.22.0
 google-cloud-storage==3.0.0
-google-genai==1.64.0
+google-genai==2.12.1
 gunicorn==23.0.0
 isort==5.10.0
 jinja2==3.1.6
@@ -34,9 +34,9 @@ langdetect==1.0.9
 markupsafe==2.1.2
 numpy==2.2.4
 parameterized==0.8.1
-pillow==12.3.0
+pillow==13.0.0
 protobuf>=4.25.3
-pydantic==2.12.0
+pydantic==2.13.5
 PyGithub==1.58.2
 pyOpenSSL==23.2.0
 python-dateutil>=2.9.0.post0, <3.0.0
@@ -48,6 +48,7 @@ PyYAML==6.0.2
 redis==4.5.4
 requests==2.33.0
 selenium==4.21.0
+starlette==1.10.0
 typing-extensions==4.15.0
 webdriver-manager==4.0.0
 Werkzeug==3.0.6
