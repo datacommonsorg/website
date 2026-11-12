@@ -22,8 +22,9 @@
 import _ from "lodash";
 import React from "react";
 
+import { OpenInNew } from "../components/elements/icons/open_in_new";
 import { GoogleMap } from "../components/google_map";
-import { getOutArcRowElementId } from "../utils/browser_utils";
+import { getOutArcRowElementId, isHttpUrl } from "../utils/browser_utils";
 import { ArcValue } from "./types";
 
 const HREF_PREFIX = "/browser/";
@@ -75,6 +76,16 @@ export class ArcTableRow extends React.Component<
               <GoogleMap dcid={value.dcid}></GoogleMap>
             )}
           </>
+        ) : isHttpUrl(value.text) ? (
+          <a
+            className="external-url-link"
+            href={value.text.trim()}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {value.text}
+            <OpenInNew aria-hidden="true" />
+          </a>
         ) : (
           <span>{value.text}</span>
         )}

@@ -22,6 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
+import { OpenInNew } from "../components/elements/icons/open_in_new";
 import { WEBSITE_SURFACE_HEADER } from "../shared/constants";
 import {
   Series,
@@ -30,6 +31,7 @@ import {
 } from "../shared/stat_types";
 import { loadSpinner, randDomId, removeSpinner } from "../shared/util";
 import { stringifyFn } from "../utils/axios";
+import { isHttpUrl } from "../utils/browser_utils";
 import { getUnit } from "../utils/stat_metadata_utils";
 import { ObservationChart } from "./observation_chart";
 
@@ -114,7 +116,22 @@ export class ObservationChartSection extends React.Component<
                 placeDcid={this.props.placeDcid}
                 statVarName={this.props.statVarName}
               />
-              <p className="metadata">provenance: {metadata.provenanceUrl}</p>
+              <p className="metadata">
+                provenance:{" "}
+                {isHttpUrl(metadata.provenanceUrl) ? (
+                  <a
+                    className="external-url-link"
+                    href={metadata.provenanceUrl.trim()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {metadata.provenanceUrl}
+                    <OpenInNew aria-hidden="true" />
+                  </a>
+                ) : (
+                  metadata.provenanceUrl
+                )}
+              </p>
             </div>
           );
         })}
