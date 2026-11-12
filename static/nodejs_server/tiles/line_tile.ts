@@ -39,7 +39,7 @@ import {
   TOOLFORMER_RAG_MODE,
 } from "../constants";
 import { TileResult } from "../types";
-import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
+import { getProcessedSvg, getSources, getSvgXml } from "./utils";
 
 function getTileProp(
   id: string,
@@ -159,15 +159,8 @@ export async function getLineTileResult(
       }
     }
     if (useChartUrl) {
-      result.chartUrl = getChartUrl(
-        tileConfig,
-        place.dcid,
-        statVarSpec,
-        "",
-        null,
-        urlRoot,
-        apikey
-      );
+      // Chart images are no longer served (/nodejs/chart was removed), so
+      // return the data without a chart.
       return result;
     }
     const svg = getLineChartSvg(tileProp, chartData, chartTitle);
@@ -175,39 +168,6 @@ export async function getLineTileResult(
     return result;
   } catch (e) {
     console.log("Failed to get line tile result for: " + id);
-    return null;
-  }
-}
-
-/**
- * Gets the line chart for a given tile config
- * @param tileConfig the tile config for the line chart
- * @param place the place to get the line chart for
- * @param statVarSpec list of stat var specs to show in the chart
- * @param apiRoot API root to use to fetch data
- */
-export async function getLineChart(
-  tileConfig: TileConfig,
-  place: NamedTypedPlace,
-  statVarSpec: StatVarSpec[],
-  apiRoot: string
-): Promise<SVGSVGElement> {
-  const tileProp = getTileProp(
-    CHART_ID,
-    tileConfig,
-    place,
-    statVarSpec,
-    apiRoot
-  );
-  try {
-    const chartData = await fetchData(tileProp);
-    const chartTitle = getChartTitle(
-      tileConfig.title,
-      getReplacementStrings(tileProp, chartData)
-    );
-    return getLineChartSvg(tileProp, chartData, chartTitle);
-  } catch (e) {
-    console.log("Failed to get line chart");
     return null;
   }
 }

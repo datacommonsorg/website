@@ -16,36 +16,11 @@
 
 import express, { Request, Response } from "express";
 import { JSDOM } from "jsdom";
-import _ from "lodash";
-import sharp from "sharp";
 
 import { SURFACE_HEADER_NAME } from "../js/shared/constants";
-import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import type {} from "../js/theme/emotion";
-import {
-  EventTypeSpec,
-  TileConfig,
-} from "../js/types/subject_page_proto_types";
-import {
-  BARD_CLIENT_URL_PARAM,
-  CHART_ID,
-  CHART_INFO_PARAMS,
-  CHART_PARAMS,
-} from "../nodejs_server/constants";
+import { BARD_CLIENT_URL_PARAM } from "../nodejs_server/constants";
 import { getQueryResult } from "../nodejs_server/query";
-import { getBarChart, getBarTileResult } from "../nodejs_server/tiles/bar_tile";
-import { getDisasterMapChart } from "../nodejs_server/tiles/disaster_map_tile";
-import {
-  getLineChart,
-  getLineTileResult,
-} from "../nodejs_server/tiles/line_tile";
-import { getMapChart, getMapTileResult } from "../nodejs_server/tiles/map_tile";
-import {
-  getScatterChart,
-  getScatterTileResult,
-} from "../nodejs_server/tiles/scatter_tile";
-import { decompressChartProps } from "../nodejs_server/tiles/utils";
-import { TileResult } from "../nodejs_server/types";
 import type {} from "./types/react-inert";
 
 const app = express();
@@ -93,8 +68,6 @@ const CHAR_HEIGHT = 13;
 const CHART_URL_PARAM_SVG = "0";
 // The param value that indicates the param is truthy.
 const URL_PARAM_VALUE_TRUTHY = "1";
-// Size of the PNG to return for the chart query
-const PNG_WIDTH = 1600;
 
 const dom = new JSDOM(
   `<html><body><div id="dom-id" style="width:500px"></div></body></html>`,
@@ -164,132 +137,6 @@ function getTextLength(text: string): number {
   };
 };
 
-// Gets a promise for a single tile result
-function getTileResult(
-  id: string,
-  place: NamedTypedPlace,
-  enclosedPlaceType: string,
-  svSpec: StatVarSpec[],
-  tileConfig: TileConfig
-): Promise<TileResult> {
-  switch (tileConfig.type) {
-    case "LINE":
-      return getLineTileResult(
-        id,
-        tileConfig,
-        place,
-        svSpec,
-        CONFIG.apiRoot,
-        "",
-        false
-      );
-    case "SCATTER":
-      return getScatterTileResult(
-        id,
-        tileConfig,
-        place,
-        enclosedPlaceType,
-        svSpec,
-        CONFIG.apiRoot,
-        "",
-        false
-      );
-    case "BAR":
-      return getBarTileResult(
-        id,
-        tileConfig,
-        place.dcid,
-        enclosedPlaceType,
-        svSpec as any as StatVarSpec[],
-        CONFIG.apiRoot,
-        "",
-        false
-      );
-    case "MAP":
-      return getMapTileResult(
-        id,
-        tileConfig,
-        place,
-        enclosedPlaceType,
-        svSpec[0],
-        CONFIG.apiRoot,
-        "",
-        false
-      );
-    default:
-      return Promise.resolve(null);
-  }
-}
-
-// Get the chart html for a tile
-function getTileChart(
-  tileConfig: TileConfig,
-  placeDcid: string,
-  childPlaceType: string,
-  svSpec: StatVarSpec[],
-  eventTypeSpec: Record<string, EventTypeSpec>
-): Promise<SVGSVGElement> {
-  // The name and types of a place are not used when drawing charts, so just
-  // set default values for them.
-  const place = {
-    dcid: placeDcid,
-    name: placeDcid,
-    types: [],
-  };
-  switch (tileConfig.type) {
-    case "LINE":
-      return getLineChart(tileConfig, place, svSpec, CONFIG.apiRoot);
-    case "BAR":
-      return getBarChart(
-        tileConfig,
-        place.dcid,
-        childPlaceType,
-        svSpec,
-        CONFIG.apiRoot
-      );
-    case "MAP":
-      return getMapChart(
-        tileConfig,
-        place,
-        childPlaceType,
-        svSpec.length ? svSpec[0] : null,
-        CONFIG.apiRoot
-      );
-    case "SCATTER":
-      return getScatterChart(
-        tileConfig,
-        place,
-        childPlaceType,
-        svSpec,
-        CONFIG.apiRoot
-      );
-    /* TODO: foreignobject doesn't work with the svg to png converter. Need to
-             find a different way to render an svg of the ranking table & then
-             re-enable this.
-    case "RANKING":
-      return getRankingChart(
-        tileConfig,
-        place,
-        childPlaceType,
-        svSpec,
-        CONFIG.apiRoot
-      );*/
-    case "DISASTER_EVENT_MAP":
-      return getDisasterMapChart(
-        tileConfig,
-        place,
-        childPlaceType,
-        eventTypeSpec,
-        CONFIG.apiRoot
-      );
-    default:
-      console.log(
-        `Chart of type ${_.escape(tileConfig.type)} is not supported.`
-      );
-      return Promise.resolve(null);
-  }
-}
-
 // Prevents returning 304 status if same GET request gets hit multiple times.
 // This is needed for health checks to pass which require a 200 status.
 app.disable("etag");
@@ -336,73 +183,6 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
       res.status(200).send(JSON.stringify(result));
     }
   });
-});
-
-app.get("/nodejs/chart", (req: Request, res: Response) => {
-  const chartProps = decompressChartProps(
-    req.query[CHART_PARAMS.PROPS] as string
-  );
-  const useSvgFormat =
-    req.query[CHART_PARAMS.AS_SVG] === URL_PARAM_VALUE_TRUTHY;
-  const contentType = useSvgFormat ? "image/svg+xml" : "image/png";
-  res.setHeader("Content-Type", contentType);
-  getTileChart(
-    chartProps.tileConfig,
-    chartProps.place,
-    chartProps.enclosedPlaceType,
-    chartProps.statVarSpec,
-    chartProps.eventTypeSpec
-  )
-    .then((chart) => {
-      if (useSvgFormat) {
-        res.status(200).send(chart.outerHTML);
-      } else {
-        sharp(Buffer.from(chart.outerHTML))
-          .resize(PNG_WIDTH)
-          .png()
-          .toBuffer()
-          .then((chartPng) => {
-            res.status(200).send(chartPng);
-          })
-          .catch((error) => {
-            console.log("Error getting png:\n", error.message);
-            res.status(500).send(null);
-          });
-      }
-    })
-    .catch((error) => {
-      console.log("Error making request:\n", error.message);
-      res.status(500).send(null);
-    });
-});
-
-// TODO: come up with better params
-app.get("/nodejs/chart-info", (req: Request, res: Response) => {
-  const place = _.escape(req.query[CHART_INFO_PARAMS.PLACE] as string);
-  const enclosedPlaceType = _.escape(
-    req.query[CHART_INFO_PARAMS.ENCLOSED_PLACE_TYPE] as string
-  );
-  const svSpec = JSON.parse(
-    req.query[CHART_INFO_PARAMS.STAT_VAR_SPEC] as string
-  );
-  const tileConfig = JSON.parse(
-    req.query[CHART_INFO_PARAMS.TILE_CONFIG] as string
-  );
-  res.setHeader("Content-Type", "application/json");
-  const namedTypedPlace = { dcid: place, name: place, types: [] };
-  getTileResult(
-    CHART_ID,
-    namedTypedPlace,
-    enclosedPlaceType,
-    svSpec,
-    tileConfig
-  )
-    .then((tileResult) => {
-      res.status(200).send(JSON.stringify(tileResult));
-    })
-    .catch(() => {
-      res.status(500).send({ err: "Error fetching data." });
-    });
 });
 
 app.get("/nodejs/healthz", (_, res: Response) => {
