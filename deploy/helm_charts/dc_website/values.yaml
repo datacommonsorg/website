@@ -165,6 +165,9 @@ narratives:
   # Emergency off switch: set to false to reject new chat turns immediately
   # (no Gemini or MCP calls) while keeping the static UI and shared stories up.
   enableChat: true
+  # Turn debug panel mode ("off", "flag", or "on"). Quote values so YAML 1.1
+  # does not parse bare on/off as booleans.
+  debugReport: "off"
   image:
     tag: ""
   replicas: 2
