@@ -38,11 +38,11 @@ spec:
             backend:
                 serviceName: website-nodejs-mcs
                 servicePort: 8080
-          - path: <NARRATIVES_BASE_PATH>
+          - path: <DISCOVER_BASE_PATH>
             backend:
-                serviceName: website-narratives-mcs
+                serviceName: website-agentic-mcs
                 servicePort: 8080
-          - path: <NARRATIVES_BASE_PATH>/*
+          - path: <DISCOVER_BASE_PATH>/*
             backend:
-                serviceName: website-narratives-mcs
+                serviceName: website-agentic-mcs
                 servicePort: 8080

@@ -112,19 +112,21 @@ cronTesting:
   nodePool: "pool-1"
   schedule: "0 */12 * * *"
 
-narratives:
+agentic:
   enabled: true
-  enableChat: true
-  debugReport: "on"
-  image:
-    tag: ""
   replicas: 2
-  cpu: "1"
-  memory: "1G"
   mcpServerUrl: "https://autopush.api.datacommons.org/mcp"
   useVertexAi: true
   cloudLocation: "global"
   dcApiKeySecret: "mixer-api-key"
-  transcriptHmacSecretName: "narratives-transcript-hmac-secret"
+  transcriptHmacSecretName: "agentic-transcript-hmac-secret"
   modelArmorLocation: "us-central1"
-  modelArmorTemplateId: "discover-autopush"
+  discover:
+    enabled: true
+    enableChat: true
+    debugReport: "on"
+    image:
+      tag: ""
+    cpu: "1"
+    memory: "1G"
+    modelArmorTemplateId: "discover-autopush"
