@@ -61,7 +61,7 @@ This script uploads the feature flag configuration files from the Github master 
 * This script assumes you have the Google Cloud SDK installed and configured.
 * The script expects a JSON file named `dev.json`, `staging.json`, or `production.json` in the current directory.
 * The script can be modified to upload different files or perform additional actions after the deployment.
-* Pull requests modifying `server/config/feature_flag_configs/production.json` trigger an immediate rolling restart of the production GKE deployments when merged, require `@datacommonsorg/oncallers` review (via [.github/CODEOWNERS](https://github.com/datacommonsorg/website/blob/master/.github/CODEOWNERS)), and must include the following attestation block in the PR description (enforced by [.github/workflows/feature-flag-checks.yml](https://github.com/datacommonsorg/website/blob/master/.github/workflows/feature-flag-checks.yml)):
+* Pull requests modifying `server/config/feature_flag_configs/production.json` trigger an immediate rolling restart of the production GKE deployments when merged, require `@datacommonsorg/oncallers` review (via [.github/CODEOWNERS](../.github/CODEOWNERS)), and must include the following attestation block in the PR description (enforced by [.github/workflows/feature-flag-checks.yml](../.github/workflows/feature-flag-checks.yml)):
   ```markdown
   Production Feature Flag Attestation:
   - Validated these exact flag changes in staging (or rolling back to a known-good config).

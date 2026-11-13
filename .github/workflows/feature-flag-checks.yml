@@ -19,10 +19,10 @@ jobs:
     permissions:
       pull-requests: read
     steps:
-      # Official GitHub action that runs a Node.js script with a pre-authenticated
-      # Octokit REST client (`github`) and workflow event context (`context`).
       - name: Verify production feature flag attestation in PR description
         if: github.event_name == 'pull_request'
+        # Official GitHub action that runs a Node.js script with a pre-authenticated
+        # Octokit REST client (`github`) and workflow event context (`context`).
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
