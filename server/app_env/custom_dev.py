@@ -17,7 +17,7 @@ from server.app_env import local
 
 
 class Config(custom.Config):
-  NAME = "Custom Data Commons (Dev)"
+  NAME = "Data Commons Platform (Dev)"
 
 
 class LocalConfig(Config, local.Config):

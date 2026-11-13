@@ -18,7 +18,7 @@ from server.app_env import local
 
 class Config(_base.Config):
   CUSTOM = True
-  NAME = "Custom Data Commons"
+  NAME = "Data Commons Platform"
   OVERRIDE_CSS_PATH = '/custom_dc/custom/overrides.css'
   LOGO_PATH = "/custom_dc/custom/logo.svg"
   MIN_STAT_VAR_GEO_COVERAGE = 1
