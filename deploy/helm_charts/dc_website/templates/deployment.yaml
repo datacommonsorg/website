@@ -154,6 +154,11 @@ spec:
               value: {{ .Values.narratives.basePath | quote }}
             - name: ENABLE_CHAT
               value: {{ .Values.narratives.enableChat | quote }}
+            {{- if not (and (kindIs "string" .Values.narratives.debugReport) (has .Values.narratives.debugReport (list "" "off" "flag" "on"))) }}
+            {{- fail (printf "Invalid narratives.debugReport %v: must be a quoted string (\"off\", \"flag\", \"on\", or \"\")" .Values.narratives.debugReport) }}
+            {{- end }}
+            - name: DEBUG_REPORT
+              value: {{ .Values.narratives.debugReport | quote }}
             - name: ALLOWED_ORIGIN
               value: "https://{{ required "Missing: domain" .Values.domain }}"
             - name: MCP_SERVER_URL

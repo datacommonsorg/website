@@ -113,6 +113,7 @@ cronTesting:
 narratives:
   enabled: true
   enableChat: true
+  debugReport: "on"
   image:
     tag: ""
   replicas: 2
