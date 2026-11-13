@@ -10,7 +10,7 @@ flask_testing==0.8.1
 frozendict==2.3.4
 geojson_rewind==1.0.1
 fastapi==0.135.3
-opentelemetry-api==1.37.0
+opentelemetry-api==1.45.2
 opentelemetry-sdk==1.37.0
 opentelemetry-exporter-otlp-proto-http==1.37.0
 google-adk==1.38.0
