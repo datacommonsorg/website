@@ -1,71 +1,72 @@
-# This workflow surfaces an annotation check in PR reviews when production feature flags are modified.
+# This check enforces that pull requests modifying production feature flags
+# (server/config/feature_flag_configs/production.json) include the required
+# attestation statement in the PR description.
 name: Feature flag checks
 
 on:
-  # zizmor: ignore[dangerous-triggers] - {Needed to post comments on PRs from forked repos; no PR code is checked out or executed.}
-  pull_request_target:
+  pull_request:
     branches: ["master"]
+    types: [opened, synchronize, reopened, edited]
+  # The job may be configured as a required check, so it must also report on merge queue builds.
+  # The attestation is checked on the PR; the step is skipped in the queue.
+  merge_group:
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   production_flag_change_warning:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      pull-requests: write
+      pull-requests: read
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with:
-          persist-credentials: false
-
-      - name: Detect changes to prod feature flag files
-        uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
-        id: changes
-        with:
-          filters: |
-            prod_flags:
-              - 'server/config/feature_flag_configs/production.json'
-
-      - name: Comment production feature flag review checklist on PR
-        if: steps.changes.outputs.prod_flags == 'true' && github.event_name == 'pull_request_target'
+      - name: Verify production feature flag attestation in PR description
+        if: github.event_name == 'pull_request'
+        # Official GitHub action that runs a Node.js script with a pre-authenticated
+        # Octokit REST client (`github`) and workflow event context (`context`).
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
-            const body = `⚠️ **PRODUCTION FEATURE FLAG CHANGE — REVIEW CHECKLIST**
+            const prNumber = context.payload.pull_request.number;
 
-            Please conduct a careful review before merging this production change & coordinate with the oncaller.
-            Merging this PR will trigger a rolling restart of all Kubernetes pods in production.
-
-            ### Things to check before approving:
-            - [ ] **Staging Validated**: Have these exact flag changes been tested and verified in staging?
-            - [ ] **Cache Invalidation**: If API responses change, remember to clear the Redis cache after merging.
-            - [ ] **Time Window**: Ensure updates occur during global working hours; request lead approval for Friday–Sunday updates.
-            - [ ] **Oncall Communication**: Please additionally announce this update on the oncall thread.
-            - [ ] **Type Safety**: Verify that flag value types match what the server binary expects.`;
-
-            // Check if comment already exists from bot
-            const { data: comments } = await github.rest.issues.listComments({
+            // * Fetch changed files via GitHub REST API with pagination (no checkout required)
+            const files = await github.paginate(github.rest.pulls.listFiles, {
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: context.issue.number,
+              pull_number: prNumber,
+              per_page: 100
             });
-            const existingComment = comments.find(c => c.user.type === 'Bot' && c.body.includes('PRODUCTION FEATURE FLAG CHANGE — REVIEW CHECKLIST'));
 
-            if (existingComment) {
-              await github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: existingComment.id,
-                body: body
-              });
-            } else {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                body: body
-              });
+            const prodFlagPath = 'server/config/feature_flag_configs/production.json';
+            const touchesProdFlags = files.some(f => f.filename === prodFlagPath);
+            if (!touchesProdFlags) {
+              core.info('No production feature flags modified in this PR.');
+              return;
             }
+
+            const requiredLines = [
+              'Production Feature Flag Attestation:',
+              '- Validated these exact flag changes in staging (or rolling back to a known-good config).',
+              '- Coordinated with the oncaller (merging triggers a rolling restart of all production pods).',
+              '- Will announce this update on the oncall thread and clear the Redis cache if API responses change.',
+              '- Merging during normal working hours (Mon-Thu), or with lead/oncaller approval.',
+            ];
+            const attestationBlock = requiredLines.join('\n');
+
+            const prBody = context.payload.pull_request.body || '';
+            const missingLines = requiredLines.filter(line => !prBody.includes(line));
+
+            if (missingLines.length > 0) {
+              await core.summary
+                .addHeading('Production Feature Flag Attestation Required', 2)
+                .addRaw('This PR modifies `server/config/feature_flag_configs/production.json`. Please copy the block below into your **PR description**:\n\n')
+                .addCodeBlock(attestationBlock, 'markdown')
+                .write();
+
+              core.setFailed(
+                `This PR modifies production feature flags (server/config/feature_flag_configs/production.json). ` +
+                `Please add the following attestation block to the PR description:\n\n${attestationBlock}`
+              );
+              return;
+            }
+
+            core.info('Production feature flag attestation verified in PR description.');
