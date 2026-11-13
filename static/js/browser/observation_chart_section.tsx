@@ -118,7 +118,7 @@ export class ObservationChartSection extends React.Component<
               />
               <p className="metadata">
                 provenance:{" "}
-                {isHttpUrl(metadata.provenanceUrl) ? (
+                {metadata?.provenanceUrl && isHttpUrl(metadata.provenanceUrl) ? (
                   <a
                     className="external-url-link"
                     href={metadata.provenanceUrl.trim()}
@@ -129,7 +129,7 @@ export class ObservationChartSection extends React.Component<
                     <OpenInNew aria-hidden="true" />
                   </a>
                 ) : (
-                  metadata.provenanceUrl
+                  metadata?.provenanceUrl
                 )}
               </p>
             </div>
