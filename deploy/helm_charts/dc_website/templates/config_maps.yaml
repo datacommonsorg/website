@@ -46,8 +46,11 @@ metadata:
   namespace: {{ .Values.namespace.name }}
 data:
   webApiRoot: {{ .Values.cronTesting.webApiRoot | quote }}
-  nodejsApiRoot: {{ .Values.cronTesting.nodejsApiRoot | quote }}
   enableSanity: {{ .Values.cronTesting.enableSanity | quote }}
   enableAdversarial: {{ .Values.cronTesting.enableAdversarial | quote }}
-  enableNodejs: {{ .Values.cronTesting.enableNodejs | quote }}
+  # TODO: Remove this key once the cron testing job in autopush has been
+  # re-applied (gke/setup_cron_testing.sh). That job was applied before the
+  # NodeJS server was removed, still reads this key, and fails to start if it
+  # is missing.
+  nodejsApiRoot: ""
 {{- end }}

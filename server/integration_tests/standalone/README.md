@@ -75,11 +75,3 @@ Note that leaving the `dc` flag to be empty will also default to the `--dc=main`
 ```shell
 python3 adversarial.py --mode=run_all --dc=sdg
 ```
-
-## NodeJs Query Test (nodejs_query.py)
-
-This test invokes the NodeJs `query` API and persists the results in output json files.
-
-* The output result jsons are persisted by default in a child folder (relative to where the program is run) named `output` (use the `--output_dir` flag to override).
-* The API by default is invoked on `https://dev.datacommons.org` by default (use the `--base_url` flag to override).
-* This test is run in gke by a cronjob.

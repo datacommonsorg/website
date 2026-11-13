@@ -110,7 +110,6 @@ steps:
         images_arr=(
           "gcr.io/datcom-ci/datacommons-website=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website:$${website_githash}"
           "gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:$${mixer_githash}"
-          "gcr.io/datcom-ci/datacommons-nodejs=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nodejs:$${website_githash}"
           "gcr.io/datcom-ci/datacommons-narratives=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-narratives:$${narratives_githash}"
         )
         images_str=$$(IFS=,; echo "$${images_arr[*]}")

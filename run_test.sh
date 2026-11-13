@@ -228,8 +228,7 @@ function run_py_test {
   export FLASK_ENV=test
   export TOKENIZERS_PARALLELISM=false
   # Run website server tests
-  # Disabled nodejs e2e test to avoid dependency on dev
-  uv run --project server --group test python3 -m pytest -n auto server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py ${@}
+  uv run --project server --group test python3 -m pytest -n auto server/tests/ -s ${@}
   uv run --project server --group test python3 -m pytest -n auto shared/tests/ -s ${@}
 
   # Run nl server tests

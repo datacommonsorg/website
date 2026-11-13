@@ -43,48 +43,6 @@ spec:
   selector:
     app: website-app
 
-{{- if .Values.nodejs.enabled }}
----
-
-apiVersion: cloud.google.com/v1
-kind: BackendConfig
-metadata:
-  name: backendconfig-nodejs
-  namespace: website
-spec:
-  timeoutSec: 60
-  connectionDraining:
-    drainingTimeoutSec: 60
-  healthCheck:
-    checkIntervalSec: 15
-    port: 8080
-    type: HTTP
-    requestPath: /nodejs/healthz
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: website-nodejs-service
-  namespace: {{ .Values.namespace.name }}
-  annotations:
-    {{- if .Values.ingress.internal }}
-    cloud.google.com/neg: '{"ingress": true}'
-    {{- end }}
-    cloud.google.com/backend-config: '{"ports": {"8080":"backendconfig-nodejs"}}'
-spec:
-  type: NodePort
-  ports:
-    - port: 8080
-      targetPort: 8080
-      protocol: TCP
-      name: http
-  selector:
-    app: website-nodejs-app
-
-{{- end }}
-
 {{- if .Values.narratives.enabled }}
 ---
 
@@ -192,17 +150,6 @@ spec:
   rules:
     {{- if .Values.ingress.internal }}
     - host: website-ilb.website.internal
-    {{- end }}
-    {{- if .Values.nodejs.enabled }}
-    - http:
-        paths:
-        - path: /nodejs/*
-          pathType: ImplementationSpecific
-          backend:
-            service:
-              name: website-nodejs-service
-              port:
-                number: 8080
     {{- end }}
     {{- if .Values.narratives.enabled }}
     - http:

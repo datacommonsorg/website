@@ -86,6 +86,5 @@ svg:
 cronTesting:
   enabled: true
   webApiRoot: "https://staging.datacommons.org"
-  enableNodejs: false # skip nodejs tests in staging
   nodePool: "default-pool"
   schedule: "* * 31 2 *" # invalid day for month -> never run automatically

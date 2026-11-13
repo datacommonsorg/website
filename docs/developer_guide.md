@@ -26,8 +26,6 @@ The file structure is as follows:
 ├── server/              # Main Python website server code (Flask/endpoints)
 ├── shared/              # Shared resources and logic used across website and nl servers
 ├── static/              # Static assets: CSS, JavaScript, images, and data files for website
-│   └── src/               # Entry point for the NodeJS Charts server
-│   └── nodejs_server/     # Main lib code for the NodeJs Charts server
 ├── tools/               # Developer tools (e.g., golden generators, verifiers)
 ├── nl_app.py            # Entry point for the NL server
 ├── web_app.py           # Entry point for the main website server
@@ -247,7 +245,7 @@ gcloud auth configure-docker
 # Builds and pushes website image to GCR
 ./scripts/push_image.sh datcom-ci DEV
 ```
-*   This will push the `datacommons-website`, `datacommons-nl`, and `datacommons-nodejs` images tagged with `dev-<git-hash>` (e.g., `dev-72c634f`).
+*   This will push the `datacommons-website`, `datacommons-services`, and `website-cron-testing` images tagged with `dev-<git-hash>` (e.g., `dev-72c634f`).
   *   **Note**: This script does not push a mixer image.
   * Check for the image in [Artifact Registry (datacommons-website)](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io/datacommons-website?project=datcom-ci)
 
