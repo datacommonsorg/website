@@ -155,29 +155,31 @@ cronTesting:
   schedule:
 
 ###############################################################################
-# Config for Narratives Server
+# Config for Agentic Apps (e.g. Discover)
 ###############################################################################
-narratives:
-  # Set to false to remove the Narratives Deployment, Service, and the
-  # `basePath` Ingress routes completely.
+agentic:
+  # Set to false to remove the website-agentic-apps Deployment,
+  # website-agentic-service Service, and agentic Ingress routes completely.
   enabled: false
-  basePath: "/labs/discover"
-  # Emergency off switch: set to false to reject new chat turns immediately
-  # (no Gemini or MCP calls) while keeping the static UI and shared stories up.
-  enableChat: true
-  # Turn debug panel mode ("off", "flag", or "on"). Quote values so YAML 1.1
-  # does not parse bare on/off as booleans.
-  debugReport: "off"
-  image:
-    tag: ""
   replicas: 2
-  cpu: "1"
-  memory: "1G"
   nodePool:
   mcpServerUrl: "https://api.datacommons.org/mcp"
   useVertexAi: true
   cloudLocation: "global"
   dcApiKeySecret: "mixer-api-key"
-  transcriptHmacSecretName: "narratives-transcript-hmac-secret"
+  transcriptHmacSecretName: "agentic-transcript-hmac-secret"
   modelArmorLocation: "us-central1"
-  modelArmorTemplateId: ""
+  discover:
+    enabled: true
+    basePath: "/labs/discover"
+    # Emergency off switch: set to false to reject new chat turns immediately
+    # (no Gemini or MCP calls) while keeping the static UI and shared stories up.
+    enableChat: true
+    # Turn debug panel mode ("off", "flag", or "on"). Quote values so YAML 1.1
+    # does not parse bare on/off as booleans.
+    debugReport: "off"
+    image:
+      tag: ""
+    cpu: "1"
+    memory: "1G"
+    modelArmorTemplateId: ""

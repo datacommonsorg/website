@@ -180,7 +180,7 @@ spec:
               port: 8080
 {{- end }}
 
-{{- if .Values.narratives.enabled }}
+{{- if and .Values.agentic .Values.agentic.enabled .Values.agentic.discover .Values.agentic.discover.enabled }}
 ---
 
 apiVersion: apps/v1
@@ -189,12 +189,12 @@ metadata:
   name: website-agentic-apps
   namespace: {{ .Values.namespace.name }}
 spec:
-  replicas: {{ .Values.narratives.replicas }}
+  replicas: {{ .Values.agentic.replicas }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: {{ div .Values.narratives.replicas 4 | add 1 }}
-      maxUnavailable: {{ div .Values.narratives.replicas 4 | add 1 }}
+      maxSurge: {{ div .Values.agentic.replicas 4 | add 1 }}
+      maxUnavailable: {{ div .Values.agentic.replicas 4 | add 1 }}
   selector:
     matchLabels:
       app: website-agentic-apps
@@ -203,73 +203,75 @@ spec:
       labels:
         app: website-agentic-apps
     spec:
-      {{- if .Values.narratives.nodePool }}
+      {{- if .Values.agentic.nodePool }}
       nodeSelector:
-        cloud.google.com/gke-nodepool: {{ .Values.narratives.nodePool }}
+        cloud.google.com/gke-nodepool: {{ .Values.agentic.nodePool }}
       {{- end }}
       serviceAccountName: {{ .Values.serviceAccount.name }}
       terminationGracePeriodSeconds: 125
       containers:
-        - name: narratives
-          image: "gcr.io/datcom-ci/datacommons-narratives{{- if .Values.narratives.image.tag }}:{{ .Values.narratives.image.tag }}{{- end }}"
+        {{- if .Values.agentic.discover.enabled }}
+        - name: discover
+          image: "gcr.io/datcom-ci/datacommons-discover{{- if .Values.agentic.discover.image.tag }}:{{ .Values.agentic.discover.image.tag }}{{- end }}"
           imagePullPolicy: {{ .Values.website.image.pullPolicy }}
           args: []
           ports:
             - containerPort: 8080
           resources:
             limits:
-              memory: {{ .Values.narratives.memory | quote }}
+              memory: {{ .Values.agentic.discover.memory | quote }}
             requests:
-              cpu: {{ .Values.narratives.cpu | default "500m" | quote }}
-              memory: {{ .Values.narratives.memory | quote }}
+              cpu: {{ .Values.agentic.discover.cpu | default "500m" | quote }}
+              memory: {{ .Values.agentic.discover.memory | quote }}
           env:
             - name: PORT
               value: "8080"
             - name: BASE_PATH
-              value: {{ .Values.narratives.basePath | quote }}
+              value: {{ .Values.agentic.discover.basePath | quote }}
             - name: ENABLE_CHAT
-              value: {{ .Values.narratives.enableChat | quote }}
-            {{- if not (and (kindIs "string" .Values.narratives.debugReport) (has .Values.narratives.debugReport (list "" "off" "flag" "on"))) }}
-            {{- fail (printf "Invalid narratives.debugReport %v: must be a quoted string (\"off\", \"flag\", \"on\", or \"\")" .Values.narratives.debugReport) }}
+              value: {{ .Values.agentic.discover.enableChat | quote }}
+            {{- if not (and (kindIs "string" .Values.agentic.discover.debugReport) (has .Values.agentic.discover.debugReport (list "" "off" "flag" "on"))) }}
+            {{- fail (printf "Invalid agentic.discover.debugReport %v: must be a quoted string (\"off\", \"flag\", \"on\", or \"\")" .Values.agentic.discover.debugReport) }}
             {{- end }}
             - name: DEBUG_REPORT
-              value: {{ .Values.narratives.debugReport | quote }}
+              value: {{ .Values.agentic.discover.debugReport | quote }}
             - name: ALLOWED_ORIGIN
               value: "https://{{ required "Missing: domain" .Values.domain }}"
             - name: MCP_SERVER_URL
-              value: {{ .Values.narratives.mcpServerUrl | quote }}
+              value: {{ .Values.agentic.mcpServerUrl | quote }}
             - name: GOOGLE_GENAI_USE_VERTEXAI
-              value: {{ .Values.narratives.useVertexAi | quote }}
+              value: {{ .Values.agentic.useVertexAi | quote }}
             - name: GOOGLE_CLOUD_PROJECT
               value: {{ required "Missing: project" .Values.project | quote }}
             - name: GOOGLE_CLOUD_LOCATION
-              value: {{ .Values.narratives.cloudLocation | quote }}
+              value: {{ .Values.agentic.cloudLocation | quote }}
             - name: DC_API_KEY_SECRET
-              value: {{ .Values.narratives.dcApiKeySecret | quote }}
+              value: {{ .Values.agentic.dcApiKeySecret | quote }}
             - name: TRANSCRIPT_HMAC_SECRET_NAME
-              value: {{ .Values.narratives.transcriptHmacSecretName | quote }}
+              value: {{ .Values.agentic.transcriptHmacSecretName | quote }}
             - name: MODEL_ARMOR_TEMPLATE
-              {{- if .Values.narratives.modelArmorTemplateId }}
-              value: {{ printf "projects/%s/locations/%s/templates/%s" (required "Missing: project" .Values.project) (required "Missing: narratives.modelArmorLocation" .Values.narratives.modelArmorLocation) .Values.narratives.modelArmorTemplateId | quote }}
+              {{- if .Values.agentic.discover.modelArmorTemplateId }}
+              value: {{ printf "projects/%s/locations/%s/templates/%s" (required "Missing: project" .Values.project) (required "Missing: agentic.modelArmorLocation" .Values.agentic.modelArmorLocation) .Values.agentic.discover.modelArmorTemplateId | quote }}
               {{- else }}
               value: ""
               {{- end }}
           startupProbe:
             httpGet:
-              path: {{ .Values.narratives.basePath }}/healthz
+              path: {{ trimSuffix "/" .Values.agentic.discover.basePath }}/healthz
               port: 8080
             failureThreshold: 30
             periodSeconds: 10
           readinessProbe:
             httpGet:
-              path: {{ .Values.narratives.basePath }}/healthz
+              path: {{ trimSuffix "/" .Values.agentic.discover.basePath }}/healthz
               port: 8080
             failureThreshold: 3
             periodSeconds: 10
             timeoutSeconds: 5
           livenessProbe:
             httpGet:
-              path: {{ .Values.narratives.basePath }}/healthz
+              path: {{ trimSuffix "/" .Values.agentic.discover.basePath }}/healthz
               port: 8080
             periodSeconds: 10
+        {{- end }}
 {{- end }}

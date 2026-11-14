@@ -251,11 +251,11 @@ gcloud auth configure-docker
   *   **Note**: This script does not push a mixer image.
   * Check for the image in [Artifact Registry (datacommons-website)](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io/datacommons-website?project=datcom-ci)
 
-#### 2. Get Mixer and Narratives Image Hashes
+#### 2. Get Mixer and Discover Image Hashes
 
 **Standard Case**: Use existing image tags available in Artifact Registry.
 *   Mixer: [Artifact Registry (datacommons-mixer)](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io/datacommons-mixer?project=datcom-ci)
-*   Narratives: [Artifact Registry (datacommons-narratives)](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io/datacommons-narratives?project=datcom-ci)
+*   Discover: [Artifact Registry (datacommons-discover)](https://pantheon.corp.google.com/artifacts/docker/datcom-ci/us/gcr.io/datacommons-discover?project=datcom-ci)
 
 <details>
   <summary><strong>Alternative</strong>: If you need to incorporate local mixer changes, click to expand</summary>
@@ -284,12 +284,12 @@ Once you have your hashes, run the cloud deploy script.
 # Example: website_hash="dev-72c634f"
 website_hash=
 mixer_hash=
-# Optional: if omitted below, deploy_website_cloud_deploy.sh automatically uses the latest non-dev narratives image
-narratives_hash=
+# Optional: if omitted below, deploy_website_cloud_deploy.sh automatically uses the latest non-dev discover image
+discover_hash=
 
-# Deploy Website, Mixer, and Narratives to datcom-website-dev using datacommons-website-dev Delivery pipeline
-./scripts/deploy_website_cloud_deploy.sh $website_hash $mixer_hash $narratives_hash datacommons-website-dev
-# Or omit $narratives_hash to auto-resolve the latest narratives image:
+# Deploy Website, Mixer, and Discover to datcom-website-dev using datacommons-website-dev Delivery pipeline
+./scripts/deploy_website_cloud_deploy.sh $website_hash $mixer_hash $discover_hash datacommons-website-dev
+# Or omit $discover_hash to auto-resolve the latest discover image:
 # ./scripts/deploy_website_cloud_deploy.sh $website_hash $mixer_hash datacommons-website-dev
 ```
 

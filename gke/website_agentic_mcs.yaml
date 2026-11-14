@@ -14,10 +14,10 @@
 apiVersion: networking.gke.io/v1
 kind: MultiClusterService
 metadata:
-  name: website-narratives-mcs
+  name: website-agentic-mcs
   namespace: website
   annotations:
-    cloud.google.com/backend-config: '{"ports": {"8080":"backendconfig-narratives"}}'
+    cloud.google.com/backend-config: '{"ports": {"8080":"backendconfig-agentic"}}'
 spec:
   template:
     spec:

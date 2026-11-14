@@ -14,13 +14,13 @@
 # limitations under the License.
 
 # Provisions the GCP APIs, IAM permissions, Secret Manager secrets, and Model
-# Armor template required by the `narratives` container in
+# Armor template required by agentic app containers (e.g. `discover`) in
 # `website-agentic-apps`.
 #
 # Usage:
-#   ./setup_narratives.sh <ENV>
+#   ./setup_agentic.sh <ENV>
 # Example:
-#   ./setup_narratives.sh autopush
+#   ./setup_agentic.sh autopush
 
 set -euo pipefail
 
@@ -32,7 +32,7 @@ if ! command -v yq >/dev/null 2>&1; then
 fi
 
 if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
-  echo "Usage: ./setup_narratives.sh <ENV>"
+  echo "Usage: ./setup_agentic.sh <ENV>"
   exit 0
 fi
 
@@ -40,7 +40,7 @@ ENV="${1:-}"
 
 if [[ -z "$ENV" ]]; then
   echo "Missing arg 1 (env)." >&2
-  echo "Usage: ./setup_narratives.sh <ENV>" >&2
+  echo "Usage: ./setup_agentic.sh <ENV>" >&2
   exit 1
 fi
 
@@ -61,19 +61,28 @@ if [[ -z "$PROJECT_ID" || "$PROJECT_ID" == "null" ]]; then
   echo "Error: 'project' is missing or null in $CONFIG_YAML" >&2
   exit 1
 fi
-DC_API_KEY_SECRET=$(yq eval '.narratives.dcApiKeySecret // "mixer-api-key"' "$CONFIG_YAML")
-HMAC_SECRET_ID=$(yq eval '.narratives.transcriptHmacSecretName // "narratives-transcript-hmac-secret"' "$CONFIG_YAML")
-MODEL_ARMOR_LOCATION=$(yq eval '.narratives.modelArmorLocation // ""' "$CONFIG_YAML")
+DC_API_KEY_SECRET=$(yq eval '.agentic.dcApiKeySecret // ""' "$CONFIG_YAML")
+if [[ -z "$DC_API_KEY_SECRET" || "$DC_API_KEY_SECRET" == "null" ]]; then
+  DC_API_KEY_SECRET=$(yq eval '.agentic.dcApiKeySecret // "mixer-api-key"' "$VALUES_YAML")
+fi
+HMAC_SECRET_ID=$(yq eval '.agentic.transcriptHmacSecretName // ""' "$CONFIG_YAML")
+if [[ -z "$HMAC_SECRET_ID" || "$HMAC_SECRET_ID" == "null" ]]; then
+  HMAC_SECRET_ID=$(yq eval '.agentic.transcriptHmacSecretName // "agentic-transcript-hmac-secret"' "$VALUES_YAML")
+fi
+MODEL_ARMOR_LOCATION=$(yq eval '.agentic.modelArmorLocation // ""' "$CONFIG_YAML")
 if [[ -z "$MODEL_ARMOR_LOCATION" || "$MODEL_ARMOR_LOCATION" == "null" ]]; then
-  MODEL_ARMOR_LOCATION=$(yq eval '.narratives.modelArmorLocation // ""' "$VALUES_YAML")
+  MODEL_ARMOR_LOCATION=$(yq eval '.agentic.modelArmorLocation // ""' "$VALUES_YAML")
 fi
 if [[ -z "$MODEL_ARMOR_LOCATION" || "$MODEL_ARMOR_LOCATION" == "null" ]]; then
-  echo "Error: 'narratives.modelArmorLocation' is missing or empty in $CONFIG_YAML and $VALUES_YAML" >&2
+  echo "Error: 'agentic.modelArmorLocation' is missing or empty in $CONFIG_YAML and $VALUES_YAML" >&2
   exit 1
 fi
-MODEL_ARMOR_TEMPLATE_ID=$(yq eval '.narratives.modelArmorTemplateId // ""' "$CONFIG_YAML")
+MODEL_ARMOR_TEMPLATE_ID=$(yq eval '.agentic.discover.modelArmorTemplateId // ""' "$CONFIG_YAML")
+if [[ -z "$MODEL_ARMOR_TEMPLATE_ID" || "$MODEL_ARMOR_TEMPLATE_ID" == "null" ]]; then
+  MODEL_ARMOR_TEMPLATE_ID=$(yq eval '.agentic.discover.modelArmorTemplateId // ""' "$VALUES_YAML")
+fi
 if [[ "$MODEL_ARMOR_TEMPLATE_ID" == *"/"* ]]; then
-  echo "Error: 'narratives.modelArmorTemplateId' in ${CONFIG_YAML} must be a template ID (e.g. 'discover-${ENV}'), not a full resource path." >&2
+  echo "Error: 'agentic.discover.modelArmorTemplateId' in ${CONFIG_YAML} must be a template ID (e.g. 'discover-${ENV}'), not a full resource path." >&2
   exit 1
 fi
 SERVICE_ACCOUNT="website-robot@${PROJECT_ID}.iam.gserviceaccount.com"
@@ -103,12 +112,12 @@ gcloud projects add-iam-policy-binding "$PROJECT_ID" \
 # and must not be restricted by HTTP referrer.
 if ! gcloud secrets describe "$DC_API_KEY_SECRET" --project="$PROJECT_ID" >/dev/null 2>&1; then
   echo "Error: Secret Manager secret '${DC_API_KEY_SECRET}' not found in ${PROJECT_ID}." >&2
-  echo "The Narratives server fetches '${DC_API_KEY_SECRET}' at startup and will fail to boot if it is missing." >&2
-  echo "Please create '${DC_API_KEY_SECRET}' in ${PROJECT_ID} with a Data Commons API key that does NOT have HTTP referrer restrictions (Narratives calls the MCP server directly from Python without a Referer header)." >&2
+  echo "The agentic app server fetches '${DC_API_KEY_SECRET}' at startup and will fail to boot if it is missing." >&2
+  echo "Please create '${DC_API_KEY_SECRET}' in ${PROJECT_ID} with a Data Commons API key that does NOT have HTTP referrer restrictions (agentic apps call the MCP server directly from Python without a Referer header)." >&2
   exit 1
 else
   echo "Verified Secret Manager secret ${DC_API_KEY_SECRET} exists in ${PROJECT_ID}."
-  echo "Note: Ensure the API key in ${DC_API_KEY_SECRET} does not have HTTP referrer restrictions, as Narratives calls the MCP server directly from Python without a Referer header."
+  echo "Note: Ensure the API key in ${DC_API_KEY_SECRET} does not have HTTP referrer restrictions, as agentic apps call the MCP server directly from Python without a Referer header."
 fi
 
 # 4. Create the transcript HMAC secret in GCP Secret Manager if it does not exist.
@@ -122,10 +131,10 @@ else
   echo "Secret Manager secret ${HMAC_SECRET_ID} already exists in ${PROJECT_ID}."
 fi
 
-# 5. Verify or create the default Model Armor template if configured in <ENV>.yaml.
+# 5. Verify or create the default Discover Model Armor template if configured in <ENV>.yaml.
 if [[ -z "$MODEL_ARMOR_TEMPLATE_ID" || "$MODEL_ARMOR_TEMPLATE_ID" == "null" ]]; then
-  echo "Note: '.narratives.modelArmorTemplateId' is unset in ${CONFIG_YAML} (default location: ${MODEL_ARMOR_LOCATION})."
-  echo "Remember to create a Model Armor template in ${MODEL_ARMOR_LOCATION} (or set '.narratives.modelArmorTemplateId' to 'discover-${ENV}' and re-run ./setup_narratives.sh ${ENV}) before enabling Narratives publicly."
+  echo "Note: '.agentic.discover.modelArmorTemplateId' is unset in ${CONFIG_YAML} (default location: ${MODEL_ARMOR_LOCATION})."
+  echo "Remember to create a Model Armor template in ${MODEL_ARMOR_LOCATION} (or set '.agentic.discover.modelArmorTemplateId' to 'discover-${ENV}' and re-run ./setup_agentic.sh ${ENV}) before enabling Discover publicly."
 else
   MODEL_ARMOR_TEMPLATE="projects/${PROJECT_ID}/locations/${MODEL_ARMOR_LOCATION}/templates/${MODEL_ARMOR_TEMPLATE_ID}"
   # `gcloud model-armor templates` does not route requests using the location in
@@ -160,4 +169,4 @@ else
   fi
 fi
 
-echo "Successfully configured Narratives prerequisites for ${ENV}."
+echo "Successfully configured agentic app prerequisites for ${ENV}."
