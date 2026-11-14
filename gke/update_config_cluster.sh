@@ -78,7 +78,7 @@ cp backendconfig.yaml.tpl backendconfig.yaml
 cp mci.yaml.tpl mci.yaml
 IP=$(yq eval '.ip // ""' "$CONFIG_YAML")
 if [[ -z $IP ]]; then
-  IP=$(gcloud compute addresses list --global --project="$PROJECT_ID" --filter='name:dc-website-ip' --format='value(ADDRESS)')
+  IP=$(gcloud compute addresses list --global --project="$PROJECT_ID" --filter='name=dc-website-ip' --format='value(ADDRESS)')
 fi
 if [[ -z $IP ]]; then
   echo "Error: Static IP not found in $CONFIG_YAML (.ip) or global address 'dc-website-ip' in project $PROJECT_ID" >&2
