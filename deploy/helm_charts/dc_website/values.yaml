@@ -169,9 +169,6 @@ agentic:
   dcApiKeySecret: "mixer-api-key"
   transcriptHmacSecretName: "agentic-transcript-hmac-secret"
   modelArmorLocation: "us-central1"
-  # Default GCS location read by gke/setup_agentic.sh when creating per-app
-  # config buckets (not consumed directly by Helm templates).
-  configBucketLocation: "us-central1"
   discover:
     enabled: true
     basePath: "/labs/discover"

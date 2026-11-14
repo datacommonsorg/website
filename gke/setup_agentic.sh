@@ -18,29 +18,74 @@
 # containers (e.g. `discover`) in `website-agentic-apps`.
 #
 # Usage:
-#   ./setup_agentic.sh <ENV>
+#   ./setup_agentic.sh <ENV> [--bucket-location <LOCATION>]
 # Example:
 #   ./setup_agentic.sh autopush
+#   ./setup_agentic.sh prod --bucket-location us
 
 set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+DEFAULT_BUCKET_LOCATION="us-central1"
+
+usage() {
+  echo "Usage: ./setup_agentic.sh <ENV> [--bucket-location <LOCATION>]"
+  echo "  <ENV>                         Environment name under deploy/helm_charts/envs/ (e.g. autopush, prod)"
+  echo "  --bucket-location <LOCATION>  GCS location when creating a new config bucket (default: ${DEFAULT_BUCKET_LOCATION}; use 'us' for multi-region prod)"
+}
 
 if ! command -v yq >/dev/null 2>&1; then
   echo "Error: 'yq' (version 4.x) is required. See gke/README.md." >&2
   exit 1
 fi
 
-if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
-  echo "Usage: ./setup_agentic.sh <ENV>"
-  exit 0
-fi
+ENV=""
+CONFIG_BUCKET_LOCATION=""
 
-ENV="${1:-}"
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --help|-h)
+      usage
+      exit 0
+      ;;
+    --bucket-location)
+      if [[ $# -lt 2 || -z "${2:-}" || "${2:-}" == -* ]]; then
+        echo "Error: '--bucket-location' requires a non-empty location argument (e.g. 'us-central1' or 'us')." >&2
+        usage >&2
+        exit 1
+      fi
+      CONFIG_BUCKET_LOCATION="$2"
+      shift 2
+      ;;
+    --bucket-location=*)
+      CONFIG_BUCKET_LOCATION="${1#*=}"
+      if [[ -z "$CONFIG_BUCKET_LOCATION" ]]; then
+        echo "Error: '--bucket-location' requires a non-empty location argument (e.g. 'us-central1' or 'us')." >&2
+        usage >&2
+        exit 1
+      fi
+      shift
+      ;;
+    -*)
+      echo "Error: Unknown option '$1'." >&2
+      usage >&2
+      exit 1
+      ;;
+    *)
+      if [[ -n "$ENV" ]]; then
+        echo "Error: Unexpected extra argument '$1'." >&2
+        usage >&2
+        exit 1
+      fi
+      ENV="$1"
+      shift
+      ;;
+  esac
+done
 
 if [[ -z "$ENV" ]]; then
-  echo "Missing arg 1 (env)." >&2
-  echo "Usage: ./setup_agentic.sh <ENV>" >&2
+  echo "Missing required <ENV> argument." >&2
+  usage >&2
   exit 1
 fi
 
@@ -83,14 +128,6 @@ if [[ -z "$MODEL_ARMOR_TEMPLATE_ID" || "$MODEL_ARMOR_TEMPLATE_ID" == "null" ]]; 
 fi
 if [[ "$MODEL_ARMOR_TEMPLATE_ID" == *"/"* ]]; then
   echo "Error: 'agentic.discover.modelArmorTemplateId' in ${CONFIG_YAML} must be a template ID (e.g. 'discover-${ENV}'), not a full resource path." >&2
-  exit 1
-fi
-CONFIG_BUCKET_LOCATION=$(yq eval '.agentic.configBucketLocation // ""' "$CONFIG_YAML")
-if [[ -z "$CONFIG_BUCKET_LOCATION" || "$CONFIG_BUCKET_LOCATION" == "null" ]]; then
-  CONFIG_BUCKET_LOCATION=$(yq eval '.agentic.configBucketLocation // ""' "$VALUES_YAML")
-fi
-if [[ -z "$CONFIG_BUCKET_LOCATION" || "$CONFIG_BUCKET_LOCATION" == "null" ]]; then
-  echo "Error: 'agentic.configBucketLocation' is missing or empty in $CONFIG_YAML and $VALUES_YAML" >&2
   exit 1
 fi
 CONFIG_BUCKET=$(yq eval '.agentic.discover.configBucket // ""' "$CONFIG_YAML")
@@ -188,12 +225,22 @@ fi
 
 # 6. Provision and seed the Discover GCS configuration bucket if configured in <ENV>.yaml.
 if [[ -z "$CONFIG_BUCKET" || "$CONFIG_BUCKET" == "null" ]]; then
-  echo "Note: '.agentic.discover.configBucket' is unset in ${CONFIG_YAML} (default location: ${CONFIG_BUCKET_LOCATION})."
+  echo "Note: '.agentic.discover.configBucket' is unset in ${CONFIG_YAML}."
   echo "Remember to set '.agentic.discover.configBucket' (e.g. '${PROJECT_ID}-discover-config') and re-run ./setup_agentic.sh ${ENV} to configure runtime settings in GCS."
 else
   if DESCRIBE_BUCKET_ERR=$(gcloud storage buckets describe "gs://${CONFIG_BUCKET}" --project="$PROJECT_ID" --format=none 2>&1); then
     echo "GCS configuration bucket gs://${CONFIG_BUCKET} already exists."
   elif [[ "$DESCRIBE_BUCKET_ERR" =~ 404|NOT_FOUND|[Nn]ot[[:space:]][Ff]ound ]]; then
+    if [[ -z "$CONFIG_BUCKET_LOCATION" ]]; then
+      if [[ -t 0 ]]; then
+        read -r -p "Location for new GCS bucket gs://${CONFIG_BUCKET} [${DEFAULT_BUCKET_LOCATION}]: " INPUT_LOCATION
+        INPUT_LOCATION="${INPUT_LOCATION#"${INPUT_LOCATION%%[![:space:]]*}"}"
+        INPUT_LOCATION="${INPUT_LOCATION%"${INPUT_LOCATION##*[![:space:]]}"}"
+        CONFIG_BUCKET_LOCATION="${INPUT_LOCATION:-$DEFAULT_BUCKET_LOCATION}"
+      else
+        CONFIG_BUCKET_LOCATION="$DEFAULT_BUCKET_LOCATION"
+      fi
+    fi
     echo "Creating GCS configuration bucket gs://${CONFIG_BUCKET} in ${CONFIG_BUCKET_LOCATION}..."
     gcloud storage buckets create "gs://${CONFIG_BUCKET}" \
       --project="$PROJECT_ID" \

@@ -72,6 +72,7 @@ You should have owner/editor role to perform the following tasks.
    ./create_cluster.sh <ENV> <REGION> <NODES>
 
    # (Optional) If enabling agentic apps (e.g. Discover) on this environment, configure their prerequisites (Vertex AI, Model Armor & Cloud Storage APIs, IAM, secrets, default Model Armor template, and GCS config bucket).
+   # Pass `--bucket-location us` when creating a config bucket for multi-region environments such as prod (defaults to `us-central1`).
    # Note: For environments using MultiClusterIngress (autopush, staging, prod), also run update_config_cluster.sh
    # (see "Update cluster config" below) so website-mci routes the configured agentic.discover.basePath to website-agentic-mcs.
    ./setup_agentic.sh <ENV>
@@ -93,7 +94,7 @@ You should have owner/editor role to perform the following tasks.
 
 ## Agentic apps / Discover runtime configuration and emergency off switch
 
-When `agentic.discover.configBucket` is set in `deploy/helm_charts/envs/<ENV>.yaml`, `./setup_agentic.sh <ENV>` provisions a private, versioned GCS bucket (`gs://<CONFIG_BUCKET>`) and uses `gke/discover_agent_config.seed.json` to seed `agent-config.json` **only when the object does not yet exist**. After initial seeding, `gs://<CONFIG_BUCKET>/agent-config.json` is the authoritative runtime configuration (editing `gke/discover_agent_config.seed.json` in Git does not update existing buckets).
+When `agentic.discover.configBucket` is set in `deploy/helm_charts/envs/<ENV>.yaml`, `./setup_agentic.sh <ENV> [--bucket-location <LOCATION>]` provisions a private, versioned GCS bucket (`gs://<CONFIG_BUCKET>`, prompting for the bucket location on initial creation if `--bucket-location` is omitted and defaulting to `us-central1`; pass `--bucket-location us` for multi-region `prod`) and uses `gke/discover_agent_config.seed.json` to seed `agent-config.json` **only when the object does not yet exist**. After initial seeding, `gs://<CONFIG_BUCKET>/agent-config.json` is the authoritative runtime configuration (editing `gke/discover_agent_config.seed.json` in Git does not update existing buckets).
 
 At pod startup, the `discover` container fetches `gs://<CONFIG_BUCKET>/agent-config.json` as well as optional `gs://<CONFIG_BUCKET>/prompts/{classify,discovery,synthesis,follow_up}.md` overrides (falling back to the image's default prompts for any absent slot) and caches them in memory. Write access to `gs://<CONFIG_BUCKET>` therefore controls both runtime settings and system prompts.
 
