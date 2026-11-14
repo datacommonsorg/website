@@ -28,6 +28,27 @@ set -euo pipefail
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 DEFAULT_BUCKET_LOCATION="us-central1"
 
+# Object name must match CONFIG_URL in deploy/helm_charts/dc_website/templates/deployment.yaml.
+DISCOVER_CONFIG_OBJECT="agent-config.json"
+
+# Initial seed payload written once when bootstrapping an empty Discover config
+# bucket (after creation, gs://<CONFIG_BUCKET>/agent-config.json is authoritative).
+# Schema reference: `agent-config.schema.json` in `datacommonsorg/tools`.
+SEED_DISCOVER_AGENT_CONFIG_JSON='{
+  "chat": {
+    "enabled": true,
+    "unavailable_message": "Due to high traffic, this feature is temporarily paused. We are scaling capacity to restore service as quickly as possible. Please try again later."
+  },
+  "thinking": {
+    "synthesis_level": "low"
+  },
+  "template_vars": {
+    "name": "Data Commons by Google",
+    "region": "the world",
+    "states_term": "regions"
+  }
+}'
+
 usage() {
   echo "Usage: ./setup_agentic.sh <ENV> [--bucket-location <LOCATION>]"
   echo "  <ENV>                         Environment name under deploy/helm_charts/envs/ (e.g. autopush, prod)"
@@ -135,9 +156,6 @@ if [[ "$CONFIG_BUCKET" == *"/"* ]]; then
   echo "Error: 'agentic.discover.configBucket' in ${CONFIG_YAML} must be a bucket name (e.g. '${PROJECT_ID}-discover-config'), not a gs:// URI or path." >&2
   exit 1
 fi
-DEFAULT_DISCOVER_AGENT_CONFIG="${DIR}/discover_agent_config.seed.json"
-# Object name must match CONFIG_URL in deploy/helm_charts/dc_website/templates/deployment.yaml.
-DISCOVER_CONFIG_OBJECT="agent-config.json"
 SERVICE_ACCOUNT="website-robot@${PROJECT_ID}.iam.gserviceaccount.com"
 
 # 1. Enable Vertex AI, Model Armor, Sensitive Data Protection, and Cloud Storage APIs if not already enabled.
@@ -265,22 +283,17 @@ else
     --role="roles/storage.objectViewer" \
     --project="$PROJECT_ID" >/dev/null
 
-  if [[ ! -f "$DEFAULT_DISCOVER_AGENT_CONFIG" ]]; then
-    echo "Error: Seed agent config file not found: ${DEFAULT_DISCOVER_AGENT_CONFIG}" >&2
-    exit 1
-  fi
-  if ! command -v python3 >/dev/null 2>&1; then
-    echo "Error: 'python3' is required to validate ${DEFAULT_DISCOVER_AGENT_CONFIG}." >&2
-    exit 1
-  fi
+  SEED_TMP_FILE=$(mktemp)
+  trap 'rm -f "$SEED_TMP_FILE"' EXIT
+  printf '%s\n' "$SEED_DISCOVER_AGENT_CONFIG_JSON" > "$SEED_TMP_FILE"
   # Note: `json.tool` checks JSON syntax only; validate field names and types
   # against `agent-config.schema.json` in `datacommonsorg/tools`.
-  if ! python3 -m json.tool "$DEFAULT_DISCOVER_AGENT_CONFIG" >/dev/null; then
-    echo "Error: ${DEFAULT_DISCOVER_AGENT_CONFIG} is not valid JSON." >&2
+  if command -v python3 >/dev/null 2>&1 && ! python3 -m json.tool "$SEED_TMP_FILE" >/dev/null; then
+    echo "Error: SEED_DISCOVER_AGENT_CONFIG_JSON in setup_agentic.sh is not valid JSON." >&2
     exit 1
   fi
   echo "Ensuring initial configuration exists at gs://${CONFIG_BUCKET}/${DISCOVER_CONFIG_OBJECT} (no-clobber)..."
-  gcloud storage cp --no-clobber "$DEFAULT_DISCOVER_AGENT_CONFIG" "gs://${CONFIG_BUCKET}/${DISCOVER_CONFIG_OBJECT}" \
+  gcloud storage cp --no-clobber "$SEED_TMP_FILE" "gs://${CONFIG_BUCKET}/${DISCOVER_CONFIG_OBJECT}" \
     --content-type="application/json; charset=utf-8" \
     --project="$PROJECT_ID"
 fi
