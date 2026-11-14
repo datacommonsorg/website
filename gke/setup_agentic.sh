@@ -13,9 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Provisions the GCP APIs, IAM permissions, Secret Manager secrets, and Model
-# Armor template required by agentic app containers (e.g. `discover`) in
-# `website-agentic-apps`.
+# Provisions the GCP APIs, IAM permissions, Secret Manager secrets, Model
+# Armor template, and GCS configuration bucket required by agentic app
+# containers (e.g. `discover`) in `website-agentic-apps`.
 #
 # Usage:
 #   ./setup_agentic.sh <ENV>
@@ -85,14 +85,31 @@ if [[ "$MODEL_ARMOR_TEMPLATE_ID" == *"/"* ]]; then
   echo "Error: 'agentic.discover.modelArmorTemplateId' in ${CONFIG_YAML} must be a template ID (e.g. 'discover-${ENV}'), not a full resource path." >&2
   exit 1
 fi
+CONFIG_BUCKET_LOCATION=$(yq eval '.agentic.configBucketLocation // ""' "$CONFIG_YAML")
+if [[ -z "$CONFIG_BUCKET_LOCATION" || "$CONFIG_BUCKET_LOCATION" == "null" ]]; then
+  CONFIG_BUCKET_LOCATION=$(yq eval '.agentic.configBucketLocation // ""' "$VALUES_YAML")
+fi
+if [[ -z "$CONFIG_BUCKET_LOCATION" || "$CONFIG_BUCKET_LOCATION" == "null" ]]; then
+  echo "Error: 'agentic.configBucketLocation' is missing or empty in $CONFIG_YAML and $VALUES_YAML" >&2
+  exit 1
+fi
+CONFIG_BUCKET=$(yq eval '.agentic.discover.configBucket // ""' "$CONFIG_YAML")
+if [[ "$CONFIG_BUCKET" == *"/"* ]]; then
+  echo "Error: 'agentic.discover.configBucket' in ${CONFIG_YAML} must be a bucket name (e.g. '${PROJECT_ID}-discover-config'), not a gs:// URI or path." >&2
+  exit 1
+fi
+DEFAULT_DISCOVER_AGENT_CONFIG="${DIR}/discover_agent_config.seed.json"
+# Object name must match CONFIG_URL in deploy/helm_charts/dc_website/templates/deployment.yaml.
+DISCOVER_CONFIG_OBJECT="agent-config.json"
 SERVICE_ACCOUNT="website-robot@${PROJECT_ID}.iam.gserviceaccount.com"
 
-# 1. Enable Vertex AI, Model Armor, and Sensitive Data Protection APIs if not already enabled.
-echo "Enabling aiplatform.googleapis.com, modelarmor.googleapis.com, and dlp.googleapis.com in ${PROJECT_ID}..."
+# 1. Enable Vertex AI, Model Armor, Sensitive Data Protection, and Cloud Storage APIs if not already enabled.
+echo "Enabling aiplatform.googleapis.com, modelarmor.googleapis.com, dlp.googleapis.com, and storage.googleapis.com in ${PROJECT_ID}..."
 gcloud services enable \
   aiplatform.googleapis.com \
   modelarmor.googleapis.com \
   dlp.googleapis.com \
+  storage.googleapis.com \
   --project="$PROJECT_ID"
 
 # 2. Grant roles/aiplatform.user and roles/modelarmor.user to the GKE workload identity robot account.
@@ -167,6 +184,58 @@ else
     echo "$DESCRIBE_ERR" >&2
     exit 1
   fi
+fi
+
+# 6. Provision and seed the Discover GCS configuration bucket if configured in <ENV>.yaml.
+if [[ -z "$CONFIG_BUCKET" || "$CONFIG_BUCKET" == "null" ]]; then
+  echo "Note: '.agentic.discover.configBucket' is unset in ${CONFIG_YAML} (default location: ${CONFIG_BUCKET_LOCATION})."
+  echo "Remember to set '.agentic.discover.configBucket' (e.g. '${PROJECT_ID}-discover-config') and re-run ./setup_agentic.sh ${ENV} to configure runtime settings in GCS."
+else
+  if DESCRIBE_BUCKET_ERR=$(gcloud storage buckets describe "gs://${CONFIG_BUCKET}" --project="$PROJECT_ID" --format=none 2>&1); then
+    echo "GCS configuration bucket gs://${CONFIG_BUCKET} already exists."
+  elif [[ "$DESCRIBE_BUCKET_ERR" =~ 404|NOT_FOUND|[Nn]ot[[:space:]][Ff]ound ]]; then
+    echo "Creating GCS configuration bucket gs://${CONFIG_BUCKET} in ${CONFIG_BUCKET_LOCATION}..."
+    gcloud storage buckets create "gs://${CONFIG_BUCKET}" \
+      --project="$PROJECT_ID" \
+      --location="$CONFIG_BUCKET_LOCATION" \
+      --uniform-bucket-level-access \
+      --public-access-prevention
+  else
+    echo "$DESCRIBE_BUCKET_ERR" >&2
+    exit 1
+  fi
+
+  echo "Ensuring uniform bucket-level access, public access prevention, and versioning on gs://${CONFIG_BUCKET}..."
+  gcloud storage buckets update "gs://${CONFIG_BUCKET}" \
+    --uniform-bucket-level-access \
+    --public-access-prevention \
+    --versioning \
+    --project="$PROJECT_ID" >/dev/null
+
+  echo "Granting roles/storage.objectViewer on gs://${CONFIG_BUCKET} to ${SERVICE_ACCOUNT}..."
+  gcloud storage buckets add-iam-policy-binding "gs://${CONFIG_BUCKET}" \
+    --member="serviceAccount:${SERVICE_ACCOUNT}" \
+    --role="roles/storage.objectViewer" \
+    --project="$PROJECT_ID" >/dev/null
+
+  if [[ ! -f "$DEFAULT_DISCOVER_AGENT_CONFIG" ]]; then
+    echo "Error: Seed agent config file not found: ${DEFAULT_DISCOVER_AGENT_CONFIG}" >&2
+    exit 1
+  fi
+  if ! command -v python3 >/dev/null 2>&1; then
+    echo "Error: 'python3' is required to validate ${DEFAULT_DISCOVER_AGENT_CONFIG}." >&2
+    exit 1
+  fi
+  # Note: `json.tool` checks JSON syntax only; validate field names and types
+  # against `agent-config.schema.json` in `datacommonsorg/tools`.
+  if ! python3 -m json.tool "$DEFAULT_DISCOVER_AGENT_CONFIG" >/dev/null; then
+    echo "Error: ${DEFAULT_DISCOVER_AGENT_CONFIG} is not valid JSON." >&2
+    exit 1
+  fi
+  echo "Ensuring initial configuration exists at gs://${CONFIG_BUCKET}/${DISCOVER_CONFIG_OBJECT} (no-clobber)..."
+  gcloud storage cp --no-clobber "$DEFAULT_DISCOVER_AGENT_CONFIG" "gs://${CONFIG_BUCKET}/${DISCOVER_CONFIG_OBJECT}" \
+    --content-type="application/json; charset=utf-8" \
+    --project="$PROJECT_ID"
 fi
 
 echo "Successfully configured agentic app prerequisites for ${ENV}."

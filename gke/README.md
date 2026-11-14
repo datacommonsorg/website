@@ -71,7 +71,7 @@ You should have owner/editor role to perform the following tasks.
    # Create cluster. Run this for all the regions
    ./create_cluster.sh <ENV> <REGION> <NODES>
 
-   # (Optional) If enabling agentic apps (e.g. Discover) on this environment, configure their prerequisites (Vertex AI & Model Armor APIs, IAM, secrets, and default Model Armor template).
+   # (Optional) If enabling agentic apps (e.g. Discover) on this environment, configure their prerequisites (Vertex AI, Model Armor & Cloud Storage APIs, IAM, secrets, default Model Armor template, and GCS config bucket).
    # Note: For environments using MultiClusterIngress (autopush, staging, prod), also run update_config_cluster.sh
    # (see "Update cluster config" below) so website-mci routes the configured agentic.discover.basePath to website-agentic-mcs.
    ./setup_agentic.sh <ENV>
@@ -91,34 +91,60 @@ You should have owner/editor role to perform the following tasks.
    ./setup_config_cluster.sh <ENV> <REGION> -n
    ```
 
-## Agentic apps / Discover emergency off switch
+## Agentic apps / Discover runtime configuration and emergency off switch
 
-When agentic apps are enabled on a cluster (`agentic.enabled: true`), you can disable Discover chat or take down the `website-agentic-apps` deployment (for example, during unexpected traffic spikes, runaway Gemini spend, upstream MCP/Vertex AI outages, or safety incidents) in two ways:
+When `agentic.discover.configBucket` is set in `deploy/helm_charts/envs/<ENV>.yaml`, `./setup_agentic.sh <ENV>` provisions a private, versioned GCS bucket (`gs://<CONFIG_BUCKET>`) and uses `gke/discover_agent_config.seed.json` to seed `agent-config.json` **only when the object does not yet exist**. After initial seeding, `gs://<CONFIG_BUCKET>/agent-config.json` is the authoritative runtime configuration (editing `gke/discover_agent_config.seed.json` in Git does not update existing buckets).
 
-1. **Immediate (<30 seconds via `kubectl`, no PR required):**
+At pod startup, the `discover` container fetches `gs://<CONFIG_BUCKET>/agent-config.json` as well as optional `gs://<CONFIG_BUCKET>/prompts/{classify,discovery,synthesis,follow_up}.md` overrides (falling back to the image's default prompts for any absent slot) and caches them in memory. Write access to `gs://<CONFIG_BUCKET>` therefore controls both runtime settings and system prompts.
+
+> **Important:** Uploading to `gs://<CONFIG_BUCKET>` should be treated as a live deployment. Even before a manual rollout, any newly scheduled pod (from autoscaling, node upgrades, or pod evictions) will read the uploaded object immediately, so never stage draft files in the bucket without immediately restarting **every** cluster in the environment.
+
+To apply a configuration update (validate against `agent-config.schema.json` in `datacommonsorg/tools`, verify JSON syntax locally, upload, and roll all regional clusters — e.g. `us-central1` for `autopush`/`staging`, or both `us-central1` and `us-west1` for `prod`):
+
+```bash
+python3 -m json.tool <LOCAL_AGENT_CONFIG_JSON> >/dev/null
+gcloud storage cp <LOCAL_AGENT_CONFIG_JSON> gs://<CONFIG_BUCKET>/agent-config.json \
+  --content-type="application/json; charset=utf-8" \
+  --project=<PROJECT_ID>
+
+for REGION in <REGIONS>; do
+  gcloud container clusters get-credentials website-${REGION} --region=${REGION} --project=<PROJECT_ID>
+  kubectl rollout restart deployment/website-agentic-apps -n website
+done
+```
+
+When agentic apps are enabled on an environment (`agentic.enabled: true`), you can disable Discover chat or take down `website-agentic-apps` (for example, during unexpected traffic spikes, runaway Gemini spend, upstream MCP/Vertex AI outages, or safety incidents) in the following ways:
+
+1. **Immediate bucket-independent override (<30 seconds via `kubectl`, no GCS dependency):**
+
+   Run against **every** regional cluster in the environment:
 
    ```bash
-   gcloud container clusters get-credentials <CLUSTER_NAME> --region=<REGION> --project=<PROJECT_ID>
+   for REGION in <REGIONS>; do
+     gcloud container clusters get-credentials website-${REGION} --region=${REGION} --project=<PROJECT_ID>
 
-   # Option A: Disable Discover chat only (keeps static UI and shared stories online, stops all Gemini/MCP calls)
-   kubectl set env deployment/website-agentic-apps -n website -c discover ENABLE_CHAT=false
+     # Option A: Disable Discover chat only (keeps static UI and shared stories online, stops all Gemini/MCP calls)
+     kubectl set env deployment/website-agentic-apps -n website -c discover ENABLE_CHAT=false
 
-   # Option B: Scale down all agentic app pods immediately
-   kubectl scale deployment/website-agentic-apps -n website --replicas=0
+     # Option B: Scale down all agentic app pods immediately
+     kubectl scale deployment/website-agentic-apps -n website --replicas=0
+   done
    ```
 
-   To restore after an immediate `kubectl` override:
+   **Note:** While `ENABLE_CHAT` is set on the Deployment, it overrides `chat.enabled` in `gs://<CONFIG_BUCKET>/agent-config.json` (so later bucket edits will have no effect on chat availability until `ENABLE_CHAT` is cleared or overwritten by the next Cloud Deploy release). To clear the override and return control to GCS (or restore replicas after scaling down):
 
    ```bash
-   kubectl set env deployment/website-agentic-apps -n website -c discover ENABLE_CHAT=true
-   kubectl scale deployment/website-agentic-apps -n website --replicas=2
+   for REGION in <REGIONS>; do
+     gcloud container clusters get-credentials website-${REGION} --region=${REGION} --project=<PROJECT_ID>
+     kubectl set env deployment/website-agentic-apps -n website -c discover ENABLE_CHAT-
+     kubectl scale deployment/website-agentic-apps -n website --replicas=2
+   done
    ```
 
-2. **Persistent (via Helm configuration in Git):**
+2. **Persistent across Cloud Deploy releases (via GCS `agent-config.json` or Helm):**
 
-   Because subsequent Cloud Deploy releases render the Helm chart from Git and will overwrite ad-hoc `kubectl` changes, persist the change in `deploy/helm_charts/envs/<ENV>.yaml`:
-   - Set `agentic.discover.enableChat: false` to keep the Discover UI online with chat disabled.
-   - Set `agentic.discover.enabled: false` to remove the `discover` container and `agentic.discover.basePath` Ingress paths, or set `agentic.enabled: false` to remove the `website-agentic-apps` Deployment, `website-agentic-service` Service, and agentic Ingress paths entirely.
+   - **Keep Discover UI online with chat disabled (no PR required):** Set `"chat": { "enabled": false, ... }` in `gs://<CONFIG_BUCKET>/agent-config.json` (validating with `python3 -m json.tool` first), upload to GCS, and restart `website-agentic-apps` across every regional cluster as shown above (ensure any ad-hoc `ENABLE_CHAT` env override has been cleared with `ENABLE_CHAT-`). Set `"enabled": true` and restart all clusters to restore chat.
+   - **Remove the deployment and routes (via Helm in Git):** Set `agentic.discover.enabled: false` in `deploy/helm_charts/envs/<ENV>.yaml` to remove the `discover` container and `agentic.discover.basePath` Ingress paths, or set `agentic.enabled: false` to remove the `website-agentic-apps` Deployment, `website-agentic-service` Service, and agentic Ingress paths entirely.
 
 ## DNS setup
 

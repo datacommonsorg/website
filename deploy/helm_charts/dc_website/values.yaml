@@ -169,12 +169,12 @@ agentic:
   dcApiKeySecret: "mixer-api-key"
   transcriptHmacSecretName: "agentic-transcript-hmac-secret"
   modelArmorLocation: "us-central1"
+  # Default GCS location read by gke/setup_agentic.sh when creating per-app
+  # config buckets (not consumed directly by Helm templates).
+  configBucketLocation: "us-central1"
   discover:
     enabled: true
     basePath: "/labs/discover"
-    # Emergency off switch: set to false to reject new chat turns immediately
-    # (no Gemini or MCP calls) while keeping the static UI and shared stories up.
-    enableChat: true
     # Turn debug panel mode ("off", "flag", or "on"). Quote values so YAML 1.1
     # does not parse bare on/off as booleans.
     debugReport: "off"
@@ -183,3 +183,4 @@ agentic:
     cpu: "1"
     memory: "1G"
     modelArmorTemplateId: ""
+    configBucket: ""
