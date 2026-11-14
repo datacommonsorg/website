@@ -53,7 +53,7 @@ dependencies = [
     "starlette==1.10.0",
     "typing-extensions==4.15.0",
     "webdriver-manager==4.0.0",
-    "Werkzeug==3.0.6",
+    "Werkzeug==3.1.6",
     "wheel==0.38.1",
 ]
 
