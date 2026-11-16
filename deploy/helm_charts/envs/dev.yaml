@@ -110,19 +110,21 @@ cronTesting:
   nodePool: "default-pool"
   schedule: "* * 31 2 *" # invalid day for month -> never run automatically
 
-narratives:
+agentic:
   enabled: false
-  enableChat: true
-  debugReport: "on"
-  image:
-    tag: ""
   replicas: 2
-  cpu: "1"
-  memory: "1G"
   mcpServerUrl: "https://autopush.api.datacommons.org/mcp"
   useVertexAi: true
   cloudLocation: "global"
   dcApiKeySecret: "mixer-api-key"
-  transcriptHmacSecretName: "narratives-transcript-hmac-secret"
+  transcriptHmacSecretName: "agentic-transcript-hmac-secret"
   modelArmorLocation: "us-central1"
-  modelArmorTemplateId: "discover-dev"
+  discover:
+    enabled: true
+    enableChat: true
+    debugReport: "on"
+    image:
+      tag: ""
+    cpu: "1"
+    memory: "1G"
+    modelArmorTemplateId: "discover-dev"

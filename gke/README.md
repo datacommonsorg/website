@@ -71,10 +71,10 @@ You should have owner/editor role to perform the following tasks.
    # Create cluster. Run this for all the regions
    ./create_cluster.sh <ENV> <REGION> <NODES>
 
-   # (Optional) If enabling Narratives on this environment, configure its prerequisites (Vertex AI & Model Armor APIs, IAM, secrets, and default Model Armor template).
+   # (Optional) If enabling agentic apps (e.g. Discover) on this environment, configure their prerequisites (Vertex AI & Model Armor APIs, IAM, secrets, and default Model Armor template).
    # Note: For environments using MultiClusterIngress (autopush, staging, prod), also run update_config_cluster.sh
-   # (see "Update cluster config" below) so website-mci routes the configured narratives.basePath to website-narratives-mcs.
-   ./setup_narratives.sh <ENV>
+   # (see "Update cluster config" below) so website-mci routes the configured agentic.discover.basePath to website-agentic-mcs.
+   ./setup_agentic.sh <ENV>
 
    # Deploy helm
    ../scripts/deploy_gke_helm.sh -e <ENV> -l <REGION>
@@ -91,17 +91,17 @@ You should have owner/editor role to perform the following tasks.
    ./setup_config_cluster.sh <ENV> <REGION> -n
    ```
 
-## Narratives emergency off switch
+## Agentic apps / Discover emergency off switch
 
-When Narratives is enabled on a cluster (`narratives.enabled: true`), you can disable chat or take down the Narratives deployment (for example, during unexpected traffic spikes, runaway Gemini spend, upstream MCP/Vertex AI outages, or safety incidents) in two ways:
+When agentic apps are enabled on a cluster (`agentic.enabled: true`), you can disable Discover chat or take down the `website-agentic-apps` deployment (for example, during unexpected traffic spikes, runaway Gemini spend, upstream MCP/Vertex AI outages, or safety incidents) in two ways:
 
 1. **Immediate (<30 seconds via `kubectl`, no PR required):**
 
    ```bash
    gcloud container clusters get-credentials <CLUSTER_NAME> --region=<REGION> --project=<PROJECT_ID>
 
-   # Option A: Disable chat only (keeps static UI and shared stories online, stops all Gemini/MCP calls)
-   kubectl set env deployment/website-agentic-apps -n website -c narratives ENABLE_CHAT=false
+   # Option A: Disable Discover chat only (keeps static UI and shared stories online, stops all Gemini/MCP calls)
+   kubectl set env deployment/website-agentic-apps -n website -c discover ENABLE_CHAT=false
 
    # Option B: Scale down all agentic app pods immediately
    kubectl scale deployment/website-agentic-apps -n website --replicas=0
@@ -110,15 +110,15 @@ When Narratives is enabled on a cluster (`narratives.enabled: true`), you can di
    To restore after an immediate `kubectl` override:
 
    ```bash
-   kubectl set env deployment/website-agentic-apps -n website -c narratives ENABLE_CHAT=true
+   kubectl set env deployment/website-agentic-apps -n website -c discover ENABLE_CHAT=true
    kubectl scale deployment/website-agentic-apps -n website --replicas=2
    ```
 
 2. **Persistent (via Helm configuration in Git):**
 
    Because subsequent Cloud Deploy releases render the Helm chart from Git and will overwrite ad-hoc `kubectl` changes, persist the change in `deploy/helm_charts/envs/<ENV>.yaml`:
-   - Set `narratives.enableChat: false` to keep the UI online with chat disabled.
-   - Set `narratives.enabled: false` to remove the `website-agentic-apps` Deployment, `website-narratives-service` Service, and `narratives.basePath` Ingress paths entirely.
+   - Set `agentic.discover.enableChat: false` to keep the Discover UI online with chat disabled.
+   - Set `agentic.discover.enabled: false` to remove the `discover` container and `agentic.discover.basePath` Ingress paths, or set `agentic.enabled: false` to remove the `website-agentic-apps` Deployment, `website-agentic-service` Service, and agentic Ingress paths entirely.
 
 ## DNS setup
 
