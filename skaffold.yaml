@@ -54,7 +54,7 @@ build:
       context: build/web_server
     - image: gcr.io/datcom-ci/datacommons-mixer
       context: mixer/build/ci
-    - image: gcr.io/datcom-ci/datacommons-narratives
+    - image: gcr.io/datcom-ci/datacommons-discover
       context: .
   tagPolicy:
     sha256: {}

@@ -34,7 +34,7 @@ spec:
 apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:
-  name: backendconfig-narratives
+  name: backendconfig-agentic
   namespace: website
 spec:
   timeoutSec: 600
@@ -44,4 +44,4 @@ spec:
     checkIntervalSec: 15
     port: 8080
     type: HTTP
-    requestPath: <NARRATIVES_BASE_PATH>/healthz
+    requestPath: /healthz
