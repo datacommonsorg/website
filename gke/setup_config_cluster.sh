@@ -66,13 +66,12 @@ cp mci.yaml.tpl mci.yaml
 IP=$(yq eval '.ip // ""' "$CONFIG_YAML")
 if [[ -z $IP ]]; then
   IP=$(gcloud compute addresses list --global --project="$PROJECT_ID" --filter='name=dc-website-ip' --format='value(ADDRESS)')
+  if [[ -z $IP ]]; then
+    echo "Error: Static IP not found in $CONFIG_YAML (.ip) or global address 'dc-website-ip' in project $PROJECT_ID" >&2
+    exit 1
+  fi
 fi
-if [[ -z $IP ]]; then
-  echo "Error: Static IP not found in $CONFIG_YAML (.ip) or global address 'dc-website-ip' in project $PROJECT_ID" >&2
-  exit 1
-fi
-export IP
-yq eval -i '.metadata.annotations."networking.gke.io/static-ip" = strenv(IP)' mci.yaml
+IP="$IP" yq eval -i '.metadata.annotations."networking.gke.io/static-ip" = strenv(IP)' mci.yaml
 # If not setting up nodejs service, remove the nodejs path from the mci.yaml
 if [[ -z $SETUP_NODEJS ]]; then
   yq eval -i 'del(.spec.template.spec.rules.[].http.paths[] | select(.backend.serviceName == "website-nodejs-mcs"))' mci.yaml
