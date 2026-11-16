@@ -194,7 +194,7 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: {{ div .Values.agentic.replicas 4 | add 1 }}
-      maxUnavailable: {{ div .Values.agentic.replicas 4 | add 1 }}
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: website-agentic-apps
@@ -228,8 +228,6 @@ spec:
               value: "8080"
             - name: BASE_PATH
               value: {{ .Values.agentic.discover.basePath | quote }}
-            - name: ENABLE_CHAT
-              value: {{ .Values.agentic.discover.enableChat | quote }}
             {{- if not (and (kindIs "string" .Values.agentic.discover.debugReport) (has .Values.agentic.discover.debugReport (list "" "off" "flag" "on"))) }}
             {{- fail (printf "Invalid agentic.discover.debugReport %v: must be a quoted string (\"off\", \"flag\", \"on\", or \"\")" .Values.agentic.discover.debugReport) }}
             {{- end }}
@@ -252,6 +250,16 @@ spec:
             - name: MODEL_ARMOR_TEMPLATE
               {{- if .Values.agentic.discover.modelArmorTemplateId }}
               value: {{ printf "projects/%s/locations/%s/templates/%s" (required "Missing: project" .Values.project) (required "Missing: agentic.modelArmorLocation" .Values.agentic.modelArmorLocation) .Values.agentic.discover.modelArmorTemplateId | quote }}
+              {{- else }}
+              value: ""
+              {{- end }}
+            - name: CONFIG_URL
+              {{- if .Values.agentic.discover.configBucket }}
+              {{- if contains "/" .Values.agentic.discover.configBucket }}
+              {{- fail (printf "Invalid agentic.discover.configBucket %q: must be a bucket name without gs:// or '/'" .Values.agentic.discover.configBucket) }}
+              {{- end }}
+              # Object name must match DISCOVER_CONFIG_OBJECT in gke/setup_agentic.sh.
+              value: {{ printf "https://storage.googleapis.com/%s/agent-config.json" .Values.agentic.discover.configBucket | quote }}
               {{- else }}
               value: ""
               {{- end }}

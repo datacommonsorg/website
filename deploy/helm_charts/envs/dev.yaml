@@ -121,10 +121,10 @@ agentic:
   modelArmorLocation: "us-central1"
   discover:
     enabled: true
-    enableChat: true
     debugReport: "on"
     image:
       tag: ""
     cpu: "1"
     memory: "1G"
     modelArmorTemplateId: "discover-dev"
+    configBucket: "datcom-website-dev-discover-config"
