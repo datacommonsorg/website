@@ -126,15 +126,12 @@ function deploy_cloud_esp() {
 # Release website helm chart
 function deploy_website() {
   WEBSITE_SERVICE_URL=""
-  NODEJS_SERVICE_URL=""
   # Find the service name for website-app
   for service in `kubectl get services -n website -o name`
   do
     app=`kubectl get $service -n website --output=jsonpath="{.spec.selector.app}"`
     if [[ $app == "website-app" ]]; then
       WEBSITE_SERVICE_URL="http://${service#"service/"}:8080"
-    elif [[ $app == "website-nodejs-app" ]]; then
-      NODEJS_SERVICE_URL="http://${service#"service/"}:8080"
     fi
   done
   helm upgrade --install dc-website deploy/helm_charts/dc_website \
@@ -145,9 +142,7 @@ function deploy_website() {
   --timeout 15m \
   --set website.image.tag="$WEBSITE_HASH" \
   --set website.githash="$WEBSITE_HASH" \
-  --set nodejs.apiRoot="$WEBSITE_SERVICE_URL" \
   --set cronTesting.webApiRoot="$WEBSITE_SERVICE_URL" \
-  --set cronTesting.nodejsApiRoot="$NODEJS_SERVICE_URL" \
   --set-file nl.catalog=deploy/nl/catalog.yaml
 }
 

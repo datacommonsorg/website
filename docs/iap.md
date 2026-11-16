@@ -50,14 +50,11 @@ Deploy backend config and service
 # In <REPO_ROOT>/gke
 kubectl apply -f backendconfig_iap.yaml
 kubectl apply -f website_mcs.yaml
-# [OPTIONAL] run this to deploy the nodejs service
-kubectl apply -f website_nodejs_mcs.yaml
 
 cp mci.yaml.tpl mci.yaml
 # Update <IP> to be the static IP of the website, which can be found in
 # <REPO_ROOT>/deploy/helm_charts/envs/<ENV>.yaml,
 # [Optional] change the certificate to match the current SSL certificate
-# [Optional] remove the nodejs path if not deploying nodejs service
 kubectl apply -f mci.yaml
 ```
 

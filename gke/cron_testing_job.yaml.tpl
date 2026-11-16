@@ -44,11 +44,6 @@ spec:
                 configMapKeyRef:
                   name: cron-testing-config
                   key: webApiRoot
-            - name: NODEJS_API_ROOT
-              valueFrom: 
-                configMapKeyRef:
-                  name: cron-testing-config
-                  key: nodejsApiRoot
             - name: ENABLE_SANITY
               valueFrom: 
                 configMapKeyRef:
@@ -59,9 +54,4 @@ spec:
                 configMapKeyRef:
                   name: cron-testing-config
                   key: enableAdversarial
-            - name: ENABLE_NODEJS
-              valueFrom: 
-                configMapKeyRef:
-                  name: cron-testing-config
-                  key: enableNodejs
           restartPolicy: Never

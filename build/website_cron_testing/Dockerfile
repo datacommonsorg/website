@@ -21,12 +21,6 @@ COPY build/website_cron_testing/requirements.txt .
 RUN python3 -m pip install --upgrade pip setuptools
 RUN pip3 install -r requirements.txt
 
-# Copy scripts and folders needed for nodejs query testing
-COPY server/integration_tests/standalone/nodejs_query.py .
-COPY tools/nl/nodejs_query_differ/differ.py .
-COPY tools/send_email/send_email.py .
-COPY tools/nl/nodejs_query_differ/goldens/ goldens/
-
 # Copy scripts for adversarial tests
 COPY server/integration_tests/standalone/adversarial.py .
 

@@ -51,6 +51,3 @@ serviceGroups:
 
 nl:
   enabled: false
-
-nodejs:
-  enabled: false
