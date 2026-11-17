@@ -22,12 +22,15 @@ ENV ENV=${ENV}
 
 WORKDIR /workspace
 
+COPY --from=ghcr.io/astral-sh/uv:0.9.18 /uv /uvx /bin/
+ENV VIRTUAL_ENV=/workspace/venv
+ENV UV_PROJECT_ENVIRONMENT=/workspace/venv
+ENV PATH="/workspace/venv/bin:$PATH"
+
 COPY web_app.py /workspace/web_app.py
-COPY server/requirements.txt /workspace/server/requirements.txt
-RUN pip install --upgrade pip
-RUN pip install --upgrade setuptools
-# --no-cache-dir removes ~/.cache files, which can be a few GB.
-RUN pip3 install --no-cache-dir -r /workspace/server/requirements.txt
+COPY server/pyproject.toml server/uv.lock /workspace/server/
+# --no-cache avoids storing uv cache files in the image layer.
+RUN uv sync --project /workspace/server --locked --no-dev --no-cache
 
 COPY packages/web-components/package.json /workspace/packages/web-components/package.json
 COPY packages/web-components/package-lock.json /workspace/packages/web-components/package-lock.json
