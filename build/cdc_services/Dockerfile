@@ -119,6 +119,16 @@ RUN apt-get update && apt-get upgrade -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# Patch the base image's system Python. The servers run from the virtual env
+# copied from the py-servers stage, so the system Python does not need
+# setuptools, wheel, or the ensurepip bundle.
+# TODO: Remove the setuptools/wheel uninstall after moving to python:3.12-slim
+# or later (Python 3.11 reaches end of life in 2027-10). Those images no longer
+# install setuptools or wheel. Keep the pip upgrade and the _bundled removal.
+RUN python3 -m pip install --no-cache-dir --upgrade pip \
+    && python3 -m pip uninstall -y setuptools wheel \
+    && rm -rf "$(python3 -c 'import ensurepip, os; print(os.path.dirname(ensurepip.__file__))')/_bundled"
+
 ARG MIXER_HASH=""
 ARG WEBSITE_HASH=""
 

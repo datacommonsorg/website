@@ -532,7 +532,6 @@ test = [
     { name = "pytest-flakefinder" },
     { name = "pytest-rerunfailures" },
     { name = "pytest-xdist" },
-    { name = "setuptools" },
 ]
 
 [package.metadata]
@@ -599,9 +598,8 @@ lint = [
 test = [
     { name = "pytest", specifier = "==9.0.3" },
     { name = "pytest-flakefinder", specifier = "==1.1.0" },
-    { name = "pytest-rerunfailures", specifier = "==10.2" },
+    { name = "pytest-rerunfailures", specifier = "==16.7" },
     { name = "pytest-xdist", specifier = "==3.2.1" },
-    { name = "setuptools", specifier = "<79.0.0" },
 ]
 
 [[package]]
@@ -2748,15 +2746,15 @@ wheels = [
 
 [[package]]
 name = "pytest-rerunfailures"
-version = "10.2"
+version = "16.7"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
+    { name = "packaging" },
     { name = "pytest" },
-    { name = "setuptools" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/83/07/4b24f61f9700bd0d11cad641180898d48f602f156254a43376ee759fb904/pytest-rerunfailures-10.2.tar.gz", hash = "sha256:9e1e1bad51e07642c5bbab809fc1d4ec8eebcb7de86f90f1a26e6ef9de446697", size = 15863, upload-time = "2021-09-17T06:08:25.903Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d1/b0/6b5337f9d59b26b0069ea3d5e863c31dc04b69e51bbfb1cf2ea6328fba87/pytest_rerunfailures-16.7.tar.gz", hash = "sha256:6956ddfb65ca1d07e7e3d99e2c5359d82300f4cb062e6049563bd2c106f72d5c", size = 59666, upload-time = "2026-09-17T07:08:48.871Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ee/cc/f8782fb91a6a9e1b593c22e3b1a7354a9dbd6d632e63ddf122b2da49037b/pytest_rerunfailures-10.2-py3-none-any.whl", hash = "sha256:d31d8e828dfd39363ad99cd390187bf506c7a433a89f15c3126c7d16ab723fe2", size = 11342, upload-time = "2021-09-17T06:08:24.46Z" },
+    { url = "https://files.pythonhosted.org/packages/c1/d3/07ea35102cf2020ddaaac368d2a6f0bcc63d6523fb8918805bac3eb8b98f/pytest_rerunfailures-16.7-py3-none-any.whl", hash = "sha256:edf1886209c2b7dafe35b5bf1708d6ec40ccf6c6b357f0f02807efcec0204c99", size = 23952, upload-time = "2026-09-17T07:08:47.635Z" },
 ]
 
 [[package]]

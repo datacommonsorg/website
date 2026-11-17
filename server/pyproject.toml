@@ -66,10 +66,8 @@ lint = [
 test = [
     "pytest==9.0.3",
     "pytest-flakefinder==1.1.0",
-    "pytest-rerunfailures==10.2",
+    "pytest-rerunfailures==16.7",
     "pytest-xdist==3.2.1",
-    # Restrictive constraint required for legacy pkg_resources behavior in test suite (pytest-rerunfailures)
-    "setuptools<79.0.0",
 ]
 
 # Explicitly set pypi index as default for Cloud Build
