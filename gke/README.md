@@ -179,10 +179,9 @@ where `<ENV>` refers to the name of the instance and `<REGION>` is the region of
 
 ## Update cluster config
 
-If multi-cluster ingress and service needs to be updated, then for each region that needs to be updated, run the following commands. Pass `-n` only if the environment runs the Node.js server.
+If multi-cluster ingress and service needs to be updated, then for each region that needs to be updated, run the following command. Pass `-n` only if the environment runs the Node.js server.
 
 ```bash
-gcloud config set project <PROJECT>
 ./update_config_cluster.sh -e <ENV> -l <REGION>
 ```
 
