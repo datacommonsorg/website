@@ -1,8 +1,9 @@
 absl-py==1.4.0
+authlib==1.9.8
 beautifulsoup4==4.12.2
 CacheControl==0.12.11
 deepdiff==8.6.2
-Flask[async]==2.3.2
+Flask[async]==2.3.3
 Flask-Babel==2.0.0
 Flask-Caching==2.0.1
 flask_cors==6.0.0
@@ -38,7 +39,7 @@ pillow==13.0.0
 protobuf>=4.25.3
 pydantic==2.13.5
 PyGithub==1.58.2
-pyOpenSSL==23.2.0
+pyOpenSSL==26.4.0
 python-dateutil>=2.9.0.post0, <3.0.0
 pytest-flakefinder==1.1.0
 pytest-rerunfailures==10.2
@@ -51,7 +52,7 @@ selenium==4.21.0
 starlette==1.10.0
 typing-extensions==4.15.0
 webdriver-manager==4.0.0
-Werkzeug==3.0.6
+Werkzeug==3.1.9
 wheel==0.38.1
 # TODO: publish the library to pypi so we don't have to install from git
 git+https://github.com/datacommonsorg/llm-tools.git
