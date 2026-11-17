@@ -22,8 +22,9 @@
 import _ from "lodash";
 import React from "react";
 
+import { OpenInNew } from "../components/elements/icons/open_in_new";
 import { GoogleMap } from "../components/google_map";
-import { getOutArcRowElementId } from "../utils/browser_utils";
+import { getOutArcRowElementId, isHttpUrl } from "../utils/browser_utils";
 import { ArcValue } from "./types";
 
 const HREF_PREFIX = "/browser/";
@@ -62,22 +63,40 @@ export class ArcTableRow extends React.Component<
     this.showExpando = this.props.values.length > NUM_VALUES_UNEXPANDED;
   }
 
+  renderValueContent(value: ArcValue): JSX.Element {
+    if (value.dcid) {
+      return (
+        <>
+          <a href={HREF_PREFIX + value.dcid}>{value.text}</a>
+          {value.dcid !== value.text && (
+            <span className="dcid-text"> (dcid: {value.dcid})</span>
+          )}
+          {value.dcid.startsWith("latLong/") && (
+            <GoogleMap dcid={value.dcid}></GoogleMap>
+          )}
+        </>
+      );
+    }
+    if (isHttpUrl(value.text)) {
+      return (
+        <a
+          className="external-url-link"
+          href={value.text.trim()}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {value.text}
+          <OpenInNew aria-hidden="true" />
+        </a>
+      );
+    }
+    return <span>{value.text}</span>;
+  }
+
   renderValue(value: ArcValue): JSX.Element {
     return (
       <div className="arc-text" key={value.text}>
-        {value.dcid ? (
-          <>
-            <a href={HREF_PREFIX + value.dcid}>{value.text}</a>
-            {value.dcid !== value.text && (
-              <span className="dcid-text"> (dcid: {value.dcid})</span>
-            )}
-            {value.dcid.startsWith("latLong/") && (
-              <GoogleMap dcid={value.dcid}></GoogleMap>
-            )}
-          </>
-        ) : (
-          <span>{value.text}</span>
-        )}
+        {this.renderValueContent(value)}
       </div>
     );
   }

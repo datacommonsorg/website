@@ -24,3 +24,29 @@ export function getInArcSubsectionElementId(
 ): string {
   return `${incomingType}-${prop}`;
 }
+
+/**
+ * Returns true if the given value is a standalone valid HTTP or HTTPS URL.
+ * Strictly allowlists http: and https: protocols to prevent javascript:/data: XSS.
+ */
+export function isHttpUrl(value?: string): boolean {
+  if (!value) {
+    return false;
+  }
+  const trimmed = value.trim();
+  if (
+    (!trimmed.startsWith("http://") && !trimmed.startsWith("https://")) ||
+    /\s/.test(trimmed)
+  ) {
+    return false;
+  }
+  try {
+    const parsed = new URL(trimmed);
+    return (
+      (parsed.protocol === "http:" || parsed.protocol === "https:") &&
+      Boolean(parsed.hostname)
+    );
+  } catch {
+    return false;
+  }
+}
