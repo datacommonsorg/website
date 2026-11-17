@@ -24,7 +24,7 @@ import React from "react";
 
 import { OpenInNew } from "../components/elements/icons/open_in_new";
 import { GoogleMap } from "../components/google_map";
-import { getOutArcRowElementId, isHttpUrl } from "../utils/browser_utils";
+import { getOutArcRowElementId, sanitizeHttpUrl } from "../utils/browser_utils";
 import { ArcValue } from "./types";
 
 const HREF_PREFIX = "/browser/";
@@ -77,15 +77,16 @@ export class ArcTableRow extends React.Component<
         </>
       );
     }
-    if (isHttpUrl(value.text)) {
+    const sanitizedUrl = sanitizeHttpUrl(value.text);
+    if (sanitizedUrl) {
       return (
         <a
           className="external-url-link"
-          href={value.text.trim()}
+          href={sanitizedUrl}
           target="_blank"
           rel="noopener noreferrer"
         >
-          {value.text}
+          {value.text.trim()}
           <OpenInNew aria-hidden="true" />
         </a>
       );

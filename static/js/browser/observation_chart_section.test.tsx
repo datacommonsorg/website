@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import "@testing-library/jest-dom";
-
 import { render, waitFor } from "@testing-library/react";
 import axios from "axios";
 import React from "react";
@@ -37,7 +35,7 @@ describe("ObservationChartSection", () => {
     jest.resetAllMocks();
   });
 
-  it("renders provenanceUrl as a clickable new-window link with icon", async () => {
+  it("renders provenanceUrl as a sanitized clickable new-window link with icon", async () => {
     const provUrl = "https://wonder.cdc.gov/natality.html";
     mockedAxios.get.mockResolvedValue({
       data: {
@@ -71,15 +69,15 @@ describe("ObservationChartSection", () => {
     await waitFor(() => {
       const link = container.querySelector("a.external-url-link");
       expect(link).not.toBeNull();
-      expect(link).toHaveAttribute("href", provUrl);
-      expect(link).toHaveAttribute("target", "_blank");
-      expect(link).toHaveAttribute("rel", "noopener noreferrer");
-      expect(link.textContent).toBe(provUrl);
-      expect(link.querySelector("svg")).not.toBeNull();
+      expect(link?.getAttribute("href")).toBe(provUrl);
+      expect(link?.getAttribute("target")).toBe("_blank");
+      expect(link?.getAttribute("rel")).toBe("noopener noreferrer");
+      expect(link?.textContent).toBe(provUrl);
+      expect(link?.querySelector("svg")).not.toBeNull();
     });
   });
 
-  it("renders non-URL provenance string as plain text", async () => {
+  it("renders non-URL provenance string as plain text and blocks unsafe schemes", async () => {
     mockedAxios.get.mockResolvedValue({
       data: {
         data: {
@@ -95,7 +93,7 @@ describe("ObservationChartSection", () => {
         facets: {
           facet2: {
             observationPeriod: "P1Y",
-            provenanceUrl: "Internal Dataset Source",
+            provenanceUrl: "javascript:alert(1)",
           },
         },
       },
@@ -111,13 +109,13 @@ describe("ObservationChartSection", () => {
 
     await waitFor(() => {
       expect(container.textContent).toContain(
-        "provenance: Internal Dataset Source"
+        "provenance: javascript:alert(1)"
       );
       expect(container.querySelector("a.external-url-link")).toBeNull();
     });
   });
 
-  it("renders safely without crashing when facet metadata is missing", async () => {
+  it("omits provenance paragraph and renders safely when facet metadata is missing", async () => {
     mockedAxios.get.mockResolvedValue({
       data: {
         data: {
@@ -146,6 +144,7 @@ describe("ObservationChartSection", () => {
       expect(
         container.querySelector('[data-testid="mock-obs-chart"]')
       ).not.toBeNull();
+      expect(container.textContent).not.toContain("provenance:");
       expect(container.querySelector("a.external-url-link")).toBeNull();
     });
   });

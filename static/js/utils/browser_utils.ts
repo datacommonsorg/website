@@ -26,27 +26,36 @@ export function getInArcSubsectionElementId(
 }
 
 /**
- * Returns true if the given value is a standalone valid HTTP or HTTPS URL.
- * Strictly allowlists http: and https: protocols to prevent javascript:/data: XSS.
+ * Validates and normalizes an external URL string for safe use in an `href`
+ * attribute. Strictly allowlists `http:` and `https:` protocols and rejects
+ * whitespace or executable schemes (such as `javascript:` or `data:`) to
+ * prevent XSS. Returns null when the input is not a valid HTTP(S) URL.
  */
-export function isHttpUrl(value?: string): boolean {
+export function sanitizeHttpUrl(value?: string): string | null {
   if (!value) {
-    return false;
+    return null;
   }
   const trimmed = value.trim();
-  if (
-    (!trimmed.startsWith("http://") && !trimmed.startsWith("https://")) ||
-    /\s/.test(trimmed)
-  ) {
-    return false;
+  if (!/^https?:\/\//i.test(trimmed) || /\s/.test(trimmed)) {
+    return null;
   }
   try {
     const parsed = new URL(trimmed);
-    return (
-      (parsed.protocol === "http:" || parsed.protocol === "https:") &&
-      Boolean(parsed.hostname)
-    );
+    if (
+      (parsed.protocol !== "http:" && parsed.protocol !== "https:") ||
+      !parsed.hostname
+    ) {
+      return null;
+    }
+    return parsed.toString();
   } catch {
-    return false;
+    return null;
   }
+}
+
+/**
+ * Returns true if the given value is a standalone valid HTTP or HTTPS URL.
+ */
+export function isHttpUrl(value?: string): boolean {
+  return sanitizeHttpUrl(value) !== null;
 }

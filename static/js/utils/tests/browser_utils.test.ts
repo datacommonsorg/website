@@ -18,6 +18,7 @@ import {
   getInArcSubsectionElementId,
   getOutArcRowElementId,
   isHttpUrl,
+  sanitizeHttpUrl,
 } from "../browser_utils";
 
 describe("browser_utils", () => {
@@ -29,25 +30,38 @@ describe("browser_utils", () => {
   });
 
   test.each([
-    ["https://wonder.cdc.gov/natality.html", true],
-    ["https://data.gov.au/data/dataset/grim-books", true],
+    [
+      "https://wonder.cdc.gov/natality.html",
+      "https://wonder.cdc.gov/natality.html",
+    ],
+    [
+      "https://data.gov.au/data/dataset/grim-books",
+      "https://data.gov.au/data/dataset/grim-books",
+    ],
     [
       "https://data.gov.au/data/dataset/488ef6d4-c763-4b24-b8fb-9c15b67ece19/resource/edcbc14c-ba7c-44ae-9d4f-2622ad3fafe0/download/aihw-phe-229-grim-data-gov-au-2026.csv",
-      true,
+      "https://data.gov.au/data/dataset/488ef6d4-c763-4b24-b8fb-9c15b67ece19/resource/edcbc14c-ba7c-44ae-9d4f-2622ad3fafe0/download/aihw-phe-229-grim-data-gov-au-2026.csv",
     ],
-    ["http://example.org/dataset", true],
-    ["  https://example.org/trimmed  ", true],
-    ["", false],
-    [undefined, false],
-    ["https://", false],
-    ["http://", false],
-    ["https://example.org with spaces in sentence", false],
-    ["Published on https://data.gov.au in 2026", false],
-    ["javascript:alert(1)", false],
-    ["data:text/html,<script>alert(1)</script>", false],
-    ["ftp://files.example.org/data.csv", false],
-    ["dcsci/p/AIHW_GRIM_2026_edcbc14c", false],
-  ])("isHttpUrl(%p) returns %p", (input, expected) => {
-    expect(isHttpUrl(input)).toBe(expected);
+    ["http://example.org/dataset", "http://example.org/dataset"],
+    ["  https://example.org/trimmed  ", "https://example.org/trimmed"],
+    [
+      "HTTPS://wonder.cdc.gov/natality.html",
+      "https://wonder.cdc.gov/natality.html",
+    ],
+    ["", null],
+    [undefined, null],
+    ["https://", null],
+    ["http://", null],
+    ["https://example.org with spaces in sentence", null],
+    ["Published on https://data.gov.au in 2026", null],
+    ["javascript:alert(1)", null],
+    ["JavaScript:alert(1)", null],
+    ["data:text/html,<script>alert(1)</script>", null],
+    ["vbscript:msgbox(1)", null],
+    ["ftp://files.example.org/data.csv", null],
+    ["dcsci/p/AIHW_GRIM_2026_edcbc14c", null],
+  ])("sanitizeHttpUrl(%p) returns %p", (input, expected) => {
+    expect(sanitizeHttpUrl(input)).toBe(expected);
+    expect(isHttpUrl(input)).toBe(expected !== null);
   });
 });

@@ -31,7 +31,7 @@ import {
 } from "../shared/stat_types";
 import { loadSpinner, randDomId, removeSpinner } from "../shared/util";
 import { stringifyFn } from "../utils/axios";
-import { isHttpUrl } from "../utils/browser_utils";
+import { sanitizeHttpUrl } from "../utils/browser_utils";
 import { getUnit } from "../utils/stat_metadata_utils";
 import { ObservationChart } from "./observation_chart";
 
@@ -116,9 +116,12 @@ export class ObservationChartSection extends React.Component<
                 placeDcid={this.props.placeDcid}
                 statVarName={this.props.statVarName}
               />
-              <p className="metadata">
-                provenance: {this.renderProvenanceValue(metadata.provenanceUrl)}
-              </p>
+              {metadata.provenanceUrl && (
+                <p className="metadata">
+                  provenance:{" "}
+                  {this.renderProvenanceValue(metadata.provenanceUrl)}
+                </p>
+              )}
             </div>
           );
         })}
@@ -129,18 +132,19 @@ export class ObservationChartSection extends React.Component<
     );
   }
 
-  private renderProvenanceValue(provenanceUrl?: string): React.ReactNode {
-    if (!provenanceUrl || !isHttpUrl(provenanceUrl)) {
+  private renderProvenanceValue(provenanceUrl: string): React.ReactNode {
+    const sanitizedUrl = sanitizeHttpUrl(provenanceUrl);
+    if (!sanitizedUrl) {
       return provenanceUrl;
     }
     return (
       <a
         className="external-url-link"
-        href={provenanceUrl.trim()}
+        href={sanitizedUrl}
         target="_blank"
         rel="noopener noreferrer"
       >
-        {provenanceUrl}
+        {provenanceUrl.trim()}
         <OpenInNew aria-hidden="true" />
       </a>
     );

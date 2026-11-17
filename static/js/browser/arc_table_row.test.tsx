@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-import "@testing-library/jest-dom";
-
 import { render } from "@testing-library/react";
 import React from "react";
 
 import { ArcTableRow } from "./arc_table_row";
 
 describe("ArcTableRow", () => {
-  it("renders literal HTTP/HTTPS URLs as external links with new-window icon", () => {
+  it("renders literal HTTP/HTTPS URLs as sanitized external links with new-window icon", () => {
     const csvUrl =
       "https://data.gov.au/data/dataset/488ef6d4/download/grim-2026.csv";
     const { container } = render(
@@ -30,7 +28,7 @@ describe("ArcTableRow", () => {
         <tbody>
           <ArcTableRow
             propertyLabel="url"
-            values={[{ text: csvUrl }]}
+            values={[{ text: `  ${csvUrl}  ` }]}
             hideProvenanceColumn={true}
           />
         </tbody>
@@ -39,11 +37,11 @@ describe("ArcTableRow", () => {
 
     const externalLink = container.querySelector("a.external-url-link");
     expect(externalLink).not.toBeNull();
-    expect(externalLink).toHaveAttribute("href", csvUrl);
-    expect(externalLink).toHaveAttribute("target", "_blank");
-    expect(externalLink).toHaveAttribute("rel", "noopener noreferrer");
-    expect(externalLink.textContent).toBe(csvUrl);
-    expect(externalLink.querySelector("svg")).not.toBeNull();
+    expect(externalLink?.getAttribute("href")).toBe(csvUrl);
+    expect(externalLink?.getAttribute("target")).toBe("_blank");
+    expect(externalLink?.getAttribute("rel")).toBe("noopener noreferrer");
+    expect(externalLink?.textContent).toBe(csvUrl);
+    expect(externalLink?.querySelector("svg")).not.toBeNull();
   });
 
   it("renders non-URL literal values and unsafe schemes as plain text", () => {
@@ -92,7 +90,7 @@ describe("ArcTableRow", () => {
 
     expect(container.querySelector("a.external-url-link")).toBeNull();
     const internalLink = container.querySelector(".arc-text a");
-    expect(internalLink).toHaveAttribute("href", "/browser/dcsci/s/AIHW");
-    expect(internalLink).not.toHaveAttribute("target");
+    expect(internalLink?.getAttribute("href")).toBe("/browser/dcsci/s/AIHW");
+    expect(internalLink?.hasAttribute("target")).toBe(false);
   });
 });
