@@ -5,6 +5,7 @@ description = "Data Commons Website Server"
 requires-python = ">=3.11,<3.13"
 dependencies = [
     "absl-py==1.4.0",
+    "authlib==1.9.8",
     "beautifulsoup4==4.12.2",
     "CacheControl==0.12.11",
     "data-gemma",
@@ -14,7 +15,7 @@ dependencies = [
     "flask_testing==0.8.1",
     "Flask-Babel==2.0.0",
     "Flask-Caching==2.0.1",
-    "Flask[async]==2.3.2",
+    "Flask[async]==2.3.3",
     "frozendict==2.3.4",
     "geojson_rewind==1.0.1",
     "google-adk==1.38.0",
@@ -40,11 +41,11 @@ dependencies = [
     "opentelemetry-exporter-otlp-proto-http==1.37.0",
     "opentelemetry-sdk==1.37.0",
     "parameterized==0.8.1",
-    "pillow==12.1.1",
+    "pillow==13.0.0",
     "protobuf>=4.25.3",
     "pydantic==2.13.5",
     "PyGithub==1.58.2",
-    "pyOpenSSL==23.2.0",
+    "pyOpenSSL==26.4.0",
     "python-dateutil>=2.9.0.post0, <3.0.0",
     "PyYAML==6.0.2",
     "redis==4.5.4",
@@ -53,7 +54,7 @@ dependencies = [
     "starlette==1.10.0",
     "typing-extensions==4.15.0",
     "webdriver-manager==4.0.0",
-    "Werkzeug==3.0.6",
+    "Werkzeug==3.1.9",
     "wheel==0.38.1",
 ]
 
