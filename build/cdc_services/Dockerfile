@@ -63,11 +63,13 @@ RUN apt-get update && apt-get -y upgrade && apt-get install -y git
 # Copy requirements.
 COPY server/requirements.txt ./server/requirements.txt
 
-# Create a virtual env and install requirements.
+# Create a virtual env, install requirements, and strip packaging tools that are
+# not used at runtime so they cannot accumulate vulnerabilities in cached layers.
 RUN python -m venv ./venv
 ENV PATH="/workspace/venv/bin:$PATH"
 RUN pip3 install --no-cache-dir --upgrade pip setuptools \
-    && pip3 install --no-cache-dir -r /workspace/server/requirements.txt
+    && pip3 install --no-cache-dir -r /workspace/server/requirements.txt \
+    && python -m pip uninstall -y pip setuptools wheel
 
 # Copy website app script.
 COPY web_app.py ./web_app.py
@@ -119,15 +121,14 @@ RUN apt-get update && apt-get upgrade -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Patch the base image's system Python. The servers run from the virtual env
-# copied from the py-servers stage, so the system Python does not need
-# setuptools, wheel, or the ensurepip bundle.
-# TODO: Remove the setuptools/wheel uninstall after moving to python:3.12-slim
-# or later (Python 3.11 reaches end of life in 2027-10). Those images no longer
-# install setuptools or wheel. Keep the pip upgrade and the _bundled removal.
-RUN python3 -m pip install --no-cache-dir --upgrade pip \
-    && python3 -m pip uninstall -y setuptools wheel \
-    && rm -rf "$(python3 -c 'import ensurepip, os; print(os.path.dirname(ensurepip.__file__))')/_bundled"
+# Remove packaging tools and bundled wheels from the base image's system Python.
+# Runtime processes execute from /workspace/venv and do not use them.
+# TODO: Drop setuptools and wheel from this uninstall after upgrading to
+# python:3.12-slim or later (Python 3.11 reaches end of life in 2027-10), as
+# 3.12+ images only pre-install pip and ensurepip.
+RUN python3 -m pip uninstall -y pip setuptools wheel \
+    && ensurepip_dir="$(python3 -c 'import ensurepip, os; print(os.path.dirname(ensurepip.__file__))')" \
+    && rm -rf "${ensurepip_dir}/_bundled"
 
 ARG MIXER_HASH=""
 ARG WEBSITE_HASH=""

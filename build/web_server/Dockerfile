@@ -24,8 +24,11 @@ WORKDIR /workspace
 
 COPY web_app.py /workspace/web_app.py
 COPY server/requirements.txt /workspace/server/requirements.txt
-RUN pip install --upgrade pip
-RUN pip install --upgrade setuptools
+# Upgrade pip and setuptools (required by pre-installed pipenv in this base
+# image), and remove the base image's standalone wheel, which is unused at
+# runtime and not used by PEP 517 isolated package builds.
+RUN pip install --no-cache-dir --upgrade pip setuptools \
+    && pip uninstall -y wheel
 # --no-cache-dir removes ~/.cache files, which can be a few GB.
 RUN pip3 install --no-cache-dir -r /workspace/server/requirements.txt
 

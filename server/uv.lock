@@ -519,7 +519,6 @@ dependencies = [
     { name = "typing-extensions" },
     { name = "webdriver-manager" },
     { name = "werkzeug" },
-    { name = "wheel" },
 ]
 
 [package.dev-dependencies]
@@ -587,7 +586,6 @@ requires-dist = [
     { name = "typing-extensions", specifier = "==4.15.0" },
     { name = "webdriver-manager", specifier = "==4.0.0" },
     { name = "werkzeug", specifier = "==3.1.9" },
-    { name = "wheel", specifier = "==0.38.1" },
 ]
 
 [package.metadata.requires-dev]
@@ -3448,15 +3446,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/a4/34/4dd12fc8bb7d61c91467ec3efe415ffa7d5456f799954b40c5bbaeae470e/werkzeug-3.1.9.tar.gz", hash = "sha256:55ca7c70a75689be937aa27f8ff4b018f06ff4838fc73045560bf0f5a1291060", size = 940188, upload-time = "2026-09-27T18:33:41.637Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/a1/38/df03f564f43cec2684823f3cccae1a652ee7face1cbaa76fb223096e64d7/werkzeug-3.1.9-py3-none-any.whl", hash = "sha256:6392e50c78460ba618e5b21f08a71f59c99ce99cdc6cf6e3dd7e6ccca8754fab", size = 228700, upload-time = "2026-09-27T18:33:39.685Z" },
-]
-
-[[package]]
-name = "wheel"
-version = "0.38.1"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/7a/b0/29c0c8c6f8cebeb0de4c17bc44365cba0b35cb4246e4a27a7e12ecf92d73/wheel-0.38.1.tar.gz", hash = "sha256:ea041edf63f4ccba53ad6e035427997b3bb10ee88a4cd014ae82aeb9eea77bb9", size = 66402, upload-time = "2022-11-04T09:28:30.105Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/84/a8/4dab22a963a756e5b54ce0ab5c900c54329cff38e163fe3c67c858240ec6/wheel-0.38.1-py3-none-any.whl", hash = "sha256:7a95f9a8dc0924ef318bd55b616112c70903192f524d120acc614f59547a9e1f", size = 35996, upload-time = "2022-11-04T09:28:28.361Z" },
 ]
 
 [[package]]
