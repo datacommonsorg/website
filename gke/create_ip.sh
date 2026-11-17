@@ -13,16 +13,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-CONFIG_YAML="../deploy/helm_charts/envs/$1.yaml"
+set -e
 
-PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
+if [[ -z $1 ]]; then
+  echo "Usage: $0 <ENV>" >&2
+  exit 1
+fi
 
-gcloud config set project $PROJECT_ID
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CONFIG_YAML="$SCRIPT_DIR/../deploy/helm_charts/envs/$1.yaml"
+
+if [[ ! -f $CONFIG_YAML ]]; then
+  echo "Error: Environment config not found: $CONFIG_YAML" >&2
+  exit 1
+fi
+
+PROJECT_ID=$(yq eval '.project' "$CONFIG_YAML")
 
 # Create a static IP address for the API
-gcloud compute addresses create dc-website-ip --global
+gcloud compute addresses create dc-website-ip --global --project="$PROJECT_ID"
 
 # Record the IP address.
-export IP=$(gcloud compute addresses list --global --filter='name:dc-website-ip' --format='value(ADDRESS)')
+IP=$(gcloud compute addresses list --global --project="$PROJECT_ID" --filter='name=dc-website-ip' --format='value(ADDRESS)')
+if [[ -z $IP ]]; then
+  echo "Error: Static IP 'dc-website-ip' not found after creation in project $PROJECT_ID" >&2
+  exit 1
+fi
 
-yq eval -i '.ip = env(IP)' $CONFIG_YAML
+IP="$IP" yq eval -i '.ip = strenv(IP)' "$CONFIG_YAML"
+

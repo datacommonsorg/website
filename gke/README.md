@@ -179,7 +179,7 @@ where `<ENV>` refers to the name of the instance and `<REGION>` is the region of
 
 ## Update cluster config
 
-If multi-cluster ingress and service needs to be updated, then for each region that needs to be updated, run the following command. Pass `-n` only if the environment runs the Node.js server.
+If multi-cluster ingress and service needs to be updated, then for each region that needs to be updated, run the following command. Pass `-n` only if the environment runs the Node.js server. By default, the script fails fast if the resolved static IP differs from a live `website-mci` IP; pass `-f` only when intentionally rotating the ingress IP.
 
 ```bash
 ./update_config_cluster.sh -e <ENV> -l <REGION>

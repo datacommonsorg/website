@@ -16,14 +16,15 @@
 set -e
 
 function help {
-  echo "Usage: $0 -eln"
+  echo "Usage: $0 -e <ENV> [-l <REGION>] [-n] [-f]"
   echo "-e       Instance environment as defined under ../deploy/helm_charts/envs"
   echo "-l       GKE region Default: us-central1"
   echo "-n       Setup nodejs service"
+  echo "-f       Allow replacing a live website-mci static IP if it differs from resolved IP"
   exit 1
 }
 
-while getopts ":e:l:n?" OPTION; do
+while getopts ":e:l:nf?" OPTION; do
   case $OPTION in
     e)
       ENV=$OPTARG
@@ -34,48 +35,57 @@ while getopts ":e:l:n?" OPTION; do
     n)
       export SETUP_NODEJS=true
       ;;
+    f)
+      FORCE_IP_CHANGE=true
+      ;;
     *)
       help
       ;;
   esac
 done
 
-if [[ $ENV == "" ]]; then
-  echo "Set environment by -e"
+if [[ -z $ENV ]]; then
+  echo "Set environment by -e" >&2
   exit 1
 fi
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
 
 DEFAULT_VALUES_YAML="../deploy/helm_charts/dc_website/values.yaml"
 CONFIG_YAML="../deploy/helm_charts/envs/$ENV.yaml"
 
-PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
-CLUSTER_PREFIX=$(yq eval '.cluster_prefix' $CONFIG_YAML)
-AGENTIC_ENABLED=$(yq eval '.agentic.enabled' $CONFIG_YAML)
+if [[ ! -f $CONFIG_YAML ]]; then
+  echo "Error: Environment config not found: $CONFIG_YAML" >&2
+  exit 1
+fi
+
+PROJECT_ID=$(yq eval '.project' "$CONFIG_YAML")
+CLUSTER_PREFIX=$(yq eval '.cluster_prefix // "website"' "$CONFIG_YAML")
+AGENTIC_ENABLED=$(yq eval '.agentic.enabled' "$CONFIG_YAML")
 if [[ -z $AGENTIC_ENABLED || $AGENTIC_ENABLED == "null" ]]; then
-  AGENTIC_ENABLED=$(yq eval '.agentic.enabled' $DEFAULT_VALUES_YAML)
+  AGENTIC_ENABLED=$(yq eval '.agentic.enabled' "$DEFAULT_VALUES_YAML")
 fi
-DISCOVER_ENABLED=$(yq eval '.agentic.discover.enabled' $CONFIG_YAML)
+DISCOVER_ENABLED=$(yq eval '.agentic.discover.enabled' "$CONFIG_YAML")
 if [[ -z $DISCOVER_ENABLED || $DISCOVER_ENABLED == "null" ]]; then
-  DISCOVER_ENABLED=$(yq eval '.agentic.discover.enabled' $DEFAULT_VALUES_YAML)
+  DISCOVER_ENABLED=$(yq eval '.agentic.discover.enabled' "$DEFAULT_VALUES_YAML")
 fi
-DISCOVER_BASE_PATH=$(yq eval '.agentic.discover.basePath // ""' $CONFIG_YAML)
+DISCOVER_BASE_PATH=$(yq eval '.agentic.discover.basePath // ""' "$CONFIG_YAML")
 if [[ -z $DISCOVER_BASE_PATH ]]; then
-  DISCOVER_BASE_PATH=$(yq eval '.agentic.discover.basePath' $DEFAULT_VALUES_YAML)
+  DISCOVER_BASE_PATH=$(yq eval '.agentic.discover.basePath' "$DEFAULT_VALUES_YAML")
 fi
 DISCOVER_BASE_PATH="${DISCOVER_BASE_PATH%/}"
 
-if [[ $LOCATION == "" ]]; then
+if [[ -z $LOCATION ]]; then
   LOCATION="us-central1"
 fi
 
 # Get gke credentials
-CLUSTER_NAME=$CLUSTER_PREFIX-$LOCATION
-gcloud container clusters get-credentials $CLUSTER_NAME \
-  --region=$LOCATION --project=$PROJECT_ID
+CLUSTER_NAME="$CLUSTER_PREFIX-$LOCATION"
+gcloud container clusters get-credentials "$CLUSTER_NAME" \
+  --region="$LOCATION" --project="$PROJECT_ID"
 
-# Update backendconfig and mci config
-cp backendconfig.yaml.tpl backendconfig.yaml
-cp mci.yaml.tpl mci.yaml
+# Resolve static IP from Helm env config first, falling back to global address 'dc-website-ip'
 IP=$(yq eval '.ip // ""' "$CONFIG_YAML")
 if [[ -z $IP ]]; then
   IP=$(gcloud compute addresses list --global --project="$PROJECT_ID" --filter='name=dc-website-ip' --format='value(ADDRESS)')
@@ -84,6 +94,27 @@ if [[ -z $IP ]]; then
     exit 1
   fi
 fi
+
+# Guard against unintentionally overwriting a live website-mci static IP with a stale YAML value
+EXISTING_MCI=$(kubectl get mci website-mci -n website --ignore-not-found -o yaml)
+if [[ -n $EXISTING_MCI ]]; then
+  EXISTING_STATIC_IP=$(printf '%s\n' "$EXISTING_MCI" | yq eval '.metadata.annotations."networking.gke.io/static-ip" // ""' -)
+  EXISTING_VIP=$(printf '%s\n' "$EXISTING_MCI" | yq eval '.status.VIP // ""' -)
+  LIVE_IP="${EXISTING_VIP:-$EXISTING_STATIC_IP}"
+  if [[ -n $LIVE_IP && $LIVE_IP != "$IP" ]]; then
+    if [[ $FORCE_IP_CHANGE == "true" ]]; then
+      echo "Warning: Replacing live website-mci static IP ($LIVE_IP -> $IP) in project $PROJECT_ID (-f specified)." >&2
+    else
+      echo "Error: Resolved static IP ($IP) does not match live website-mci IP ($LIVE_IP) in project $PROJECT_ID." >&2
+      echo "Verify $CONFIG_YAML (.ip) matches the live ingress, or re-run with -f to intentionally replace the ingress IP." >&2
+      exit 1
+    fi
+  fi
+fi
+
+# Update backendconfig and mci config
+cp backendconfig.yaml.tpl backendconfig.yaml
+cp mci.yaml.tpl mci.yaml
 IP="$IP" yq eval -i '.metadata.annotations."networking.gke.io/static-ip" = strenv(IP)' mci.yaml
 # If not setting up nodejs service, remove the nodejs path from the mci.yaml
 if [[ -z $SETUP_NODEJS ]]; then
@@ -115,5 +146,5 @@ if [[ $AGENTIC_ENABLED == "true" ]]; then
   kubectl apply -f website_agentic_mcs.yaml
 fi
 
+# Check the status: `kubectl describe mci website-mci -n website`
 
-# Check the status: `kubectl describe mci website -n website`
