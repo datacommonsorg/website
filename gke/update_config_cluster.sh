@@ -24,6 +24,11 @@ function help {
   exit 1
 }
 
+ENV=""
+LOCATION=""
+SETUP_NODEJS=""
+FORCE_IP_CHANGE=""
+OPTIND=1
 while getopts ":e:l:nf?" OPTION; do
   case $OPTION in
     e)
@@ -33,7 +38,7 @@ while getopts ":e:l:nf?" OPTION; do
       LOCATION=$OPTARG
       ;;
     n)
-      export SETUP_NODEJS=true
+      SETUP_NODEJS=true
       ;;
     f)
       FORCE_IP_CHANGE=true
@@ -43,6 +48,11 @@ while getopts ":e:l:nf?" OPTION; do
       ;;
   esac
 done
+shift $((OPTIND - 1))
+if [[ $# -gt 0 ]]; then
+  echo "Unexpected positional argument(s): $*" >&2
+  help
+fi
 
 if [[ -z $ENV ]]; then
   echo "Set environment by -e" >&2
@@ -60,8 +70,13 @@ if [[ ! -f $CONFIG_YAML ]]; then
   exit 1
 fi
 
-PROJECT_ID=$(yq eval -r '.project' "$CONFIG_YAML")
-CLUSTER_PREFIX=$(yq eval -r '.cluster_prefix // "website"' "$CONFIG_YAML")
+PROJECT_ID=$(yq eval -r '.project // ""' "$CONFIG_YAML")
+if [[ -z $PROJECT_ID ]]; then
+  echo "Error: 'project' is missing or empty in $CONFIG_YAML" >&2
+  exit 1
+fi
+CLUSTER_PREFIX=$(yq eval -r '.cluster_prefix // ""' "$CONFIG_YAML")
+CLUSTER_PREFIX="${CLUSTER_PREFIX:-website}"
 AGENTIC_ENABLED=$(yq eval -r '.agentic.enabled' "$CONFIG_YAML")
 if [[ -z $AGENTIC_ENABLED || $AGENTIC_ENABLED == "null" ]]; then
   AGENTIC_ENABLED=$(yq eval -r '.agentic.enabled' "$DEFAULT_VALUES_YAML")
@@ -100,12 +115,12 @@ EXISTING_MCI=$(kubectl get mci website-mci -n website --ignore-not-found -o yaml
 if [[ -n $EXISTING_MCI ]]; then
   EXISTING_STATIC_IP=$(yq eval -r '.metadata.annotations."networking.gke.io/static-ip" // ""' - <<< "$EXISTING_MCI")
   EXISTING_VIP=$(yq eval -r '.status.VIP // ""' - <<< "$EXISTING_MCI")
-  LIVE_IP="${EXISTING_VIP:-$EXISTING_STATIC_IP}"
-  if [[ -n $LIVE_IP && $LIVE_IP != "$IP" ]]; then
+  if [[ ( -n $EXISTING_STATIC_IP && $EXISTING_STATIC_IP != "$IP" ) || ( -n $EXISTING_VIP && $EXISTING_VIP != "$IP" ) ]]; then
+    LIVE_STATE="static-ip=${EXISTING_STATIC_IP:-<unset>}, status.VIP=${EXISTING_VIP:-<unset>}"
     if [[ $FORCE_IP_CHANGE == "true" ]]; then
-      echo "Warning: Replacing live website-mci static IP ($LIVE_IP -> $IP) in project $PROJECT_ID (-f specified)." >&2
+      echo "Warning: Replacing live website-mci static IP ($LIVE_STATE -> $IP) in project $PROJECT_ID (-f specified)." >&2
     else
-      echo "Error: Resolved static IP ($IP) does not match live website-mci IP ($LIVE_IP) in project $PROJECT_ID." >&2
+      echo "Error: Resolved static IP ($IP) does not match live website-mci ($LIVE_STATE) in project $PROJECT_ID." >&2
       echo "Verify $CONFIG_YAML (.ip) matches the live ingress, or re-run with -f to intentionally replace the ingress IP." >&2
       exit 1
     fi
@@ -117,7 +132,7 @@ cp backendconfig.yaml.tpl backendconfig.yaml
 cp mci.yaml.tpl mci.yaml
 IP="$IP" yq eval -i '.metadata.annotations."networking.gke.io/static-ip" = strenv(IP)' mci.yaml
 # If not setting up nodejs service, remove the nodejs path from the mci.yaml
-if [[ -z $SETUP_NODEJS ]]; then
+if [[ $SETUP_NODEJS != "true" ]]; then
   yq eval -i 'del(.spec.template.spec.rules.[].http.paths[] | select(.backend.serviceName == "website-nodejs-mcs"))' mci.yaml
 fi
 # Populate or remove the agentic backendconfig and discover paths based on agentic config
@@ -138,7 +153,7 @@ kubectl apply -f backendconfig.yaml
 kubectl apply -f mci.yaml
 kubectl apply -f website_mcs.yaml
 # If setting up nodejs service, apply the mcs yaml definition for nodejs
-if [[ $SETUP_NODEJS ]]; then
+if [[ $SETUP_NODEJS == "true" ]]; then
   kubectl apply -f website_nodejs_mcs.yaml
 fi
 # If agentic apps are enabled, apply the mcs yaml definition for agentic apps

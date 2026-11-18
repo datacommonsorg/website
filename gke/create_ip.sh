@@ -28,13 +28,18 @@ if [[ ! -f $CONFIG_YAML ]]; then
   exit 1
 fi
 
-PROJECT_ID=$(yq eval -r '.project' "$CONFIG_YAML")
+PROJECT_ID=$(yq eval -r '.project // ""' "$CONFIG_YAML")
+if [[ -z $PROJECT_ID ]]; then
+  echo "Error: 'project' is missing or empty in $CONFIG_YAML" >&2
+  exit 1
+fi
 
-# Create a static IP address for the API
-gcloud compute addresses create dc-website-ip --global --project="$PROJECT_ID"
-
-# Record the IP address.
+# Create a static IP address for the API if it does not already exist.
 IP=$(gcloud compute addresses list --global --project="$PROJECT_ID" --filter='name=dc-website-ip' --format='value(ADDRESS)')
+if [[ -z $IP ]]; then
+  gcloud compute addresses create dc-website-ip --global --project="$PROJECT_ID"
+  IP=$(gcloud compute addresses list --global --project="$PROJECT_ID" --filter='name=dc-website-ip' --format='value(ADDRESS)')
+fi
 if [[ -z $IP ]]; then
   echo "Error: Static IP 'dc-website-ip' not found after creation in project $PROJECT_ID" >&2
   exit 1

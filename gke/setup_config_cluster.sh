@@ -51,7 +51,7 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-if [[ ${#POSITIONAL_ARGS[@]} -ne 2 ]]; then
+if [[ ${#POSITIONAL_ARGS[@]} -ne 2 || -z ${POSITIONAL_ARGS[0]} || -z ${POSITIONAL_ARGS[1]} ]]; then
   help
 fi
 
@@ -68,12 +68,27 @@ if [[ ! -f $CONFIG_YAML ]]; then
   exit 1
 fi
 
-PROJECT_ID=$(yq eval -r '.project' "$CONFIG_YAML")
-CLUSTER_PREFIX=$(yq eval -r '.cluster_prefix // "website"' "$CONFIG_YAML")
+PROJECT_ID=$(yq eval -r '.project // ""' "$CONFIG_YAML")
+if [[ -z $PROJECT_ID ]]; then
+  echo "Error: 'project' is missing or empty in $CONFIG_YAML" >&2
+  exit 1
+fi
+CLUSTER_PREFIX=$(yq eval -r '.cluster_prefix // ""' "$CONFIG_YAML")
+CLUSTER_PREFIX="${CLUSTER_PREFIX:-website}"
 CLUSTER_NAME="$CLUSTER_PREFIX-$REGION"
 
+CONFIG_MEMBERSHIP=$(gcloud container hub memberships list \
+  --project="$PROJECT_ID" \
+  --filter="name.basename()=$CLUSTER_NAME" \
+  --limit=1 \
+  --uri)
+if [[ -z $CONFIG_MEMBERSHIP ]]; then
+  echo "Error: Fleet membership '$CLUSTER_NAME' not found in project $PROJECT_ID" >&2
+  exit 1
+fi
+
 gcloud beta container hub ingress enable \
-  --config-membership="$CLUSTER_NAME" \
+  --config-membership="$CONFIG_MEMBERSHIP" \
   --project="$PROJECT_ID"
 
 UPDATE_ARGS=(-e "$ENV" -l "$REGION")
