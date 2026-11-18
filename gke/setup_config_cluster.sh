@@ -13,6 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# One-time setup: enables Fleet Multi-Cluster Ingress on the config cluster,
+# then delegates manifest rendering and apply to update_config_cluster.sh.
+
 set -e
 
 function help {
@@ -24,6 +27,7 @@ function help {
   exit 1
 }
 
+# Parse command-line arguments.
 SETUP_NODEJS=""
 FORCE_IP_CHANGE=""
 POSITIONAL_ARGS=()
