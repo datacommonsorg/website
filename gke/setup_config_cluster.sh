@@ -58,8 +58,7 @@ fi
 ENV="${POSITIONAL_ARGS[0]}"
 REGION="${POSITIONAL_ARGS[1]}"
 
-# https://cloud.google.com/kubernetes-engine/docs/how-to/multi-cluster-ingress-setup
-
+# Resolve and validate the Helm environment configuration.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_YAML="$SCRIPT_DIR/../deploy/helm_charts/envs/$ENV.yaml"
 
@@ -77,6 +76,8 @@ CLUSTER_PREFIX=$(yq eval -r '.cluster_prefix // ""' "$CONFIG_YAML")
 CLUSTER_PREFIX="${CLUSTER_PREFIX:-website}"
 CLUSTER_NAME="$CLUSTER_PREFIX-$REGION"
 
+# Enable Fleet Multi-Cluster Ingress with this cluster as the config cluster.
+# Docs: https://cloud.google.com/kubernetes-engine/docs/how-to/multi-cluster-ingress-setup
 CONFIG_MEMBERSHIP=$(gcloud container hub memberships list \
   --project="$PROJECT_ID" \
   --filter="name.basename()=$CLUSTER_NAME" \
@@ -91,6 +92,7 @@ gcloud beta container hub ingress enable \
   --config-membership="$CONFIG_MEMBERSHIP" \
   --project="$PROJECT_ID"
 
+# Render and apply MultiClusterIngress, MultiClusterService, and BackendConfig manifests.
 UPDATE_ARGS=(-e "$ENV" -l "$REGION")
 if [[ $SETUP_NODEJS == "true" ]]; then
   UPDATE_ARGS+=(-n)

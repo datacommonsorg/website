@@ -20,6 +20,7 @@ if [[ -z $1 ]]; then
   exit 1
 fi
 
+# Resolve and validate the Helm environment configuration.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_YAML="$SCRIPT_DIR/../deploy/helm_charts/envs/$1.yaml"
 
@@ -28,6 +29,7 @@ if [[ ! -f $CONFIG_YAML ]]; then
   exit 1
 fi
 
+# Read and validate the target GCP project ID.
 PROJECT_ID=$(yq eval -r '.project // ""' "$CONFIG_YAML")
 if [[ -z $PROJECT_ID ]]; then
   echo "Error: 'project' is missing or empty in $CONFIG_YAML" >&2
@@ -45,5 +47,6 @@ if [[ -z $IP ]]; then
   exit 1
 fi
 
+# Record the resolved IP address in the environment configuration.
 IP="$IP" yq eval -i '.ip = strenv(IP)' "$CONFIG_YAML"
 
