@@ -87,3 +87,12 @@ td a {
   line-height: 1;
   vertical-align: middle;
 }
+
+.external-url-link {
+  word-break: break-word;
+
+  svg {
+    margin-left: 4px;
+    vertical-align: text-bottom;
+  }
+}
