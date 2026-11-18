@@ -24,3 +24,38 @@ export function getInArcSubsectionElementId(
 ): string {
   return `${incomingType}-${prop}`;
 }
+
+/**
+ * Validates and normalizes an external URL string for safe use in an `href`
+ * attribute. Strictly allowlists `http:` and `https:` protocols and rejects
+ * whitespace or executable schemes (such as `javascript:` or `data:`) to
+ * prevent XSS. Returns null when the input is not a valid HTTP(S) URL.
+ */
+export function sanitizeHttpUrl(value?: string): string | null {
+  if (!value) {
+    return null;
+  }
+  const trimmed = value.trim();
+  if (!/^https?:\/\//i.test(trimmed) || /\s/.test(trimmed)) {
+    return null;
+  }
+  try {
+    const parsed = new URL(trimmed);
+    if (
+      (parsed.protocol !== "http:" && parsed.protocol !== "https:") ||
+      !parsed.hostname
+    ) {
+      return null;
+    }
+    return parsed.toString();
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Returns true if the given value is a standalone valid HTTP or HTTPS URL.
+ */
+export function isHttpUrl(value?: string): boolean {
+  return sanitizeHttpUrl(value) !== null;
+}
