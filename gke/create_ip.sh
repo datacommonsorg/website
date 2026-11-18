@@ -28,7 +28,7 @@ if [[ ! -f $CONFIG_YAML ]]; then
   exit 1
 fi
 
-PROJECT_ID=$(yq eval '.project' "$CONFIG_YAML")
+PROJECT_ID=$(yq eval -r '.project' "$CONFIG_YAML")
 
 # Create a static IP address for the API
 gcloud compute addresses create dc-website-ip --global --project="$PROJECT_ID"

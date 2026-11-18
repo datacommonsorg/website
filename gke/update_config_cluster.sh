@@ -60,19 +60,19 @@ if [[ ! -f $CONFIG_YAML ]]; then
   exit 1
 fi
 
-PROJECT_ID=$(yq eval '.project' "$CONFIG_YAML")
-CLUSTER_PREFIX=$(yq eval '.cluster_prefix // "website"' "$CONFIG_YAML")
-AGENTIC_ENABLED=$(yq eval '.agentic.enabled' "$CONFIG_YAML")
+PROJECT_ID=$(yq eval -r '.project' "$CONFIG_YAML")
+CLUSTER_PREFIX=$(yq eval -r '.cluster_prefix // "website"' "$CONFIG_YAML")
+AGENTIC_ENABLED=$(yq eval -r '.agentic.enabled' "$CONFIG_YAML")
 if [[ -z $AGENTIC_ENABLED || $AGENTIC_ENABLED == "null" ]]; then
-  AGENTIC_ENABLED=$(yq eval '.agentic.enabled' "$DEFAULT_VALUES_YAML")
+  AGENTIC_ENABLED=$(yq eval -r '.agentic.enabled' "$DEFAULT_VALUES_YAML")
 fi
-DISCOVER_ENABLED=$(yq eval '.agentic.discover.enabled' "$CONFIG_YAML")
+DISCOVER_ENABLED=$(yq eval -r '.agentic.discover.enabled' "$CONFIG_YAML")
 if [[ -z $DISCOVER_ENABLED || $DISCOVER_ENABLED == "null" ]]; then
-  DISCOVER_ENABLED=$(yq eval '.agentic.discover.enabled' "$DEFAULT_VALUES_YAML")
+  DISCOVER_ENABLED=$(yq eval -r '.agentic.discover.enabled' "$DEFAULT_VALUES_YAML")
 fi
-DISCOVER_BASE_PATH=$(yq eval '.agentic.discover.basePath // ""' "$CONFIG_YAML")
+DISCOVER_BASE_PATH=$(yq eval -r '.agentic.discover.basePath // ""' "$CONFIG_YAML")
 if [[ -z $DISCOVER_BASE_PATH ]]; then
-  DISCOVER_BASE_PATH=$(yq eval '.agentic.discover.basePath' "$DEFAULT_VALUES_YAML")
+  DISCOVER_BASE_PATH=$(yq eval -r '.agentic.discover.basePath' "$DEFAULT_VALUES_YAML")
 fi
 DISCOVER_BASE_PATH="${DISCOVER_BASE_PATH%/}"
 
@@ -86,7 +86,7 @@ gcloud container clusters get-credentials "$CLUSTER_NAME" \
   --region="$LOCATION" --project="$PROJECT_ID"
 
 # Resolve static IP from Helm env config first, falling back to global address 'dc-website-ip'
-IP=$(yq eval '.ip // ""' "$CONFIG_YAML")
+IP=$(yq eval -r '.ip // ""' "$CONFIG_YAML")
 if [[ -z $IP ]]; then
   IP=$(gcloud compute addresses list --global --project="$PROJECT_ID" --filter='name=dc-website-ip' --format='value(ADDRESS)')
   if [[ -z $IP ]]; then
@@ -98,8 +98,8 @@ fi
 # Guard against unintentionally overwriting a live website-mci static IP with a stale YAML value
 EXISTING_MCI=$(kubectl get mci website-mci -n website --ignore-not-found -o yaml)
 if [[ -n $EXISTING_MCI ]]; then
-  EXISTING_STATIC_IP=$(printf '%s\n' "$EXISTING_MCI" | yq eval '.metadata.annotations."networking.gke.io/static-ip" // ""' -)
-  EXISTING_VIP=$(printf '%s\n' "$EXISTING_MCI" | yq eval '.status.VIP // ""' -)
+  EXISTING_STATIC_IP=$(yq eval -r '.metadata.annotations."networking.gke.io/static-ip" // ""' - <<< "$EXISTING_MCI")
+  EXISTING_VIP=$(yq eval -r '.status.VIP // ""' - <<< "$EXISTING_MCI")
   LIVE_IP="${EXISTING_VIP:-$EXISTING_STATIC_IP}"
   if [[ -n $LIVE_IP && $LIVE_IP != "$IP" ]]; then
     if [[ $FORCE_IP_CHANGE == "true" ]]; then

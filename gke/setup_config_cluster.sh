@@ -68,8 +68,8 @@ if [[ ! -f $CONFIG_YAML ]]; then
   exit 1
 fi
 
-PROJECT_ID=$(yq eval '.project' "$CONFIG_YAML")
-CLUSTER_PREFIX=$(yq eval '.cluster_prefix // "website"' "$CONFIG_YAML")
+PROJECT_ID=$(yq eval -r '.project' "$CONFIG_YAML")
+CLUSTER_PREFIX=$(yq eval -r '.cluster_prefix // "website"' "$CONFIG_YAML")
 CLUSTER_NAME="$CLUSTER_PREFIX-$REGION"
 
 gcloud beta container hub ingress enable \
