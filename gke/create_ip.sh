@@ -36,6 +36,19 @@ if [[ -z $PROJECT_ID ]]; then
   exit 1
 fi
 
+# Guard against overwriting an already-configured .ip in the environment configuration.
+EXISTING_IP=$(yq eval -r '.ip // ""' "$CONFIG_YAML")
+if [[ -n $EXISTING_IP ]]; then
+  MATCHING_ADDR=$(gcloud compute addresses list --global --project="$PROJECT_ID" --filter="address=$EXISTING_IP" --format='value(name)')
+  if [[ -n $MATCHING_ADDR ]]; then
+    echo "Static IP $EXISTING_IP (resource '$MATCHING_ADDR') is already configured in $CONFIG_YAML; skipping creation."
+    exit 0
+  fi
+  echo "Error: $CONFIG_YAML already defines .ip ($EXISTING_IP), which is not a global address in project $PROJECT_ID." >&2
+  echo "Clear '.ip' in $CONFIG_YAML before running $0 to allocate a new 'dc-website-ip' address." >&2
+  exit 1
+fi
+
 # Create a static IP address for the API if it does not already exist.
 IP=$(gcloud compute addresses list --global --project="$PROJECT_ID" --filter='name=dc-website-ip' --format='value(ADDRESS)')
 if [[ -z $IP ]]; then

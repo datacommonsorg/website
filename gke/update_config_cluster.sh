@@ -103,8 +103,22 @@ if [[ -z $LOCATION ]]; then
   LOCATION="us-central1"
 fi
 
-# Fetch credentials for the Fleet config cluster.
 CLUSTER_NAME="$CLUSTER_PREFIX-$LOCATION"
+
+# Verify Fleet Multi-Cluster Ingress is enabled and targets this cluster as the config cluster.
+if ! CONFIG_MEMBERSHIP=$(gcloud container hub ingress describe \
+  --project="$PROJECT_ID" \
+  --format='value(spec.multiclusteringress.configMembership)') || [[ -z $CONFIG_MEMBERSHIP ]]; then
+  echo "Error: Fleet Multi-Cluster Ingress is not enabled in project $PROJECT_ID. Run setup_config_cluster.sh first." >&2
+  exit 1
+fi
+if [[ $CONFIG_MEMBERSHIP != *"/locations/$LOCATION/memberships/$CLUSTER_NAME" ]] &&
+   [[ $CONFIG_MEMBERSHIP != *"/locations/global/memberships/$CLUSTER_NAME" ]]; then
+  echo "Error: Cluster '$CLUSTER_NAME' ($LOCATION) is not the Fleet config cluster (expected '${CONFIG_MEMBERSHIP##*/}')." >&2
+  exit 1
+fi
+
+# Fetch credentials for the Fleet config cluster.
 gcloud container clusters get-credentials "$CLUSTER_NAME" \
   --region="$LOCATION" --project="$PROJECT_ID"
 
