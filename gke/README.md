@@ -71,7 +71,7 @@ You should have owner/editor role to perform the following tasks.
    # Create cluster. Run this for all the regions
    ./create_cluster.sh <ENV> <REGION> <NODES>
 
-   # (Optional) If enabling agentic apps (e.g. Discover) on this environment, configure their prerequisites (Vertex AI, Model Armor & Cloud Storage APIs, IAM, secrets, default Model Armor template, and GCS config bucket).
+   # (Optional) If enabling agentic apps (e.g. Discover) on this environment, configure their prerequisites (Vertex AI, Model Armor, Cloud Storage & reCAPTCHA Enterprise APIs, IAM, secrets, default Model Armor template, GCS config bucket, and Cloud Armor reCAPTCHA WAF site keys).
    # Pass `--bucket-location us` when creating a config bucket for multi-region environments such as prod (defaults to `us-central1`).
    # Note: For environments using MultiClusterIngress (autopush, staging, prod), also run update_config_cluster.sh
    # (see "Update cluster config" below) so website-mci routes the configured agentic.discover.basePath to website-agentic-mcs.
@@ -146,6 +146,17 @@ When agentic apps are enabled on an environment (`agentic.enabled: true`), you c
 
    - **Keep Discover UI online with chat disabled (no PR required):** Set `"chat": { "enabled": false, ... }` in `gs://<CONFIG_BUCKET>/agent-config.json` (validating with `python3 -m json.tool` first), upload to GCS, and restart `website-agentic-apps` across every regional cluster as shown above (ensure any ad-hoc `ENABLE_CHAT` env override has been cleared with `ENABLE_CHAT-`). Set `"enabled": true` and restart all clusters to restore chat.
    - **Remove the deployment and routes (via Helm in Git):** Set `agentic.discover.enabled: false` in `deploy/helm_charts/envs/<ENV>.yaml` to remove the `discover` container and `agentic.discover.basePath` Ingress paths, or set `agentic.enabled: false` to remove the `website-agentic-apps` Deployment, `website-agentic-service` Service, and agentic Ingress paths entirely.
+
+### Cloud Armor reCAPTCHA Enterprise WAF keys
+
+`./setup_agentic.sh <ENV>` automatically invokes `./setup_recaptcha.sh <ENV>` to provision Cloud Armor reCAPTCHA Enterprise WAF keys; you can also run `./setup_recaptcha.sh <ENV>` standalone to inspect, validate, or re-run WAF key setup without touching IAM, Secret Manager, Model Armor, or GCS.
+
+When `domain` is set in `deploy/helm_charts/envs/<ENV>.yaml`, `./setup_recaptcha.sh <ENV>` enables `recaptchaenterprise.googleapis.com` and idempotently provisions two Cloud Armor WAF Web site keys scoped to `domain`:
+
+- `discover-session-waf-key` (`--integration-type=score --waf-service=ca --waf-feature=session-token`): mints and refreshes the background `recaptcha-ca-t` session cookie.
+- `discover-checkbox-waf-key` (`--integration-type=checkbox --waf-service=ca --waf-feature=action-token`): powers the fallback *"I'm not a robot"* modal checkbox (`X-Recaptcha-Token`).
+
+The script prints both site key IDs for Cloud Armor Terraform (`discover-armor-policy`) and `deploy/helm_charts/envs/<ENV>.yaml`. If `domain` is unset (e.g. internal-only environments), WAF key provisioning is skipped.
 
 ## DNS setup
 
