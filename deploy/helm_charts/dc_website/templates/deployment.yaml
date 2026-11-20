@@ -263,6 +263,14 @@ spec:
               {{- else }}
               value: ""
               {{- end }}
+            {{- with .Values.agentic.discover.webComponentUrl }}
+            - name: DC_WEB_COMPONENT_URL
+              value: {{ . | quote }}
+            {{- end }}
+            {{- with .Values.agentic.discover.webComponentApiRoot }}
+            - name: DC_WEB_COMPONENT_API_ROOT
+              value: {{ . | quote }}
+            {{- end }}
           startupProbe:
             httpGet:
               path: {{ trimSuffix "/" .Values.agentic.discover.basePath }}/healthz
