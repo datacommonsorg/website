@@ -300,6 +300,6 @@ else
 fi
 
 # 7. Provision Cloud Armor reCAPTCHA Enterprise WAF site keys (when `.domain` is configured).
-"${DIR}/setup_recaptcha.sh" "$ENV"
+bash "${DIR}/setup_recaptcha.sh" "$ENV"
 
 echo "Successfully configured agentic app prerequisites for ${ENV}."

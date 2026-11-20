@@ -87,13 +87,58 @@ DOMAIN=$(yq eval '.domain // ""' "$CONFIG_YAML")
 if [[ "$DOMAIN" == "null" ]]; then
   DOMAIN=""
 fi
-if [[ -n "$DOMAIN" && ( "$DOMAIN" == *"://"* || "$DOMAIN" == *"/"* || "$DOMAIN" == *":"* || "$DOMAIN" == *"?"* || "$DOMAIN" == *"#"* || "$DOMAIN" == *[[:space:]]* ) ]]; then
-  echo "Error: 'domain' in ${CONFIG_YAML} must be a bare hostname (e.g. 'autopush.datacommons.org') without scheme, port, path, query, or fragment." >&2
-  exit 1
+if [[ -n "$DOMAIN" ]]; then
+  # Validate that .domain is a single bare hostname (no wildcards, commas,
+  # scheme, port, path, or trailing dot) and normalize to lowercase.
+  if [[ ! "$DOMAIN" =~ ^[A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?(\.[A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?)*$ ]]; then
+    echo "Error: 'domain' in ${CONFIG_YAML} ('${DOMAIN}') must be a single bare hostname (e.g. 'autopush.datacommons.org') without wildcards, commas, scheme, port, path, or trailing dot." >&2
+    exit 1
+  fi
+  DOMAIN=$(printf '%s' "$DOMAIN" | LC_ALL=C tr 'A-Z' 'a-z')
 fi
 
+# List existing reCAPTCHA keys as JSON, retrying briefly if the newly enabled
+# API has not yet propagated across backends.
+LIST_ERR_FILE=""
+cleanup() {
+  if [[ -n "$LIST_ERR_FILE" ]]; then
+    rm -f "$LIST_ERR_FILE"
+  fi
+}
+trap cleanup EXIT
+
+list_recaptcha_keys_json() {
+  local max_attempts=3
+  local sleep_secs="${RECAPTCHA_LIST_RETRY_SLEEP_SECS:-3}"
+  local attempt=1
+  LIST_ERR_FILE=$(mktemp)
+
+  while true; do
+    local output
+    if output=$(gcloud recaptcha keys list --project="$PROJECT_ID" --format=json 2>"$LIST_ERR_FILE"); then
+      rm -f "$LIST_ERR_FILE"
+      LIST_ERR_FILE=""
+      printf '%s\n' "$output"
+      return 0
+    fi
+
+    local err_msg
+    err_msg=$(cat "$LIST_ERR_FILE")
+    if [[ "$attempt" -lt "$max_attempts" && "$err_msg" =~ SERVICE_DISABLED|has[[:space:]]not[[:space:]]been[[:space:]]used[[:space:]]in[[:space:]]project|is[[:space:]]disabled ]]; then
+      echo "Waiting for recaptchaenterprise.googleapis.com propagation in ${PROJECT_ID} (attempt ${attempt}/${max_attempts})..." >&2
+      sleep "$sleep_secs"
+      attempt=$((attempt + 1))
+    else
+      printf '%s\n' "$err_msg" >&2
+      rm -f "$LIST_ERR_FILE"
+      LIST_ERR_FILE=""
+      return 1
+    fi
+  done
+}
+
 # Validate an existing reCAPTCHA Enterprise WAF key against the expected
-# Cloud Armor settings and domain restriction.
+# Cloud Armor settings, domain restriction, and absence of testing options.
 #
 # Args:
 #   $1 key_json             - Single key JSON object from `gcloud recaptcha keys list`.
@@ -108,13 +153,15 @@ validate_existing_recaptcha_waf_key() {
   local expected_integration="$4"
   local expected_waf_feature="$5"
 
-  # Read web, WAF, and domain fields from the matched key JSON.
-  local actual_integration actual_waf_service actual_waf_feature allow_all_domains domain_match_count
+  # Read web, WAF, domain, and testing fields from the matched key JSON.
+  local actual_integration actual_waf_service actual_waf_feature allow_all_domains domain_match_count allowed_domains_display has_testing_options
   actual_integration=$(yq eval -p=json '.webSettings.integrationType // ""' <<< "$key_json")
   actual_waf_service=$(yq eval -p=json '.wafSettings.wafService // ""' <<< "$key_json")
   actual_waf_feature=$(yq eval -p=json '.wafSettings.wafFeature // ""' <<< "$key_json")
   allow_all_domains=$(yq eval -p=json '.webSettings.allowAllDomains // false' <<< "$key_json")
-  domain_match_count=$(EXPECTED_DOMAIN="$DOMAIN" yq eval -p=json '[(.webSettings.allowedDomains // [])[] | select(. == env(EXPECTED_DOMAIN))] | length' <<< "$key_json")
+  domain_match_count=$(EXPECTED_DOMAIN="$DOMAIN" yq eval -p=json '[(.webSettings.allowedDomains // [])[] | select((. | downcase) == (strenv(EXPECTED_DOMAIN) | downcase))] | length' <<< "$key_json")
+  allowed_domains_display=$(yq eval -p=json '(.webSettings.allowedDomains // []) | join(", ")' <<< "$key_json")
+  has_testing_options=$(yq eval -p=json '.testingOptions != null and ((.testingOptions.testingScore != null) or ((.testingOptions.testingChallenge // "") != "" and (.testingOptions.testingChallenge // "") != "TESTING_CHALLENGE_UNSPECIFIED"))' <<< "$key_json")
 
   # Verify integration type and Cloud Armor WAF settings match.
   # Mismatched WAF settings silently break Cloud Armor token evaluation and cannot
@@ -127,12 +174,33 @@ validate_existing_recaptcha_waf_key() {
     exit 1
   fi
 
+  # Reject keys with immutable testingOptions set.
+  # Wiring a testing key into Cloud Armor silently fails open for bots or blocks real users.
+  if [[ "$has_testing_options" == "true" ]]; then
+    local testing_score testing_challenge
+    testing_score=$(yq eval -p=json '.testingOptions.testingScore // "<unset>"' <<< "$key_json")
+    testing_challenge=$(yq eval -p=json '.testingOptions.testingChallenge // "<unset>"' <<< "$key_json")
+    echo "Error: Existing reCAPTCHA key '${display_name}' (${key_id}) has immutable testingOptions set in ${PROJECT_ID}." >&2
+    echo "  Actual: testingScore=${testing_score}, testingChallenge=${testing_challenge}" >&2
+    echo "Please delete or rename the testing key and re-run ./setup_recaptcha.sh ${ENV}." >&2
+    exit 1
+  fi
+
   # Verify the key is restricted to $DOMAIN so third-party origins cannot mint tokens.
   # Check membership (not exact array equality) so extra dev domains like `localhost`
   # can coexist alongside $DOMAIN.
   if [[ "$allow_all_domains" == "true" || "$domain_match_count" -eq 0 ]]; then
-    echo "Error: Existing reCAPTCHA key '${display_name}' (${key_id}) is not restricted to domain '${DOMAIN}' (allowAllDomains=${allow_all_domains})." >&2
-    echo "Please update its allowed domains (e.g. 'gcloud recaptcha keys update ${key_id} --web --domains=${DOMAIN} --project=${PROJECT_ID}') and re-run ./setup_recaptcha.sh ${ENV}." >&2
+    echo "Error: Existing reCAPTCHA key '${display_name}' (${key_id}) is not restricted to domain '${DOMAIN}'." >&2
+    echo "  Actual: allowAllDomains=${allow_all_domains}, allowedDomains=[${allowed_domains_display}]" >&2
+    if [[ "$allow_all_domains" == "true" ]]; then
+      echo "Please restrict it in Google Cloud console (enable domain verification) or run:" >&2
+      echo "  gcloud recaptcha keys update ${key_id} --web --domains=${DOMAIN} --project=${PROJECT_ID}" >&2
+      echo "  gcloud recaptcha keys update ${key_id} --web --no-allow-all-domains --project=${PROJECT_ID}" >&2
+    else
+      echo "Please update its allowed domains (note: '--domains' replaces the full comma-separated list; include any existing domains to preserve):" >&2
+      echo "  gcloud recaptcha keys update ${key_id} --web --domains=${DOMAIN} --project=${PROJECT_ID}" >&2
+    fi
+    echo "Then re-run ./setup_recaptcha.sh ${ENV}." >&2
     exit 1
   fi
 }
@@ -157,9 +225,9 @@ ensure_recaptcha_waf_key() {
   local keys_json="${RECAPTCHA_KEYS_JSON:-[]}"
 
   # Filter the project's keys once by exact displayName.
-  # Pass the name via env to avoid quoting/injection issues in yq.
+  # Pass the name via strenv to avoid YAML parsing or quoting issues in yq.
   local matching_keys_json match_count
-  matching_keys_json=$(KEY_DISPLAY_NAME="$display_name" yq eval -p=json -o=json '[.[] | select(.displayName == env(KEY_DISPLAY_NAME))]' <<< "$keys_json")
+  matching_keys_json=$(KEY_DISPLAY_NAME="$display_name" yq eval -p=json -o=json '[.[] | select(.displayName == strenv(KEY_DISPLAY_NAME))]' <<< "$keys_json")
   match_count=$(yq eval -p=json 'length' <<< "$matching_keys_json")
 
   # Check for duplicate display names.
@@ -170,13 +238,13 @@ ensure_recaptcha_waf_key() {
     duplicate_names=$(yq eval -p=json '.[].name' <<< "$matching_keys_json")
     echo "Error: Found ${match_count} reCAPTCHA Enterprise keys named '${display_name}' in ${PROJECT_ID}:" >&2
     printf '%s\n' "$duplicate_names" | sed 's/^/  /' >&2
-    echo "Please delete duplicate keys (via Pantheon or 'gcloud recaptcha keys delete') and re-run ./setup_recaptcha.sh ${ENV}." >&2
+    echo "Please delete duplicate keys (via Google Cloud console or 'gcloud recaptcha keys delete <KEY_ID> --project=${PROJECT_ID}') and re-run ./setup_recaptcha.sh ${ENV}." >&2
     exit 1
   fi
 
   # Reuse and validate the existing key when exactly one match is found.
   if [[ "$match_count" -eq 1 ]]; then
-    local existing_key_json existing_name key_id expected_integration expected_waf_feature
+    local existing_key_json existing_name key_id expected_integration expected_waf_feature existing_domains
     existing_key_json=$(yq eval -p=json -o=json '.[0]' <<< "$matching_keys_json")
     existing_name=$(yq eval -p=json '.name // ""' <<< "$existing_key_json")
 
@@ -187,9 +255,9 @@ ensure_recaptcha_waf_key() {
       exit 1
     fi
 
-    # Derive uppercase API enum names from CLI flags (Bash 3.2 compatible).
-    expected_integration=$(printf '%s' "$integration_type" | tr '[:lower:]-' '[:upper:]_')
-    expected_waf_feature=$(printf '%s' "$waf_feature" | tr '[:lower:]-' '[:upper:]_')
+    # Derive uppercase API enum names from CLI flags (Bash 3.2 / POSIX tr compatible).
+    expected_integration=$(printf '%s' "$integration_type" | LC_ALL=C tr 'a-z-' 'A-Z_')
+    expected_waf_feature=$(printf '%s' "$waf_feature" | LC_ALL=C tr 'a-z-' 'A-Z_')
     validate_existing_recaptcha_waf_key \
       "$existing_key_json" \
       "$display_name" \
@@ -197,7 +265,8 @@ ensure_recaptcha_waf_key() {
       "$expected_integration" \
       "$expected_waf_feature"
 
-    echo "reCAPTCHA Enterprise WAF key '${display_name}' (${key_id}) already exists in ${PROJECT_ID}."
+    existing_domains=$(yq eval -p=json '(.webSettings.allowedDomains // []) | join(", ")' <<< "$existing_key_json")
+    echo "reCAPTCHA Enterprise WAF key '${display_name}' (${key_id}) already exists in ${PROJECT_ID} (allowedDomains: ${existing_domains})."
     printf -v "$out_var" '%s' "$key_id"
     return 0
   fi
@@ -238,7 +307,7 @@ echo "Enabling recaptchaenterprise.googleapis.com in ${PROJECT_ID}..."
 gcloud services enable recaptchaenterprise.googleapis.com --project="$PROJECT_ID"
 
 # Fetch existing keys once and ensure both Cloud Armor WAF site keys exist.
-RECAPTCHA_KEYS_JSON=$(gcloud recaptcha keys list --project="$PROJECT_ID" --format=json)
+RECAPTCHA_KEYS_JSON=$(list_recaptcha_keys_json)
 SESSION_WAF_KEY_ID=""
 CHECKBOX_WAF_KEY_ID=""
 ensure_recaptcha_waf_key SESSION_WAF_KEY_ID "$DISCOVER_SESSION_WAF_KEY_NAME" "score" "session-token"
