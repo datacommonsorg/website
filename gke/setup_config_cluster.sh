@@ -13,92 +13,97 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# One-time setup: enables Fleet Multi-Cluster Ingress on the config cluster,
+# then delegates manifest rendering and apply to update_config_cluster.sh.
+
 set -e
 
-ENV=$1
-REGION=$2
-
 function help {
-  echo "Usage: $0 -n"
-  echo "-n       Setup nodejs service"
+  echo "Usage: $0 <ENV> <REGION> [-n] [-f]"
+  echo "  <ENV>     Instance environment as defined under ../deploy/helm_charts/envs"
+  echo "  <REGION>  GKE region of the config cluster (e.g. us-central1)"
+  echo "  -n        Setup nodejs service"
+  echo "  -f        Allow replacing a live website-mci static IP if it differs from resolved IP"
   exit 1
 }
 
-while getopts ":n?" OPTION; do
-  case $OPTION in
-    n)
-      export SETUP_NODEJS=true
+# Parse command-line arguments.
+SETUP_NODEJS=""
+FORCE_IP_CHANGE=""
+POSITIONAL_ARGS=()
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -n)
+      SETUP_NODEJS=true
+      shift
+      ;;
+    -f)
+      FORCE_IP_CHANGE=true
+      shift
+      ;;
+    -h|--help|-\?)
+      help
+      ;;
+    -*)
+      echo "Unknown option: $1" >&2
+      help
       ;;
     *)
-      help
+      POSITIONAL_ARGS+=("$1")
+      shift
       ;;
   esac
 done
 
-# https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-for-anthos-setup
-
-DEFAULT_VALUES_YAML="../deploy/helm_charts/dc_website/values.yaml"
-CONFIG_YAML="../deploy/helm_charts/envs/$ENV.yaml"
-
-PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
-AGENTIC_ENABLED=$(yq eval '.agentic.enabled' $CONFIG_YAML)
-if [[ -z $AGENTIC_ENABLED || $AGENTIC_ENABLED == "null" ]]; then
-  AGENTIC_ENABLED=$(yq eval '.agentic.enabled' $DEFAULT_VALUES_YAML)
+if [[ ${#POSITIONAL_ARGS[@]} -ne 2 || -z ${POSITIONAL_ARGS[0]} || -z ${POSITIONAL_ARGS[1]} ]]; then
+  help
 fi
-DISCOVER_ENABLED=$(yq eval '.agentic.discover.enabled' $CONFIG_YAML)
-if [[ -z $DISCOVER_ENABLED || $DISCOVER_ENABLED == "null" ]]; then
-  DISCOVER_ENABLED=$(yq eval '.agentic.discover.enabled' $DEFAULT_VALUES_YAML)
-fi
-DISCOVER_BASE_PATH=$(yq eval '.agentic.discover.basePath // ""' $CONFIG_YAML)
-if [[ -z $DISCOVER_BASE_PATH ]]; then
-  DISCOVER_BASE_PATH=$(yq eval '.agentic.discover.basePath' $DEFAULT_VALUES_YAML)
-fi
-DISCOVER_BASE_PATH="${DISCOVER_BASE_PATH%/}"
-CLUSTER_NAME="website-$REGION"
 
-gcloud config set project $PROJECT_ID
-gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION
+ENV="${POSITIONAL_ARGS[0]}"
+REGION="${POSITIONAL_ARGS[1]}"
+
+# Resolve and validate the Helm environment configuration.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CONFIG_YAML="$SCRIPT_DIR/../deploy/helm_charts/envs/$ENV.yaml"
+
+if [[ ! -f $CONFIG_YAML ]]; then
+  echo "Error: Environment config not found: $CONFIG_YAML" >&2
+  exit 1
+fi
+
+PROJECT_ID=$(yq eval -r '.project // ""' "$CONFIG_YAML")
+if [[ -z $PROJECT_ID ]]; then
+  echo "Error: 'project' is missing or empty in $CONFIG_YAML" >&2
+  exit 1
+fi
+CLUSTER_PREFIX=$(yq eval -r '.cluster_prefix // ""' "$CONFIG_YAML")
+CLUSTER_PREFIX="${CLUSTER_PREFIX:-website}"
+CLUSTER_NAME="$CLUSTER_PREFIX-$REGION"
+
+# Enable Fleet Multi-Cluster Ingress with this cluster as the config cluster.
+# Docs: https://cloud.google.com/kubernetes-engine/docs/how-to/multi-cluster-ingress-setup
+CONFIG_MEMBERSHIP=$(gcloud container hub memberships list \
+  --project="$PROJECT_ID" \
+  --filter="name.basename()=$CLUSTER_NAME" \
+  --limit=1 \
+  --uri)
+if [[ -z $CONFIG_MEMBERSHIP ]]; then
+  echo "Error: Fleet membership '$CLUSTER_NAME' not found in project $PROJECT_ID" >&2
+  exit 1
+fi
+
 gcloud beta container hub ingress enable \
-  --config-membership=$CLUSTER_NAME
+  --config-membership="$CONFIG_MEMBERSHIP" \
+  --project="$PROJECT_ID"
 
-cp backendconfig.yaml.tpl backendconfig.yaml
-cp mci.yaml.tpl mci.yaml
-IP=$(yq eval '.ip // ""' "$CONFIG_YAML")
-if [[ -z $IP ]]; then
-  IP=$(gcloud compute addresses list --global --project="$PROJECT_ID" --filter='name=dc-website-ip' --format='value(ADDRESS)')
-  if [[ -z $IP ]]; then
-    echo "Error: Static IP not found in $CONFIG_YAML (.ip) or global address 'dc-website-ip' in project $PROJECT_ID" >&2
-    exit 1
-  fi
+# Render and apply MultiClusterIngress, MultiClusterService, and BackendConfig manifests.
+UPDATE_ARGS=(-e "$ENV" -l "$REGION")
+if [[ $SETUP_NODEJS == "true" ]]; then
+  UPDATE_ARGS+=(-n)
 fi
-IP="$IP" yq eval -i '.metadata.annotations."networking.gke.io/static-ip" = strenv(IP)' mci.yaml
-# If not setting up nodejs service, remove the nodejs path from the mci.yaml
-if [[ -z $SETUP_NODEJS ]]; then
-  yq eval -i 'del(.spec.template.spec.rules.[].http.paths[] | select(.backend.serviceName == "website-nodejs-mcs"))' mci.yaml
-fi
-# Populate or remove the agentic backendconfig and discover paths based on agentic config
-if [[ $AGENTIC_ENABLED != "true" ]]; then
-  yq eval -i 'select(.metadata.name != "backendconfig-agentic")' backendconfig.yaml
-fi
-if [[ $AGENTIC_ENABLED == "true" && $DISCOVER_ENABLED == "true" ]]; then
-  export DISCOVER_BASE_PATH
-  export DISCOVER_WILDCARD_PATH="${DISCOVER_BASE_PATH}/*"
-  yq eval -i '(.spec.template.spec.rules.[].http.paths[] | select(.path == "<DISCOVER_BASE_PATH>").path) = env(DISCOVER_BASE_PATH)' mci.yaml
-  yq eval -i '(.spec.template.spec.rules.[].http.paths[] | select(.path == "<DISCOVER_BASE_PATH>/*").path) = env(DISCOVER_WILDCARD_PATH)' mci.yaml
-else
-  yq eval -i 'del(.spec.template.spec.rules.[].http.paths[] | select(.path == "<DISCOVER_BASE_PATH>" or .path == "<DISCOVER_BASE_PATH>/*"))' mci.yaml
+if [[ $FORCE_IP_CHANGE == "true" ]]; then
+  UPDATE_ARGS+=(-f)
 fi
 
-kubectl apply -f backendconfig.yaml
-kubectl apply -f mci.yaml
-kubectl apply -f website_mcs.yaml
-# If setting up nodejs service, apply the mcs yaml definition for nodejs
-if [[ $SETUP_NODEJS ]]; then
-  kubectl apply -f website_nodejs_mcs.yaml
-fi
-# If agentic apps are enabled, apply the mcs yaml definition for agentic apps
-if [[ $AGENTIC_ENABLED == "true" ]]; then
-  kubectl apply -f website_agentic_mcs.yaml
-fi
+"$SCRIPT_DIR/update_config_cluster.sh" "${UPDATE_ARGS[@]}"
 
-# Check the status: `kubectl describe mci website -n website`
