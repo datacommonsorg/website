@@ -49,3 +49,28 @@ Selector labels
 app.kubernetes.io/name: {{ include "dc-website.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+Pod-level securityContext fields.
+*/}}
+{{- define "dc-website.podSecurityContext" -}}
+securityContext:
+  runAsNonRoot: true
+  seccompProfile:
+    type: RuntimeDefault
+{{- end }}
+
+{{/*
+Container-level securityContext fields. Expects a dict with "uid" and "gid".
+*/}}
+{{- define "dc-website.containerSecurityContext" -}}
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: {{ .uid }}
+  runAsGroup: {{ .gid }}
+  capabilities:
+    drop:
+      - ALL
+{{- end }}
