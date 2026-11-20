@@ -14,8 +14,9 @@
 # limitations under the License.
 
 # Provisions the GCP APIs, IAM permissions, Secret Manager secrets, Model
-# Armor template, and GCS configuration bucket required by agentic app
-# containers (e.g. `discover`) in `website-agentic-apps`.
+# Armor template, GCS configuration bucket, and reCAPTCHA Enterprise WAF site
+# keys required by agentic app containers (e.g. `discover`) in
+# `website-agentic-apps`.
 #
 # Usage:
 #   ./setup_agentic.sh <ENV> [--bucket-location <LOCATION>]
@@ -297,5 +298,8 @@ else
     --content-type="application/json; charset=utf-8" \
     --project="$PROJECT_ID"
 fi
+
+# 7. Provision Cloud Armor reCAPTCHA Enterprise WAF site keys (when `.domain` is configured).
+bash "${DIR}/setup_recaptcha.sh" "$ENV"
 
 echo "Successfully configured agentic app prerequisites for ${ENV}."
