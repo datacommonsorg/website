@@ -228,3 +228,7 @@ agentic:
     # Re-size whenever changing Gemini models or thinking levels in
     # agent-config.json.
     dailyTokenBudget:
+    # Chart script URL and data origin. Leave empty to use the image's
+    # datacommons.org defaults; the server rejects an empty value.
+    webComponentUrl: ""
+    webComponentApiRoot: ""
