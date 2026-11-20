@@ -32,7 +32,7 @@ print(f'Running CDC tests against base URL: {CDC_TEST_BASE_URL}')
 
 class CdcTestBase(WebdriverBaseTest):
   """Base class for CDC webdriver tests."""
-  dc_title_string = "Custom Data Commons"
+  dc_title_string = "Data Commons Platform"
 
   @classmethod
   def get_class_server_url(cls):
