@@ -1,101 +1,72 @@
 name: Dependabot auto-approve
 
-# Tests and merges Dependabot security update PRs automatically, one PR at a
-# time, acting as the datacommons-robot-author GitHub account.
+# Tests and merges Dependabot security update PRs automatically, acting as
+# the datacommons-robot-author GitHub account.
 #
 # ---------------------------------------------------------------------------
 # HOW IT WORKS
 # ---------------------------------------------------------------------------
-# This file has two independent jobs. They never call each other; they only
-# coordinate through each PR's state (auto-merge on or off, labels, and
-# comments).
+# This file has two jobs that never call each other. queue-manager starts
+# things on a PR (turns on auto-merge, comments "@dependabot rebase"), and
+# new-commit-listener reacts when Dependabot pushes the resulting commit.
 #
-# * queue-manager
-#   Runs every 30 minutes (and on manual dispatch). Looks at all open
-#   Dependabot PRs and moves ONE PR at a time through the queue: labels
-#   broken PRs, picks the oldest eligible PR, approves it, turns on
-#   auto-merge, and then either posts /gcbrun (PR is up to date) or asks
-#   Dependabot to rebase (PR is behind master).
+# * queue-manager (every 30 minutes, or "Run workflow")
+#   Keeps exactly one Dependabot PR ACTIVE (being tested) at a time. Testing
+#   several at once would flood Cloud Build, and each merge would make the
+#   others out of date anyway. Each run labels broken PRs, then either
+#   nudges the ACTIVE PR along or, if none is ACTIVE, starts the oldest
+#   waiting PR.
 #
-# * new-commit-listener
-#   Runs whenever a commit is pushed to a PR that targets master. If the PR
-#   is the ACTIVE Dependabot PR (usually because Dependabot just finished a
-#   rebase that queue-manager asked for), it posts /gcbrun so Cloud Build
-#   tests the new commit. Auto-merge is already on, so the PR merges once
-#   the tests pass. Every other push is ignored.
+# * new-commit-listener (every push to a PR targeting master)
+#   When the ACTIVE Dependabot PR gets a new commit (usually a rebase that
+#   queue-manager asked for), posts /gcbrun so Cloud Build tests it.
+#   Skipped on every other PR.
 #
 # Life of one PR:
 #
-#   queue-manager picks the oldest eligible PR
-#     -> approves it and turns on auto-merge
-#     -> PR up to date with master?
-#          yes -> posts /gcbrun
-#          no  -> comments "@dependabot rebase"
-#                   -> Dependabot pushes a rebased commit
-#                   -> new-commit-listener posts /gcbrun
-#     -> Cloud Build passes -> auto-merge merges the PR
-#          -> queue-manager waits COOLDOWN_SECONDS, then picks the next PR
-#     -> Cloud Build fails  -> next queue-manager run labels it 'failing'
-#     -> master changed while testing -> next run requests another rebase
+#   Waiting: Dependabot opens it, and it waits its turn (oldest first).
+#   ACTIVE: queue-manager approves it and turns on auto-merge, then:
+#     -> up to date with master: posts /gcbrun
+#     -> behind master: comments "@dependabot rebase"
+#          -> Dependabot pushes a rebased commit
+#          -> new-commit-listener posts /gcbrun
+#   Testing: Cloud Build runs. queue-manager doesn't wait inside a run; while
+#   the PR is ACTIVE, later runs leave it alone, except to request another
+#   rebase if master moved after its checks finished (master only accepts
+#   PRs that are up to date, and each new commit needs its own /gcbrun).
+#     -> checks pass: GitHub auto-merge merges it. queue-manager waits
+#        COOLDOWN_SECONDS, then starts the next PR.
+#     -> checks fail, or ACTIVE past the lease: labeled 'failing', skipped.
+#     -> conflict Dependabot can't fix: labeled 'merge-conflict', skipped.
 #
-# ---------------------------------------------------------------------------
-# WHY /gcbrun AND A ROBOT TOKEN
-# ---------------------------------------------------------------------------
-# * master only accepts a PR whose Cloud Build checks passed on a commit
-#   that is up to date with master. Every rebase makes a new commit, so each
-#   one needs its own test run.
-# * Cloud Build only tests PRs from outside contributors (Dependabot counts
-#   as one) after a repo collaborator comments /gcbrun.
-# * Comments made with the built-in GITHUB_TOKEN come from
-#   github-actions[bot], which is not a collaborator, so Cloud Build
-#   ignores them.
-# * So both jobs act as datacommons-robot-author (an admin collaborator)
-#   using its personal access tokens.
-#
-# ---------------------------------------------------------------------------
-# WHY THERE ARE TWO ROBOT TOKENS
-# ---------------------------------------------------------------------------
-# GitHub decides which secrets a run can read based on what started it:
-# * Runs started by the schedule or by a person can read Actions secrets.
-# * Runs started by a Dependabot push can read ONLY Dependabot secrets.
-# So each job has its own robot token:
-# * queue-manager:       Actions secret    DEPENDABOT_AUTO_MERGE
-# * new-commit-listener: Dependabot secret ROBOT_TOKEN_NEW_COMMIT_LISTENER
-#   (robot token "website-dependabot-new-commit-listener", Pull requests
-#   read and write only)
-# Rotate each token before it expires and update its secret.
-#
-# ---------------------------------------------------------------------------
-# SECURITY NOTE
-# ---------------------------------------------------------------------------
-# new-commit-listener runs with a robot token in response to Dependabot
-# pushes. Keep it minimal: no actions/checkout, no third-party actions, and
-# no package installs, so dependency code never runs next to the token.
-#
-# ---------------------------------------------------------------------------
-# PR STATES
-# ---------------------------------------------------------------------------
-# * ACTIVE:     the single PR with auto-merge on. Holds the queue lock.
-# * FAILING:    a check failed, or the PR stayed ACTIVE past the lease.
-#               Labeled 'failing' and skipped.
-# * CONFLICTED: has a conflict Dependabot can't fix. Labeled
-#               'merge-conflict' and skipped.
-# * Waiting:    every other open Dependabot PR, picked oldest first.
-#
-# ---------------------------------------------------------------------------
-# DEVELOPER INTERVENTIONS
-# ---------------------------------------------------------------------------
+# Developer interventions:
 # * Skip a PR: add the 'ignore' label.
 # * Retry a PR: remove 'failing' or 'merge-conflict', click "Enable
-#   auto-merge" on the PR, and comment "@dependabot rebase". Turning on
-#   auto-merge marks the PR ACTIVE, so new-commit-listener posts /gcbrun
-#   after Dependabot rebases.
+#   auto-merge" on the PR, and comment "@dependabot rebase". Auto-merge
+#   marks it ACTIVE, so new-commit-listener posts /gcbrun after the rebase.
 # * Merge a PR right away: approve and merge it manually in the GitHub UI.
+#
+# ---------------------------------------------------------------------------
+# TOKENS AND PERMISSIONS
+# ---------------------------------------------------------------------------
+# * Cloud Build only runs tests after a repo collaborator comments /gcbrun.
+#   Dependabot and github-actions[bot] (the built-in GITHUB_TOKEN) both
+#   count as outsiders, so both jobs act as datacommons-robot-author using
+#   its personal access tokens.
+# * A run started by a Dependabot push is treated as Dependabot's and can
+#   only read Dependabot secrets, so the jobs use separate robot tokens:
+#   - queue-manager: Actions secret DEPENDABOT_AUTO_MERGE
+#   - new-commit-listener: Dependabot secret ROBOT_TOKEN_NEW_COMMIT_LISTENER
+#     (fine-grained, Pull requests read and write only)
+#   Rotate each token before it expires.
+# * new-commit-listener holds a robot token while reacting to Dependabot
+#   pushes. Keep it minimal: no actions/checkout, no third-party actions,
+#   and no package installs, so dependency code never runs next to it.
 
 on:
   # Starts new-commit-listener on every push to a PR targeting master. The
   # job's `if:` filters down to Dependabot PRs. Runs started by a Dependabot
-  # push can only read Dependabot secrets (see above).
+  # push can only read Dependabot secrets (see TOKENS AND PERMISSIONS).
   pull_request:
     types:
       - synchronize
