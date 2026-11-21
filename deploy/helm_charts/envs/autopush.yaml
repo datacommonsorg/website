@@ -130,3 +130,5 @@ agentic:
     memory: "1G"
     modelArmorTemplateId: "discover-autopush"
     configBucket: "datcom-website-autopush-discover-config"
+    webComponentUrl: "https://autopush.datacommons.org/datacommons.js"
+    webComponentApiRoot: "https://autopush.datacommons.org"

@@ -181,3 +181,7 @@ agentic:
     memory: "1G"
     modelArmorTemplateId: ""
     configBucket: ""
+    # Chart script URL and data origin. Leave empty to use the image's
+    # datacommons.org defaults; the server rejects an empty value.
+    webComponentUrl: ""
+    webComponentApiRoot: ""
