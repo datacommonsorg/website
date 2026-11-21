@@ -6,38 +6,45 @@ name: Dependabot auto-approve
 # ---------------------------------------------------------------------------
 # HOW IT WORKS
 # ---------------------------------------------------------------------------
-# This file has two jobs that never call each other. queue-manager starts
-# things on a PR (turns on auto-merge, comments "@dependabot rebase"), and
-# new-commit-listener reacts when Dependabot pushes the resulting commit.
+# This file has two independent jobs. queue-manager orchestrates approving
+# and merging Dependabot PRs. new-commit-listener posts /gcbrun when
+# Dependabot pushes a new commit to the PR that queue-manager is working on.
 #
-# * queue-manager (every 30 minutes, or "Run workflow")
+# * queue-manager (every 30 minutes, or a manual run)
 #   Keeps exactly one Dependabot PR ACTIVE (being tested) at a time. Testing
 #   several at once would flood Cloud Build, and each merge would make the
-#   others out of date anyway. Each run labels broken PRs, then either
-#   nudges the ACTIVE PR along or, if none is ACTIVE, starts the oldest
-#   waiting PR.
+#   others out of date anyway. Each run is short: it labels broken PRs,
+#   makes one decision about the queue, and exits. It never waits for tests.
 #
 # * new-commit-listener (every push to a PR targeting master)
 #   When the ACTIVE Dependabot PR gets a new commit (usually a rebase that
 #   queue-manager asked for), posts /gcbrun so Cloud Build tests it.
 #   Skipped on every other PR.
 #
-# Life of one PR:
+# Life of one PR (each step happens in a separate, short job run):
 #
-#   Waiting: Dependabot opens it, and it waits its turn (oldest first).
-#   ACTIVE: queue-manager approves it and turns on auto-merge, then:
-#     -> up to date with master: posts /gcbrun
-#     -> behind master: comments "@dependabot rebase"
-#          -> Dependabot pushes a rebased commit
-#          -> new-commit-listener posts /gcbrun
-#   Testing: Cloud Build runs. queue-manager doesn't wait inside a run; while
-#   the PR is ACTIVE, later runs leave it alone, except to request another
-#   rebase if master moved after its checks finished (master only accepts
-#   PRs that are up to date, and each new commit needs its own /gcbrun).
-#     -> checks pass: GitHub auto-merge merges it. queue-manager waits
-#        COOLDOWN_SECONDS, then starts the next PR.
-#     -> checks fail, or ACTIVE past the lease: labeled 'failing', skipped.
-#     -> conflict Dependabot can't fix: labeled 'merge-conflict', skipped.
+#   Dependabot opens the PR. It waits its turn (oldest first).
+#
+#   A queue-manager run finds no ACTIVE PR and starts this one: it approves
+#   the PR and turns on auto-merge, which makes it ACTIVE. Then:
+#     * If the PR is up to date with master, it posts /gcbrun.
+#     * If the PR is behind master, it comments "@dependabot rebase".
+#       Dependabot pushes a rebased commit, and new-commit-listener posts
+#       /gcbrun.
+#   The queue-manager run then exits.
+#
+#   Cloud Build tests the PR. Meanwhile, each queue-manager run sees the
+#   ACTIVE PR and does nothing, unless master moved after the checks
+#   finished. Then it requests another rebase, because master only accepts
+#   up-to-date PRs and every new commit needs its own /gcbrun.
+#
+#   The PR leaves the queue in one of three ways:
+#     * Checks pass: GitHub auto-merge merges it. COOLDOWN_SECONDS later, a
+#       queue-manager run starts the next PR.
+#     * Checks fail, or it stays ACTIVE past the lease: a queue-manager run
+#       labels it 'failing' and moves on.
+#     * It has a conflict Dependabot can't fix: a queue-manager run labels
+#       it 'merge-conflict' and moves on.
 #
 # Developer interventions:
 # * Skip a PR: add the 'ignore' label.
@@ -59,9 +66,8 @@ name: Dependabot auto-approve
 #   - new-commit-listener: Dependabot secret ROBOT_TOKEN_NEW_COMMIT_LISTENER
 #     (fine-grained, Pull requests read and write only)
 #   Rotate each token before it expires.
-# * new-commit-listener holds a robot token while reacting to Dependabot
-#   pushes. Keep it minimal: no actions/checkout, no third-party actions,
-#   and no package installs, so dependency code never runs next to it.
+# * Because new-commit-listener holds a robot token, keep its logic minimal:
+#   no actions/checkout, no third-party actions, and no package installs.
 
 on:
   # Starts new-commit-listener on every push to a PR targeting master. The
@@ -75,7 +81,7 @@ on:
   # Starts queue-manager every 30 minutes.
   schedule:
     - cron: '*/30 * * * *'
-  # Starts queue-manager manually ("Run workflow" in the Actions tab).
+  # Starts queue-manager on a manual run (Actions tab > "Run workflow").
   workflow_dispatch:
 
 # Default GITHUB_TOKEN permissions. Jobs act through robot tokens instead.
