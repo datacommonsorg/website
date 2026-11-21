@@ -343,6 +343,12 @@ jobs:
           # Isolate PRs with any failed status check, or active PRs stuck in
           # the queue past ACTIVE_LEASE_TIMEOUT_SECONDS with no new commit in
           # COMMIT_STALE_SECONDS.
+          #
+          # ACTION_REQUIRED is intentionally NOT a failure: Cloud Build reports
+          # it as "Needs /gcbrun from a collaborator" on every Dependabot commit
+          # that hasn't been tested yet. Counting it labeled PRs 'failing'
+          # before their tests ever ran. An ACTIVE PR stuck waiting for
+          # /gcbrun is still caught by the lease timeout below.
           JQ_FAILING_FILTER='
             .[] | select(
               (all(.labels[].name; . != "failing" and . != "ignore")) and
@@ -354,7 +360,6 @@ jobs:
                   .conclusion == "ERROR" or
                   .conclusion == "TIMED_OUT" or
                   .conclusion == "CANCELLED" or
-                  .conclusion == "ACTION_REQUIRED" or
                   .state == "FAILURE" or
                   .state == "ERROR"
                 ) or
