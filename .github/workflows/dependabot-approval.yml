@@ -106,8 +106,8 @@ jobs:
   # queue-manager asked for), post /gcbrun so Cloud Build tests it.
   new-commit-listener:
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
+    # The built-in GITHUB_TOKEN isn't used; every command uses the robot token.
+    permissions: {}
     # Run only for Dependabot PRs that haven't been set aside. Every other
     # PR push skips this job. The script below also checks that this PR is
     # the ACTIVE one and that no other Dependabot PR holds the queue.
