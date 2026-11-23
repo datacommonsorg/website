@@ -1,50 +1,118 @@
 name: Dependabot auto-approve
 
-# DEPENDABOT WORKFLOW (STATE MACHINE):
+# Tests and merges Dependabot security update PRs automatically, acting as
+# the datacommons-robot-author GitHub account.
 #
-# States:
-# 1. BAKING (< 7 days): PRs wait to mature before being tested.
-# 2. ACTIVE (>= 7 days): Placed in a locked queue (one PR at a time).
-#    - A rebase is requested from Dependabot to natively trigger tests.
-#    - Native GitHub auto-merge is enabled (merges if tests pass).
-# 3. FAILING: If tests fail natively, PR is tagged 'failing' and bypassed.
-# 4. CONFLICTED: If PR has conflicts, PR is tagged 'merge-conflict'.
+# ---------------------------------------------------------------------------
+# HOW IT WORKS
+# ---------------------------------------------------------------------------
+# This file has two independent jobs. queue-manager orchestrates approving
+# and merging Dependabot PRs. new-commit-listener posts /gcbrun when
+# Dependabot pushes a new commit to the PR that queue-manager is working on.
 #
-# Developer Interventions:
-# - Skip PR: Add 'ignore' label to bypass a Dependabot PR.
-# - Retry PR: Remove 'failing'/'merge-conflict' and comment
-#   "@dependabot rebase".
-# - Bypass 7-Day Wait: Manually approve and merge via the GitHub UI.
+# * queue-manager (every 30 minutes, or a manual run)
+#   Keeps exactly one Dependabot PR ACTIVE (being tested) at a time. Testing
+#   several at once would flood Cloud Build, and each merge would make the
+#   others out of date anyway. Each run is short: it labels broken PRs,
+#   makes one decision about the queue, and exits. It never waits for tests.
+#
+# * new-commit-listener (every push to a PR targeting master)
+#   When the ACTIVE Dependabot PR gets a new commit (usually a rebase that
+#   queue-manager asked for), posts /gcbrun so Cloud Build tests it.
+#   Skipped on every other PR.
+#
+# Life of one PR (each step happens in a separate, short job run):
+#
+#   Dependabot opens the PR. It waits its turn (oldest first).
+#
+#   A queue-manager run finds no ACTIVE PR and starts this one: it approves
+#   the PR and turns on auto-merge, which makes it ACTIVE. Then:
+#     * If the PR is up to date with master, it posts /gcbrun.
+#     * If the PR is behind master, it comments "@dependabot rebase".
+#       Dependabot pushes a rebased commit, and new-commit-listener posts
+#       /gcbrun.
+#   The queue-manager run then exits.
+#
+#   Cloud Build tests the PR. Meanwhile, each queue-manager run sees the
+#   ACTIVE PR and does nothing, unless master moved after the checks
+#   finished. Then it requests another rebase, because master only accepts
+#   up-to-date PRs and every new commit needs its own /gcbrun.
+#
+#   The PR leaves the queue in one of three ways:
+#     * Checks pass: GitHub auto-merge merges it. COOLDOWN_SECONDS later, a
+#       queue-manager run starts the next PR.
+#     * Checks fail, or it stays ACTIVE past the lease: a queue-manager run
+#       labels it 'failing' and moves on.
+#     * It has a conflict Dependabot can't fix: a queue-manager run labels
+#       it 'merge-conflict' and moves on.
+#
+# Developer interventions:
+# * Skip a PR: add the 'ignore' label.
+# * Retry a PR: remove 'failing' or 'merge-conflict', click "Enable
+#   auto-merge" on the PR, and comment "@dependabot rebase". Auto-merge
+#   marks it ACTIVE, so new-commit-listener posts /gcbrun after the rebase.
+# * Merge a PR right away: approve and merge it manually in the GitHub UI.
+#
+# ---------------------------------------------------------------------------
+# TOKENS AND PERMISSIONS
+# ---------------------------------------------------------------------------
+# * Cloud Build only runs tests after a repo collaborator comments /gcbrun.
+#   Dependabot and github-actions[bot] (the built-in GITHUB_TOKEN) both
+#   count as outsiders, so both jobs act as datacommons-robot-author using
+#   its personal access tokens.
+# * A run started by a Dependabot push is treated as Dependabot's and can
+#   only read Dependabot secrets, so the jobs use separate robot tokens:
+#   - queue-manager: Actions secret DEPENDABOT_AUTO_MERGE
+#   - new-commit-listener: Dependabot secret ROBOT_TOKEN_NEW_COMMIT_LISTENER
+#     (fine-grained, Pull requests read and write only)
+#   Rotate each token before it expires.
+# * Because new-commit-listener holds a robot token, keep its logic minimal:
+#   no actions/checkout, no third-party actions, and no package installs.
 
 on:
-  # zizmor: ignore[dangerous-triggers] - Needed for Dependabot secrets.
-  pull_request_target:
+  # Starts new-commit-listener on every push to a PR targeting master. The
+  # job's `if:` filters down to Dependabot PRs. Runs started by a Dependabot
+  # push can only read Dependabot secrets (see TOKENS AND PERMISSIONS).
+  pull_request:
     types:
       - synchronize
     branches:
       - master
+  # Starts queue-manager every 30 minutes.
   schedule:
-    - cron: '*/30 * * * *' # Run every 30 minutes
+    - cron: '*/30 * * * *'
+  # Starts queue-manager on a manual run (Actions tab > "Run workflow").
   workflow_dispatch:
 
+# Default GITHUB_TOKEN permissions. Jobs act through robot tokens instead.
 permissions:
   contents: read
 
 env:
-  BAKE_DAYS: 7
+  # Pause after a Dependabot PR merges before starting the next one. Also
+  # how recent an "@dependabot rebase" comment must be for
+  # new-commit-listener to treat that PR as ACTIVE.
   COOLDOWN_SECONDS: 1800
+  # If Dependabot hasn't resolved a conflict this long after a rebase
+  # request, the PR is labeled 'merge-conflict'.
   REBASE_TIMEOUT_SECONDS: 900
+  # An ACTIVE PR older than this (with no new commit in COMMIT_STALE_SECONDS)
+  # is treated as stuck and labeled 'failing'.
   ACTIVE_LEASE_TIMEOUT_SECONDS: 7200
   COMMIT_STALE_SECONDS: 3600
 
 jobs:
-  trigger-tests:
+  # When the ACTIVE Dependabot PR gets a new commit (usually a rebase that
+  # queue-manager asked for), post /gcbrun so Cloud Build tests it.
+  new-commit-listener:
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-    # Only run on synchronize (rebase push) for un-isolated Dependabot PRs.
+    # The built-in GITHUB_TOKEN isn't used; every command uses the robot token.
+    permissions: {}
+    # Run only for Dependabot PRs that haven't been set aside. Every other
+    # PR push skips this job. The script below also checks that this PR is
+    # the ACTIVE one and that no other Dependabot PR holds the queue.
     if: >-
-      github.event_name == 'pull_request_target' &&
+      github.event_name == 'pull_request' &&
       github.event.action == 'synchronize' &&
       github.event.pull_request.user.login == 'dependabot[bot]' &&
       github.repository == 'datacommonsorg/website' &&
@@ -54,7 +122,9 @@ jobs:
     steps:
       - name: Post /gcbrun comment for Active PR
         env:
-          GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
+          # Robot token from Dependabot secrets. This run was started by a
+          # Dependabot push, so Actions secrets are not available here.
+          GH_TOKEN: ${{ secrets.ROBOT_TOKEN_NEW_COMMIT_LISTENER }}
           PR_URL: ${{ github.event.pull_request.html_url }}
         run: |
           # Only run /gcbrun if this PR was dispatched to Active state
@@ -77,7 +147,7 @@ jobs:
           ')
 
           if [ "$IS_ACTIVE" != "true" ]; then
-            echo "PR is not Active (baking or waiting). Skipping /gcbrun."
+            echo "PR is not Active (waiting in queue). Skipping /gcbrun."
             exit 0
           fi
 
@@ -110,9 +180,11 @@ jobs:
           fi
 
           gh pr comment "$PR_URL" --body "/gcbrun"
-          gh pr merge --auto --squash "$PR_URL" || true
 
-  approve-and-merge-7-days:
+  # Every 30 minutes, move the Dependabot queue forward by one step. Started
+  # by the schedule or a person, so it reads its robot token from Actions
+  # secrets (DEPENDABOT_AUTO_MERGE).
+  queue-manager:
     runs-on: ubuntu-latest
     concurrency:
       group: dependabot-approve-and-merge
@@ -125,6 +197,8 @@ jobs:
        github.event_name == 'workflow_dispatch') &&
       github.repository == 'datacommonsorg/website'
     steps:
+      # Snapshot open Dependabot PRs (the ACTIVE PR plus the 5 oldest
+      # waiting PRs). Later steps read /tmp/dependabot_prs.json.
       - name: Fetch Global Dependabot State
         env:
           GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
@@ -150,7 +224,7 @@ jobs:
 
           # Sort oldest-first (FIFO) and select un-isolated PRs that are:
           # - Currently in the active queue (autoMergeRequest != null), or
-          # - Among the first 5 oldest matured candidates (>= BAKE_DAYS old).
+          # - Among the first 5 oldest waiting candidates.
           JQ_CANDIDATE_URLS='
             [
               .[] | select(
@@ -162,21 +236,12 @@ jobs:
             ] | sort_by(.createdAt) as $unignored |
             (
               [ $unignored[] | select(.autoMergeRequest != null) ] +
-              [
-                $unignored[] | select(
-                  (.autoMergeRequest == null) and
-                  (
-                    ((now - (.createdAt | fromdateiso8601)) / 86400) >=
-                    $bake_days
-                  )
-                )
-              ][0:5]
+              [ $unignored[] | select(.autoMergeRequest == null) ][0:5]
             ) | map(.url) | .[]
           '
 
           CANDIDATE_URLS=$(
-            jq -r --argjson bake_days "$BAKE_DAYS" \
-              "$JQ_CANDIDATE_URLS" /tmp/dependabot_all_prs.json
+            jq -r "$JQ_CANDIDATE_URLS" /tmp/dependabot_all_prs.json
           )
           echo "[]" > /tmp/dependabot_prs.json
 
@@ -206,7 +271,9 @@ jobs:
             mv /tmp/dependabot_prs.tmp.json /tmp/dependabot_prs.json
           done
 
-      - name: Isolate Conflicted PRs (State 4)
+      # Label PRs Dependabot can't rebase as 'merge-conflict' and turn off
+      # their auto-merge, so they stop holding up the queue.
+      - name: Isolate Conflicted PRs
         env:
           GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
         run: |
@@ -267,7 +334,9 @@ jobs:
             mv /tmp/dependabot_prs.tmp.json /tmp/dependabot_prs.json
           done
 
-      - name: Isolate Failing PRs (State 3)
+      # Label PRs with a failed check, or an ACTIVE PR stuck past the lease,
+      # as 'failing' and turn off their auto-merge.
+      - name: Isolate Failing PRs
         env:
           GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
         run: |
@@ -326,7 +395,10 @@ jobs:
             mv /tmp/dependabot_prs.tmp.json /tmp/dependabot_prs.json
           done
 
-      - name: Evaluate Pipeline Queue Lock (State Lock)
+      # If a PR is ACTIVE, keep it moving (request a rebase if master moved
+      # and its checks finished) and stop. Also stop during the post-merge
+      # cooldown. Sets QUEUE_LOCKED=true to skip the dispatch step.
+      - name: Evaluate Pipeline Queue Lock
         env:
           GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
         run: |
@@ -411,29 +483,27 @@ jobs:
             echo "QUEUE_LOCKED=true" >> "$GITHUB_ENV"
           fi
 
-      - name: Dispatch Target PR (State 2)
+      # Make the oldest eligible PR ACTIVE: approve it, turn on auto-merge,
+      # then post /gcbrun (up to date), merge (already tested), or request a
+      # rebase (behind). After a rebase, new-commit-listener posts /gcbrun.
+      - name: Dispatch Target PR
         if: env.QUEUE_LOCKED != 'true'
         env:
           GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_MERGE }}
         run: |
-          # Pick the oldest matured (>= BAKE_DAYS), un-isolated candidate PR.
+          # Pick the oldest un-isolated candidate PR. Candidates are already
+          # sorted oldest-first by the fetch step.
           JQ_TARGET_FILTER='[
             .[] | select(
-              (
-                ((now - (.createdAt | fromdateiso8601)) / 86400) >= $bake_days
-              ) and
-              (
-                all(
-                  .labels[].name;
-                  . != "failing" and . != "merge-conflict" and . != "ignore"
-                )
+              all(
+                .labels[].name;
+                . != "failing" and . != "merge-conflict" and . != "ignore"
               )
             )
           ] | .[0] // empty'
 
           TARGET_PR_JSON=$(
-            jq -c --argjson bake_days "$BAKE_DAYS" \
-              "$JQ_TARGET_FILTER" /tmp/dependabot_prs.json
+            jq -c "$JQ_TARGET_FILTER" /tmp/dependabot_prs.json
           )
 
           if [ -z "$TARGET_PR_JSON" ] || [ "$TARGET_PR_JSON" == "null" ]; then
