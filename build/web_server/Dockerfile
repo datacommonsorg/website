@@ -60,7 +60,7 @@ WORKDIR /workspace
 ENV PYTHONDONTWRITEBYTECODE=1
 RUN groupadd -g 10001 appuser && \
     useradd -u 10001 -g appuser -M -d /tmp -s /usr/sbin/nologin appuser && \
-    chmod -R go-w,a+rX /workspace && \
+    find /workspace ! -type l \( -perm /022 -o ! -perm -444 -o \( -type d ! -perm -111 \) -o \( -perm /111 ! -perm -111 \) \) -exec chmod go-w,a+rX {} + && \
     mkdir -p /workspace/.cache && \
     chown 10001:10001 /workspace/.cache
 USER 10001:10001
