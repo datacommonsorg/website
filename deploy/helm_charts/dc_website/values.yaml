@@ -45,6 +45,10 @@ namespace:
 serviceAccount:
   name: website-ksa
 
+# Pod and container securityContext (non-root + read-only root filesystem).
+securityContext:
+  enabled: true
+
 ingress:
   name: website-ingress
   ipName: dc-website-ip
