@@ -54,6 +54,17 @@ RUN npm run-script build
 COPY server/. /workspace/server/
 COPY shared/. /workspace/shared/
 WORKDIR /workspace
+
+# Run as non-root user (UID/GID 10001). Keep /workspace read-only for non-root,
+# with a writable /workspace/.cache for standalone runs without Redis.
+ENV PYTHONDONTWRITEBYTECODE=1
+RUN groupadd -g 10001 appuser && \
+    useradd -u 10001 -g appuser -M -d /tmp -s /usr/sbin/nologin appuser && \
+    find /workspace ! -type l \( -perm /022 -o ! -perm -444 -o \( -type d ! -perm -111 \) -o \( -perm /111 ! -perm -111 \) \) -exec chmod go-w,a+rX {} + && \
+    mkdir -p /workspace/.cache && \
+    chown 10001:10001 /workspace/.cache
+USER 10001:10001
+
 # 8 workers with 4 threads each allows the app to support up to 32 concurrent requests
 # at a time.
 CMD exec gunicorn --preload --timeout 1000 --bind :8080 -w 8 --threads 4 web_app:app
