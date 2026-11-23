@@ -52,10 +52,9 @@ name: Dependabot auto-approve
 #   Labeling a PR 'merge-conflict' or 'failing' also removes
 #   'dependabot-active', so it's no longer ACTIVE.
 #
-#   If there is no ACTIVE PR (or it was just set aside), and no Dependabot
-#   PR merged in the last COOLDOWN_SECONDS, label the oldest waiting PR
-#   'dependabot-active' and take its first step right away. The cooldown
-#   leaves room for other PRs to merge between Dependabot merges.
+#   If there is no ACTIVE PR (or it was just set aside), label the oldest
+#   waiting PR 'dependabot-active' and take its first step right away. A run
+#   that merges a PR stops there, so the next PR starts on a later run.
 #
 # The robot approves only right before merging, and never turns on GitHub
 # auto-merge: auto-merge only waits for checks that are required on master.
@@ -103,8 +102,6 @@ permissions:
   contents: read
 
 env:
-  # Pause after a Dependabot PR merges before starting the next one.
-  COOLDOWN_SECONDS: 1800
   # If Dependabot hasn't resolved a conflict this long after a rebase
   # request, the PR is labeled 'merge-conflict'.
   REBASE_TIMEOUT_SECONDS: 900
@@ -154,9 +151,8 @@ jobs:
     concurrency:
       group: dependabot-approve-and-merge
       cancel-in-progress: false
-    permissions:
-      pull-requests: write
-      contents: write
+    # The built-in GITHUB_TOKEN isn't used; every command uses the robot token.
+    permissions: {}
     if: >-
       (github.event_name == 'schedule' ||
        github.event_name == 'workflow_dispatch') &&
@@ -338,27 +334,6 @@ jobs:
           # Start waiting PRs until one stays ACTIVE. A PR can be set aside
           # on its first step (for example, a check already failed on its
           # latest commit). Start at most 5 per run to limit API calls.
-          if [ -n "$ACTIVE_URL" ] || [ "$MERGED" = true ]; then
-            exit 0
-          fi
-
-          gh_retry gh pr list \
-            --repo "$GITHUB_REPOSITORY" \
-            --author "app/dependabot" \
-            --state merged \
-            --limit 5 \
-            --json url,mergedAt \
-            > /tmp/recently_merged.json
-          RECENTLY_MERGED_PR=$(jq -r --argjson cooldown "$COOLDOWN_SECONDS" '
-            [
-              .[] | select((now - (.mergedAt | fromdateiso8601)) < $cooldown)
-            ] | .[0].url // empty
-          ' /tmp/recently_merged.json)
-          if [ -n "$RECENTLY_MERGED_PR" ]; then
-            echo "Cooldown after $RECENTLY_MERGED_PR merged. Not starting a PR."
-            exit 0
-          fi
-
           STARTED=0
           for PR_URL in $WAITING_URLS; do
             if [ -n "$ACTIVE_URL" ] || [ "$MERGED" = true ] || \
