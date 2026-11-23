@@ -28,7 +28,8 @@ name: Dependabot auto-approve
 #
 # Developer interventions:
 # * Skip a PR: add the 'dependabot-dequeued-ignore' label.
-# * Retry a PR: remove its 'dependabot-dequeued-*' label.
+# * Retry a PR: comment '@dependabot recreate' and remove its
+#   'dependabot-dequeued-*' label.
 # * Start a PR next: if no PR is active, add 'dependabot-active' to it.
 # * Merge a PR right away: approve and merge it manually in the GitHub UI.
 #
@@ -64,9 +65,8 @@ on:
   # Starts queue-manager on a manual run (Actions tab > "Run workflow").
   workflow_dispatch:
 
-# Default GITHUB_TOKEN permissions. Jobs act through robot tokens instead.
-permissions:
-  contents: read
+# Neither job uses the built-in GITHUB_TOKEN; both act through robot tokens.
+permissions: {}
 
 env:
   ACTIVE_LABEL: dependabot-active
@@ -95,18 +95,20 @@ env:
     website-pull-request-nl (datcom-ci)
 
 jobs:
-  # When the active Dependabot PR gets a new commit (usually a rebase that
-  # queue-manager asked for), post /gcbrun so Cloud Build tests it.
+  # When the active Dependabot PR gets a new commit from Dependabot (usually a
+  # rebase that queue-manager asked for), post /gcbrun so Cloud Build tests it.
   new-commit-listener:
     runs-on: ubuntu-latest
     # The built-in GITHUB_TOKEN isn't used; every command uses the robot token.
     permissions: {}
-    # Run only for the active Dependabot PR (labeled 'dependabot-active' and
-    # not dequeued). Every other PR push skips this job.
+    # Run only when Dependabot itself pushes to the active Dependabot PR.
+    # Checking sender.login skips human pushes, which lack Dependabot secrets
+    # and must never trigger /gcbrun on unreviewed code.
     if: >-
       github.event_name == 'pull_request' &&
       github.event.action == 'synchronize' &&
       github.event.pull_request.user.login == 'dependabot[bot]' &&
+      github.event.sender.login == 'dependabot[bot]' &&
       github.repository == 'datacommonsorg/website' &&
       contains(github.event.pull_request.labels.*.name, 'dependabot-active') &&
       !contains(join(github.event.pull_request.labels.*.name, ' '),
@@ -158,17 +160,27 @@ jobs:
           #   active PR just merged or was dequeued), so promote the oldest
           #   waiting PR and run its first step right away.
           main() {
-            local robot_login active_pr status started_urls=""
+            local robot_login open_prs active_pr status started_urls=""
             robot_login=$(get_authenticated_login)
+            open_prs=$(list_open_dependabot_prs)
 
             # Check whether a PR already holds the active slot.
-            active_pr=$(find_active_pr)
+            active_pr=$(find_active_pr "$open_prs")
             if [[ -n "$active_pr" ]]; then
+              started_urls="$active_pr"
               status=$(process_active_pr "$active_pr" "$robot_login")
-              if [[ "$status" == "active" ]]; then
-                # Still waiting on a rebase or checks; leave it in the slot.
-                return 0
-              fi
+              case "$status" in
+                active)
+                  # Still waiting on a rebase or checks; leave it in the slot.
+                  return 0
+                  ;;
+                freed)
+                  ;;
+                *)
+                  log "Unexpected process_active_pr status: $status"
+                  return 1
+                  ;;
+              esac
             fi
 
             # The active slot is open: promote the oldest waiting PR. If that
@@ -177,19 +189,26 @@ jobs:
             # to 5 candidates so one run cannot churn through a large backlog).
             local attempt
             for attempt in 1 2 3 4 5; do
-              active_pr=$(find_oldest_waiting_pr "$started_urls")
+              active_pr=$(find_oldest_waiting_pr "$open_prs" "$started_urls")
               if [[ -z "$active_pr" ]]; then
-                # No waiting Dependabot PRs remain in the queue.
+                log "No waiting Dependabot PRs in the queue."
                 return 0
               fi
-              # Track tried URLs so a stale label read cannot pick the same PR
-              # twice in one run.
+              # Track tried URLs so we advance through the snapshot cleanly.
               started_urls="$started_urls $active_pr"
               status=$(promote_and_process_pr "$active_pr" "$robot_login")
-              if [[ "$status" == "active" ]]; then
-                # Newly promoted PR now holds the slot; stop here.
-                return 0
-              fi
+              case "$status" in
+                active)
+                  # Newly promoted PR now holds the slot; stop here.
+                  return 0
+                  ;;
+                freed)
+                  ;;
+                *)
+                  log "Unexpected promote_and_process_pr status: $status"
+                  return 1
+                  ;;
+              esac
             done
           }
 
@@ -217,7 +236,7 @@ jobs:
             fi
 
             local pr
-            pr=$(load_pr_snapshot "$pr_url" "$active_since")
+            pr=$(load_pr_snapshot "$pr_url" "$active_since" "$robot_login")
 
             # --- Remove unhealthy PRs from the queue ---
             # Run these checks before rebasing, testing, or merging so broken
@@ -251,9 +270,8 @@ jobs:
             fi
 
             # If the PR is stuck in the pipeline, remove from the queue.
-            if pr_is_stuck "$pr" "$robot_login"; then
-              dequeue_pr "$pr_url" "stuck" \
-                "$(get_stuck_reason "$pr" "$robot_login")"
+            if pr_is_stuck "$pr"; then
+              dequeue_pr "$pr_url" "stuck" "$(get_stuck_reason "$pr")"
               echo "freed"
               return 0
             fi
@@ -276,6 +294,7 @@ jobs:
 
             # If a rebase is already in progress, wait for Dependabot to push.
             if pr_is_behind_base "$pr"; then
+              log "Waiting for Dependabot rebase on $pr_url"
               echo "active"
               return 0
             fi
@@ -306,6 +325,7 @@ jobs:
             fi
 
             # Otherwise checks are still running; keep waiting.
+            log "Waiting for checks to complete on $pr_url"
             echo "active"
           }
 
@@ -313,34 +333,37 @@ jobs:
 
           # Prints the GitHub login that owns GH_TOKEN (the robot account).
           get_authenticated_login() {
-            gh api user --jq .login
+            gh_retry gh api user --jq .login
           }
 
-          # Lists all open Dependabot PRs as JSON (url, createdAt, labels).
-          # Filtering happens in jq because GitHub's --label flag cannot
-          # exclude labels and the search index lags behind recent edits.
+          # Lists open Dependabot PRs targeting master as JSON (url, createdAt,
+          # labels). Filtering happens in jq because GitHub's --label flag
+          # cannot exclude labels.
           list_open_dependabot_prs() {
-            gh_retry gh pr list --repo "$REPO" --author "app/dependabot" \
-              --limit 1000 --json url,createdAt,labels
+            gh_retry gh pr list --repo "$REPO" --base master \
+              --author "app/dependabot" --limit 1000 \
+              --json url,createdAt,labels
           }
 
-          # Prints the URL of the active PR, or empty. A dequeued label wins
-          # if a person manually dequeued the active PR.
+          # Prints the URL of the active PR from the list JSON, or empty. A
+          # dequeued label wins if a person manually dequeued the active PR.
           find_active_pr() {
-            list_open_dependabot_prs | jq -r \
+            local open_prs="$1"
+            jq -r \
               --arg active "$ACTIVE_LABEL" \
               --arg dequeued "$DEQUEUED_PREFIX" '
               [ .[] |
                 select(any(.labels[].name; . == $active)) |
                 select(all(.labels[].name; startswith($dequeued) | not)) ] |
-              sort_by(.createdAt) | .[0].url // empty'
+              sort_by(.createdAt) | .[0].url // empty' <<< "$open_prs"
           }
 
           # Prints the URL of the oldest waiting PR (no active or dequeued
-          # label), skipping any URLs already started in this run.
+          # label), skipping any URLs already handled in this run.
           find_oldest_waiting_pr() {
-            local started_urls="$1"
-            list_open_dependabot_prs | jq -r \
+            local open_prs="$1"
+            local started_urls="$2"
+            jq -r \
               --arg active "$ACTIVE_LABEL" \
               --arg dequeued "$DEQUEUED_PREFIX" \
               --arg started "$started_urls" '
@@ -349,13 +372,13 @@ jobs:
                 select(all(.labels[].name;
                            . != $active and (startswith($dequeued) | not))) |
                 select(.url | IN($skip[]) | not) ] |
-              sort_by(.createdAt) | .[0].url // empty'
+              sort_by(.createdAt) | .[0].url // empty' <<< "$open_prs"
           }
 
           # Prints when the active label was last applied to the PR, or empty.
           fetch_active_labeled_at() {
             local pr_url="$1"
-            gh api --paginate \
+            gh_retry gh api --paginate \
               "repos/$REPO/issues/${pr_url##*/}/events" \
               --jq ".[] | select(.event == \"labeled\" and
                                  .label.name == \"$ACTIVE_LABEL\") |
@@ -363,14 +386,18 @@ jobs:
           }
 
           # Fetches a PR's metadata and live branch comparison, returning a
-          # self-contained JSON snapshot with four computed fields:
+          # self-contained JSON snapshot with five computed fields:
           #   behindBy:       commits on baseRefName missing from headRefOid
           #   activeSince:    when dependabot-active was applied
+          #   robotLogin:     login of the authenticated robot account
           #   lastCommitAt:   ISO timestamp of the PR's latest commit
           #   blockingChecks: checks on the latest commit minus IGNORED_CHECKS
+          #                   and this workflow's own jobs (so a transient
+          #                   listener failure self-heals via queue-manager)
           load_pr_snapshot() {
             local pr_url="$1"
             local active_since="$2"
+            local robot_login="$3"
             local fields="url,createdAt,baseRefName,headRefOid"
             fields="$fields,commits,comments,statusCheckRollup"
 
@@ -385,6 +412,8 @@ jobs:
 
             jq --argjson behind "$behind_by" \
                --arg active_since "$active_since" \
+               --arg robot "$robot_login" \
+               --arg workflow "$GITHUB_WORKFLOW" \
                --arg ignored "$IGNORED_CHECKS" '
               ($ignored | split("\n") |
                map(gsub("^\\s+|\\s+$"; "")) |
@@ -392,10 +421,12 @@ jobs:
               . + {
                 behindBy: $behind,
                 activeSince: $active_since,
+                robotLogin: $robot,
                 lastCommitAt: (([.commits[]?.committedDate] | max)
                                // .createdAt),
                 blockingChecks: [
                   .statusCheckRollup[]? |
+                  select((.workflowName // "") != $workflow) |
                   select((.name // .context) | IN($ignored_list[]) | not)
                 ]
               }
@@ -410,7 +441,8 @@ jobs:
             local pr="$1"
             jq -e '
               any(.commits[]?.authors[]?;
-                  (.login // "") | startswith("dependabot") | not)
+                  (.login // "") |
+                  IN("dependabot[bot]", "app/dependabot") | not)
             ' <<< "$pr" > /dev/null
           }
 
@@ -447,9 +479,9 @@ jobs:
           # timestamp, so only a genuinely stalled PR times out.
           pr_has_no_recent_progress() {
             local pr="$1"
-            local robot_login="$2"
             local last_progress_at
-            last_progress_at=$(jq -r --arg robot "$robot_login" '
+            last_progress_at=$(jq -r '
+              .robotLogin as $robot |
               [ .lastCommitAt,
                 .activeSince,
                 (.comments[]? | select(.author.login == $robot) | .createdAt)
@@ -513,18 +545,17 @@ jobs:
           }
 
           # Prints why the PR is stuck in the pipeline, or empty if healthy:
-          # * /gcbrun was posted past CHECK_WAIT_MINUTES on an up-to-date
-          #   branch, yet Cloud Build still reports ACTION_REQUIRED.
+          # * /gcbrun was posted past CHECK_WAIT_MINUTES, yet Cloud Build
+          #   still reports ACTION_REQUIRED (even if master has since moved).
           # * No new commit, activation, or robot comment past
           #   STUCK_TIMEOUT_MINUTES.
           get_stuck_reason() {
             local pr="$1"
-            local robot_login="$2"
-            if ! pr_is_behind_base "$pr" && gcbrun_request_timed_out "$pr"; then
+            if gcbrun_request_timed_out "$pr"; then
               echo "Cloud Build didn't start the requested tests"
               return 0
             fi
-            if pr_has_no_recent_progress "$pr" "$robot_login"; then
+            if pr_has_no_recent_progress "$pr"; then
               echo "no progress for $STUCK_TIMEOUT_MINUTES minutes"
               return 0
             fi
@@ -532,8 +563,7 @@ jobs:
 
           pr_is_stuck() {
             local pr="$1"
-            local robot_login="$2"
-            [[ -n "$(get_stuck_reason "$pr" "$robot_login")" ]]
+            [[ -n "$(get_stuck_reason "$pr")" ]]
           }
 
           # True when every blocking check has completed and passed (including
@@ -562,11 +592,13 @@ jobs:
 
           request_rebase() {
             local pr_url="$1"
+            log "Requesting Dependabot rebase on $pr_url"
             gh pr comment "$pr_url" --body "@dependabot rebase" >&2
           }
 
           request_gcbrun() {
             local pr_url="$1"
+            log "Posting /gcbrun on $pr_url"
             gh pr comment "$pr_url" --body "/gcbrun" >&2
           }
 
@@ -585,21 +617,25 @@ jobs:
             gh pr edit "$pr_url" \
               --add-label "$label" --remove-label "$ACTIVE_LABEL" >&2
             local body="Removed from the Dependabot queue: $explanation."
-            body="$body To retry, remove the \`$label\` label."
+            body="$body To retry, comment \`@dependabot recreate\` and remove"
+            body="$body the \`$label\` label."
             gh pr comment "$pr_url" --body "$body" >&2
           }
 
           # Approves and squash-merges the PR. Returns 0 if merged, or 1 if
-          # GitHub rejected the merge (for example, master advanced after the
-          # snapshot was read, or Dependabot pushed a new commit caught by
-          # --match-head-commit).
+          # GitHub rejected the approval or merge (for example, master advanced
+          # after the snapshot was read, or Dependabot pushed a new commit
+          # caught by --match-head-commit).
           approve_and_merge_pr() {
             local pr="$1"
             local pr_url head_sha
             pr_url=$(jq -r '.url' <<< "$pr")
             head_sha=$(jq -r '.headRefOid' <<< "$pr")
             log "Merging $pr_url"
-            gh pr review --approve "$pr_url" >&2
+            if ! gh pr review --approve "$pr_url" >&2; then
+              log "Review approval failed; keeping PR active for next run."
+              return 1
+            fi
             if gh pr merge --squash \
               --match-head-commit "$head_sha" "$pr_url" >&2; then
               gh pr edit "$pr_url" --remove-label "$ACTIVE_LABEL" >&2
@@ -615,11 +651,15 @@ jobs:
             echo "$*" >&2
           }
 
-          # Retries a read-only gh command to ride out transient timeouts.
+          # Retries a read-only gh command up to 3 times, buffering stdout so
+          # error output from a failed attempt never leaks into captured data.
           gh_retry() {
-            local attempt
+            local attempt out
             for attempt in 1 2 3; do
-              if "$@"; then
+              if out=$("$@"); then
+                if [[ -n "$out" ]]; then
+                  printf '%s\n' "$out"
+                fi
                 return 0
               fi
               sleep $((attempt * 5))
@@ -639,16 +679,27 @@ jobs:
             (( NOW_EPOCH - ts_epoch >= minutes * 60 ))
           }
 
-          # Prints the timestamp of the latest comment starting with <prefix>
-          # posted after the PR's latest commit, or empty if none exists.
+          # Prints the timestamp of the latest robot comment starting with
+          # <prefix> posted since the PR's latest commit (and since activation,
+          # if known), or empty. Restricting to robotLogin prevents outsiders
+          # on a public repo from spoofing /gcbrun or @dependabot rebase.
           last_comment_since_latest_commit() {
             local pr="$1"
             local prefix="$2"
             jq -r --arg prefix "$prefix" '
-              .lastCommitAt as $since |
+              .lastCommitAt as $commit |
+              .activeSince as $active |
+              .robotLogin as $robot |
               [ .comments[]? |
-                select(.createdAt > $since and
-                       (.body | ltrimstr(" ") | startswith($prefix))) |
+                select(.author.login == $robot) |
+                select(.createdAt > $commit and
+                       ($active == "" or .createdAt >= $active)) |
+                select(.body | gsub("^\\s+"; "") |
+                       (. == $prefix or
+                        startswith($prefix + " ") or
+                        startswith($prefix + "\t") or
+                        startswith($prefix + "\n") or
+                        startswith($prefix + "\r"))) |
                 .createdAt ] | max // empty
             ' <<< "$pr"
           }
