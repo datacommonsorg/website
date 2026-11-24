@@ -204,6 +204,7 @@ spec:
 {{- end }}
 
 {{- if and .Values.agentic .Values.agentic.enabled .Values.agentic.discover .Values.agentic.discover.enabled }}
+{{- include "dc-website.validatePositiveInt" (dict "name" "agentic.replicas" "value" .Values.agentic.replicas) }}
 ---
 
 apiVersion: apps/v1
@@ -212,11 +213,11 @@ metadata:
   name: website-agentic-apps
   namespace: {{ .Values.namespace.name }}
 spec:
-  replicas: {{ .Values.agentic.replicas }}
+  replicas: {{ int64 .Values.agentic.replicas }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: {{ div .Values.agentic.replicas 4 | add 1 }}
+      maxSurge: {{ div (int64 .Values.agentic.replicas) 4 | add 1 }}
       maxUnavailable: 0
   selector:
     matchLabels:
@@ -301,6 +302,9 @@ spec:
               {{- else }}
               value: ""
               {{- end }}
+            # Each replica enforces its own in-memory share of the environment-wide daily cap.
+            - name: DAILY_TOKEN_BUDGET_PER_INSTANCE
+              value: {{ include "dc-website.discoverDailyTokenBudgetPerInstance" . | quote }}
           startupProbe:
             httpGet:
               path: {{ trimSuffix "/" .Values.agentic.discover.basePath }}/healthz

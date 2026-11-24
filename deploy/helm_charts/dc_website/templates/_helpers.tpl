@@ -74,3 +74,50 @@ securityContext:
     drop:
       - ALL
 {{- end }}
+
+{{/*
+Validate that a required numeric Helm value is an unquoted positive integer.
+Expects a dict with "name" (values path for error messages) and "value".
+*/}}
+{{- define "dc-website.validatePositiveInt" -}}
+{{- $raw := .value -}}
+{{- if kindIs "invalid" $raw -}}
+  {{- fail (printf "Missing: %s" .name) -}}
+{{- end -}}
+{{- if not (or (kindIs "int" $raw) (kindIs "int64" $raw) (kindIs "float64" $raw)) -}}
+  {{- fail (printf "Invalid %s %#v: must be an unquoted positive integer" .name $raw) -}}
+{{- end -}}
+{{- $n := int64 $raw -}}
+{{- if kindIs "float64" $raw -}}
+  {{- if ne (float64 $n) $raw -}}
+    {{- fail (printf "Invalid %s %v: must be a positive integer" .name $raw) -}}
+  {{- end -}}
+{{- end -}}
+{{- if le $n 0 -}}
+  {{- fail (printf "Invalid %s %d: must be a positive integer" .name $n) -}}
+{{- end -}}
+{{- end }}
+
+{{/*
+Compute DAILY_TOKEN_BUDGET_PER_INSTANCE for each Discover pod by splitting the
+environment-wide daily Gemini token budget evenly across all pods in all
+deployed clusters (agentic.replicas * agentic.clusterCount), using integer floor
+division so the sum across all pods never exceeds the environment cap.
+Returns a plain integer string (not scientific notation).
+*/}}
+{{- define "dc-website.discoverDailyTokenBudgetPerInstance" -}}
+{{- include "dc-website.validatePositiveInt" (dict "name" "agentic.discover.dailyTokenBudget" "value" .Values.agentic.discover.dailyTokenBudget) -}}
+{{- include "dc-website.validatePositiveInt" (dict "name" "agentic.replicas" "value" .Values.agentic.replicas) -}}
+{{- include "dc-website.validatePositiveInt" (dict "name" "agentic.clusterCount" "value" .Values.agentic.clusterCount) -}}
+{{- $budget := int64 .Values.agentic.discover.dailyTokenBudget -}}
+{{- $replicas := int64 .Values.agentic.replicas -}}
+{{- $clusters := int64 .Values.agentic.clusterCount -}}
+{{- $totalInstances := mul $replicas $clusters -}}
+{{- if or (le $totalInstances 0) (ne (div $totalInstances $replicas) $clusters) -}}
+  {{- fail (printf "Invalid agentic instance count (%d replicas * %d clusters): overflow" $replicas $clusters) -}}
+{{- end -}}
+{{- if lt $budget $totalInstances -}}
+  {{- fail (printf "Invalid agentic.discover.dailyTokenBudget %d: must be >= total instances (%d = %d replicas * %d clusters)" $budget $totalInstances $replicas $clusters) -}}
+{{- end -}}
+{{- printf "%d" (div $budget $totalInstances) -}}
+{{- end }}
