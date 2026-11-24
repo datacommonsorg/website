@@ -179,6 +179,13 @@ agentic:
   # website-agentic-service Service, and agentic Ingress routes completely.
   enabled: false
   replicas: 2
+  # Number of GKE clusters this environment deploys to (must match the
+  # environment's target count in deploy/helm_charts/clouddeploy.yaml:
+  # 1 for single-cluster envs like autopush/staging, 2 for multi-cluster prod
+  # deploying to website-prod-central and website-prod-west). Required (no
+  # default) when agentic.enabled and agentic.discover.enabled are true so
+  # multi-cluster environments cannot accidentally multiply their daily cap.
+  clusterCount:
   nodePool:
   mcpServerUrl: "https://api.datacommons.org/mcp"
   useVertexAi: true
@@ -214,3 +221,10 @@ agentic:
     memory: "1G"
     modelArmorTemplateId: ""
     configBucket: ""
+    # Environment-wide daily Gemini token cap across all clusters and replicas,
+    # split evenly by (agentic.replicas * agentic.clusterCount) into each pod's
+    # DAILY_TOKEN_BUDGET_PER_INSTANCE using integer floor division. Required
+    # (no default) when agentic.enabled and agentic.discover.enabled are true.
+    # Re-size whenever changing Gemini models or thinking levels in
+    # agent-config.json.
+    dailyTokenBudget:
