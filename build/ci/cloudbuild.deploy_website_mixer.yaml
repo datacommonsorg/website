@@ -108,19 +108,19 @@ steps:
 
         # Run the deployment creation.
         images_arr=(
-          "gcr.io/datcom-ci/datacommons-website=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website:$${website_githash}"
-          "gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:$${mixer_githash}"
-          "gcr.io/datcom-ci/datacommons-nodejs=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nodejs:$${website_githash}"
-          "gcr.io/datcom-ci/datacommons-discover=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-discover:$${discover_githash}"
+          "gcr.io/datcom-ci/datacommons-website=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website:${website_githash}"
+          "gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:${mixer_githash}"
+          "gcr.io/datcom-ci/datacommons-nodejs=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nodejs:${website_githash}"
+          "gcr.io/datcom-ci/datacommons-discover=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-discover:${discover_githash}"
         )
-        images_str=$$(IFS=,; echo "$${images_arr[*]}")
+        images_str=$(IFS=,; echo "${images_arr[*]}")
 
-        gcloud deploy releases create "$${release_name}" \
+        gcloud deploy releases create "${release_name}" \
           --delivery-pipeline=datacommons-website \
           --region=us-central1 \
           --skaffold-file=skaffold.yaml \
-          --images="$${images_str}" \
-          --deploy-parameters="MIXER_GITHASH=$${mixer_githash},WEBSITE_GITHASH=$${website_githash}" \
+          --images="${images_str}" \
+          --deploy-parameters="MIXER_GITHASH=${mixer_githash},WEBSITE_GITHASH=${website_githash}" \
           --project=datcom-ci
 
-        echo "Successfully created release $${release_name}."
+        echo "Successfully created release ${release_name}."
