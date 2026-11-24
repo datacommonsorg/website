@@ -53,22 +53,24 @@ When either flag is `false` (default), `spec.iap` is omitted from the rendered
 `BackendConfig` so Console-managed IAP settings on existing GCE backend services
 are preserved.
 
-> **Note for Multi-Cluster Ingress (MCI) environments:** IAP is configured per
-> GCE `BackendService`, and Cloud IAP scopes browser session cookies per OAuth
-> client ID rather than per hostname. Adding or renaming a `MultiClusterService`
-> (for example, introducing `website-agentic-mcs`) creates a new GCE
-> `BackendService` with IAP disabled by default unless `agentic.iap.enabled: true`
-> is set or IAP is manually enabled on the new backend service in GCP Console.
-> Sharing the same custom OAuth client (`iap-secret`) across both
-> `backendconfig` and `backendconfig-agentic` ensures a single IAP sign-in on
-> `/labs/discover` also authenticates same-host chart script and API requests
-> routed to `website-mcs`. Also verify both backends inherit or define the same
-> `roles/iap.httpsResourceAccessor` IAM bindings.
-> `gke/update_config_cluster.sh` checks that `iap-secret` exists when either IAP
-> flag is enabled, refuses to strip an existing `spec.iap.enabled: true` or
-> downgrade custom `oauthclientCredentials` to Google-managed OAuth in-place,
-> and warns if `website-mcs` and `website-agentic-mcs` have mismatched IAP
-> enablement or OAuth client IDs in GCE.
+> **Multi-Cluster Ingress (MCI) notes:**
+>
+> - **Per-backend IAP:** IAP is configured per GCE `BackendService`. Adding or
+>   renaming a `MultiClusterService` (such as `website-agentic-mcs`) creates a new
+>   GCE `BackendService` with IAP disabled by default unless `agentic.iap.enabled:
+>   true` is set or IAP is manually enabled in GCP Console.
+> - **Shared OAuth client & IAM:** Cloud IAP scopes browser session cookies per
+>   OAuth client ID rather than per hostname. Sharing `iap-secret` across
+>   `backendconfig` and `backendconfig-agentic` lets one sign-in on
+>   `/labs/discover` also authenticate same-host `/datacommons.js` and `/api/*`
+>   requests routed to `website-mcs`. Ensure both backends inherit or define the
+>   same `roles/iap.httpsResourceAccessor` IAM bindings.
+> - **Built-in script guards:** `gke/update_config_cluster.sh` checks that
+>   `iap-secret` exists with non-empty `client_id` and `client_secret` keys when
+>   IAP is enabled, refuses to strip `spec.iap.enabled: true` or downgrade custom
+>   `oauthclientCredentials` to Google-managed OAuth in-place, and warns on GCE
+>   IAP enablement or OAuth client ID mismatches between `website-mcs` and
+>   `website-agentic-mcs`.
 
 #### Manual setup with `backendconfig_iap.yaml`
 
@@ -98,6 +100,8 @@ cp mci.yaml.tpl mci.yaml
 # Update <IP> to be the static IP of the website, which can be found in
 # <REPO_ROOT>/deploy/helm_charts/envs/<ENV>.yaml,
 # [Optional] change the certificate to match the current SSL certificate
+# [Optional] replace <DISCOVER_BASE_PATH> (e.g., /labs/discover) if deploying
+# agentic apps, or remove the <DISCOVER_BASE_PATH> paths otherwise
 # [Optional] remove the nodejs path if not deploying nodejs service
 kubectl apply -f mci.yaml
 ```

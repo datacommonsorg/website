@@ -198,7 +198,7 @@ If multi-cluster ingress, multi-cluster services, or their `BackendConfig` resou
 
 where `<ENV>` refers to the name of the instance and `<REGION>` is the region of the cluster.
 
-> **IAP note:** `update_config_cluster.sh` honors independent `website.iap.enabled` and `agentic.iap.enabled` flags from `deploy/helm_charts/envs/<ENV>.yaml` (both sharing `iap-secret` so `/labs/discover` and main website requests share one IAP session cookie), verifies `iap-secret` exists, fails fast if applying `backendconfig.yaml` would strip `spec.iap.enabled: true` or downgrade custom `oauthclientCredentials` to Google-managed OAuth on a live `BackendConfig`, and warns if `website-mcs` and `website-agentic-mcs` have mismatched IAP enablement or OAuth client IDs in GCE. See [docs/iap.md](../docs/iap.md) for details.
+> **IAP note:** `update_config_cluster.sh` reads `website.iap.enabled` and `agentic.iap.enabled` independently from `deploy/helm_charts/envs/<ENV>.yaml` (sharing `iap-secret` so `/labs/discover` and main website requests share one IAP session cookie). Before applying, it validates `iap-secret` and refuses to strip `spec.iap.enabled: true` or downgrade custom `oauthclientCredentials` to Google-managed OAuth on live `BackendConfig`s; after applying, it warns if `website-mcs` and `website-agentic-mcs` have mismatched IAP settings in GCE. See [docs/iap.md](../docs/iap.md) for details.
 
 ## Add a cron testing job
 
