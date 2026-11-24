@@ -147,6 +147,26 @@ When agentic apps are enabled on an environment (`agentic.enabled: true`), you c
    - **Keep Discover UI online with chat disabled (no PR required):** Set `"chat": { "enabled": false, ... }` in `gs://<CONFIG_BUCKET>/agent-config.json` (validating with `python3 -m json.tool` first), upload to GCS, and restart `website-agentic-apps` across every regional cluster as shown above (ensure any ad-hoc `ENABLE_CHAT` env override has been cleared with `ENABLE_CHAT-`). Set `"enabled": true` and restart all clusters to restore chat.
    - **Remove the deployment and routes (via Helm in Git):** Set `agentic.discover.enabled: false` in `deploy/helm_charts/envs/<ENV>.yaml` to remove the `discover` container and `agentic.discover.basePath` Ingress paths, or set `agentic.enabled: false` to remove the `website-agentic-apps` Deployment, `website-agentic-service` Service, and agentic Ingress paths entirely.
 
+### Daily Gemini token budget
+
+When `agentic.enabled` and `agentic.discover.enabled` are `true`, the Helm chart requires both `agentic.discover.dailyTokenBudget` (environment-wide daily Gemini token cap) and `agentic.clusterCount` (matching the environment's cluster target count in `deploy/helm_charts/clouddeploy.yaml`, e.g., `1` for autopush/staging and `2` for multi-cluster prod). Each `discover` pod receives `DAILY_TOKEN_BUDGET_PER_INSTANCE = floor(dailyTokenBudget / (agentic.replicas * agentic.clusterCount))` and tracks an independent in-memory counter resetting at UTC midnight.
+
+- **Adjust or disable out-of-band (restarts pods and resets in-memory UTC-day counters to `0`):** Run against **every** regional cluster in the environment (overwritten by the next Cloud Deploy release unless also updated in `deploy/helm_charts/envs/<ENV>.yaml`):
+
+  ```bash
+  for REGION in <REGIONS>; do
+    gcloud container clusters get-credentials website-${REGION} --region=${REGION} --project=<PROJECT_ID>
+
+    # Raise or lower the per-pod cap (must be a positive integer)
+    kubectl set env deployment/website-agentic-apps -n website -c discover DAILY_TOKEN_BUDGET_PER_INSTANCE=<TOKENS_PER_POD>
+
+    # Disable token-budget enforcement (do NOT set "=0", which fails startup validation)
+    kubectl set env deployment/website-agentic-apps -n website -c discover DAILY_TOKEN_BUDGET_PER_INSTANCE-
+  done
+  ```
+
+- **Out-of-band scaling:** Manually increasing replicas (`kubectl scale`) or adding a cluster does **not** recalculate `DAILY_TOKEN_BUDGET_PER_INSTANCE` on running pods, which temporarily multiplies the effective environment cap until `agentic.replicas` / `agentic.clusterCount` are updated in `deploy/helm_charts/envs/<ENV>.yaml` and redeployed.
+
 ### Cloud Armor reCAPTCHA Enterprise WAF keys
 
 `./setup_agentic.sh <ENV>` automatically invokes `./setup_recaptcha.sh <ENV>` to provision Cloud Armor reCAPTCHA Enterprise WAF keys; you can also run `./setup_recaptcha.sh <ENV>` standalone to inspect, validate, or re-run WAF key setup without touching IAM, Secret Manager, Model Armor, or GCS.

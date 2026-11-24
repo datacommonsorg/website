@@ -87,6 +87,11 @@ Expects a dict with "name" (values path for error messages) and "value".
 {{- if not (or (kindIs "int" $raw) (kindIs "int64" $raw) (kindIs "float64" $raw)) -}}
   {{- fail (printf "Invalid %s %#v: must be an unquoted positive integer" .name $raw) -}}
 {{- end -}}
+{{- if kindIs "float64" $raw -}}
+  {{- if not (and (gt $raw -9223372036854775808.0) (lt $raw 9223372036854775808.0)) -}}
+    {{- fail (printf "Invalid %s %v: must be a positive integer" .name $raw) -}}
+  {{- end -}}
+{{- end -}}
 {{- $n := int64 $raw -}}
 {{- if kindIs "float64" $raw -}}
   {{- if ne (float64 $n) $raw -}}

@@ -169,6 +169,8 @@ metadata:
 description: A multi-target for production deployments to multiple clusters
 requireApproval: true
 multiTarget:
+  # Must match `agentic.clusterCount` in `deploy/helm_charts/envs/prod.yaml`
+  # whenever Discover is enabled so the daily token budget splits across all clusters.
   targetIds:
   - website-prod-central
   - website-prod-west
