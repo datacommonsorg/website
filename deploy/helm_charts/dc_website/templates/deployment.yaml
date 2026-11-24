@@ -43,6 +43,9 @@ spec:
         cloud.google.com/gke-nodepool: {{ .Values.website.nodePool }}
       {{- end }}
       serviceAccountName: {{ .Values.serviceAccount.name }}
+      {{- if and .Values.securityContext .Values.securityContext.enabled }}
+      {{- include "dc-website.podSecurityContext" . | nindent 6 }}
+      {{- end }}
       volumes:
         - name: ingress-config
           configMap:
@@ -55,10 +58,22 @@ spec:
         - name: blocklist-svg
           configMap:
             name: blocklist-svg
+        # Gunicorn worker heartbeats and Redis TLS CA cert tempfiles write to /tmp.
+        - name: tmp
+          emptyDir:
+            medium: Memory
+            sizeLimit: 128Mi
+        # Fallback directory for CohortAwareFileSystemCache when Redis is unconfigured.
+        - name: model-cache
+          emptyDir:
+            sizeLimit: 512Mi
       containers:
         - name: website
           image: "gcr.io/datcom-ci/datacommons-website{{- if .Values.website.image.tag }}:{{ .Values.website.image.tag }}{{- end }}"
           imagePullPolicy: {{ .Values.website.image.pullPolicy }}
+          {{- if and .Values.securityContext .Values.securityContext.enabled }}
+          {{- include "dc-website.containerSecurityContext" (dict "uid" 10001 "gid" 10001) | nindent 10 }}
+          {{- end }}
           args: []
           ports:
             - containerPort: 8080
@@ -89,7 +104,15 @@ spec:
             {{- end }}
             - name: blocklist-svg
               mountPath: /datacommons/svg
+            - name: tmp
+              mountPath: /tmp
+            - name: model-cache
+              mountPath: /workspace/.cache
           env:
+            - name: HOME
+              value: /tmp
+            - name: PYTHONDONTWRITEBYTECODE
+              value: "1"
             - name: FLASK_ENV
               value: {{ required "Missing: website.flaskEnv" .Values.website.flaskEnv }}
             - name: WEBSITE_HASH
@@ -208,12 +231,22 @@ spec:
         cloud.google.com/gke-nodepool: {{ .Values.agentic.nodePool }}
       {{- end }}
       serviceAccountName: {{ .Values.serviceAccount.name }}
+      {{- if and .Values.securityContext .Values.securityContext.enabled }}
+      {{- include "dc-website.podSecurityContext" . | nindent 6 }}
+      {{- end }}
       terminationGracePeriodSeconds: 125
+      volumes:
+        - name: tmp
+          emptyDir:
+            sizeLimit: 64Mi
       containers:
         {{- if .Values.agentic.discover.enabled }}
         - name: discover
           image: "gcr.io/datcom-ci/datacommons-discover{{- if .Values.agentic.discover.image.tag }}:{{ .Values.agentic.discover.image.tag }}{{- end }}"
           imagePullPolicy: {{ .Values.website.image.pullPolicy }}
+          {{- if and .Values.securityContext .Values.securityContext.enabled }}
+          {{- include "dc-website.containerSecurityContext" (dict "uid" 10001 "gid" 10001) | nindent 10 }}
+          {{- end }}
           args: []
           ports:
             - containerPort: 8080
@@ -223,7 +256,12 @@ spec:
             requests:
               cpu: {{ .Values.agentic.discover.cpu | default "500m" | quote }}
               memory: {{ .Values.agentic.discover.memory | quote }}
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
           env:
+            - name: HOME
+              value: /tmp
             - name: PORT
               value: "8080"
             - name: BASE_PATH

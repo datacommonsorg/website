@@ -22,6 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
+import { OpenInNew } from "../components/elements/icons/open_in_new";
 import { WEBSITE_SURFACE_HEADER } from "../shared/constants";
 import {
   Series,
@@ -30,6 +31,7 @@ import {
 } from "../shared/stat_types";
 import { loadSpinner, randDomId, removeSpinner } from "../shared/util";
 import { stringifyFn } from "../utils/axios";
+import { sanitizeHttpUrl } from "../utils/browser_utils";
 import { getUnit } from "../utils/stat_metadata_utils";
 import { ObservationChart } from "./observation_chart";
 
@@ -89,7 +91,7 @@ export class ObservationChartSection extends React.Component<
           <div id={"info-message"}>{this.state.infoMessage}</div>
         )}
         {this.state.seriesList.map((series, index) => {
-          const metadata = this.state.facets[series.facet];
+          const metadata = this.state.facets?.[series.facet] || {};
           const unit = getUnit(metadata);
           return (
             <div className="card" key={this.props.statVarId + index}>
@@ -114,7 +116,12 @@ export class ObservationChartSection extends React.Component<
                 placeDcid={this.props.placeDcid}
                 statVarName={this.props.statVarName}
               />
-              <p className="metadata">provenance: {metadata.provenanceUrl}</p>
+              {metadata.provenanceUrl && (
+                <p className="metadata">
+                  provenance:{" "}
+                  {this.renderProvenanceValue(metadata.provenanceUrl)}
+                </p>
+              )}
             </div>
           );
         })}
@@ -122,6 +129,24 @@ export class ObservationChartSection extends React.Component<
           <div id="spinner"></div>
         </div>
       </div>
+    );
+  }
+
+  private renderProvenanceValue(provenanceUrl: string): React.ReactNode {
+    const sanitizedUrl = sanitizeHttpUrl(provenanceUrl);
+    if (!sanitizedUrl) {
+      return provenanceUrl;
+    }
+    return (
+      <a
+        className="external-url-link"
+        href={sanitizedUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {provenanceUrl.trim()}
+        <OpenInNew aria-hidden="true" />
+      </a>
     );
   }
 
@@ -145,7 +170,7 @@ export class ObservationChartSection extends React.Component<
         const filteredSeries: Series[] = [];
         if (!_.isEmpty(seriesList)) {
           for (const series of seriesList) {
-            const mm = facets[series.facet].measurementMethod;
+            const mm = facets?.[series.facet]?.measurementMethod;
             if (!(mm && IGNORED_SOURCE_SERIES_MMETHODS.has(mm))) {
               filteredSeries.push(series);
             }
