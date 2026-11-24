@@ -117,6 +117,7 @@ cronTesting:
 agentic:
   enabled: true
   replicas: 2
+  clusterCount: 1
   mcpServerUrl: "https://autopush.api.datacommons.org/mcp"
   useVertexAi: true
   cloudLocation: "global"
@@ -137,3 +138,5 @@ agentic:
     memory: "1G"
     modelArmorTemplateId: "discover-autopush"
     configBucket: "datcom-website-autopush-discover-config"
+    # Environment-wide daily Gemini token cap (20M/day = 10M/pod across 2 pods in 1 cluster).
+    dailyTokenBudget: 20000000
