@@ -19,12 +19,13 @@
 set -e
 
 function help {
-  echo "Usage: $0 -e <ENV> [-l <REGION>] [-n] [-f] [-d|--dry-run]"
-  echo "  -e <ENV>       Instance environment as defined under ../deploy/helm_charts/envs"
-  echo "  -l <REGION>    GKE region of the config cluster (default: us-central1)"
-  echo "  -n             Setup nodejs service"
-  echo "  -f             Allow replacing a live website-mci static IP if it differs from resolved IP"
-  echo "  -d, --dry-run  Run all validations and live guards, then preview changes via kubectl diff without applying"
+  echo "Usage: $0 -e <ENV> [-l <REGION>] [-n] [-f] [--force-cert-change] [-d|--dry-run]"
+  echo "  -e <ENV>             Instance environment as defined under ../deploy/helm_charts/envs"
+  echo "  -l <REGION>          GKE region of the config cluster (default: us-central1)"
+  echo "  -n                   Setup nodejs service"
+  echo "  -f                   Allow replacing a live website-mci static IP if it differs from resolved IP"
+  echo "  --force-cert-change  Allow replacing live website-mci pre-shared-certs if they differ from ingress.certName"
+  echo "  -d, --dry-run        Run all validations and live guards, then preview changes via kubectl diff without applying"
   exit 1
 }
 
@@ -146,9 +147,14 @@ function guard_live_backendconfig_iap {
   done <<< "$bc_names"
 }
 
-# Inject spec.securityPolicy.name into rendered backendconfig-agentic when configured in Helm config.
+# Inject spec.securityPolicy.name into rendered BackendConfigs when configured in Helm config.
 # When empty, spec.securityPolicy is omitted so Console-managed policies are left untouched.
 function apply_security_policy_to_backendconfig {
+  if [[ -n $WEBSITE_SECURITY_POLICY ]]; then
+    POLICY_NAME="$WEBSITE_SECURITY_POLICY" yq eval -i \
+      'with(select(.metadata.name == "backendconfig"); .spec.securityPolicy.name = strenv(POLICY_NAME))' \
+      backendconfig.yaml
+  fi
   if [[ $AGENTIC_ENABLED == "true" && -n $AGENTIC_SECURITY_POLICY ]]; then
     POLICY_NAME="$AGENTIC_SECURITY_POLICY" yq eval -i \
       'with(select(.metadata.name == "backendconfig-agentic"); .spec.securityPolicy.name = strenv(POLICY_NAME))' \
@@ -156,37 +162,46 @@ function apply_security_policy_to_backendconfig {
   fi
 }
 
-# Fail fast if rendered backendconfig-agentic references a missing or non-backend Cloud Armor policy.
+# Fail fast if any configured Cloud Armor policy is missing or not a backend (CLOUD_ARMOR) policy.
 function verify_security_policy_exists {
-  if [[ $AGENTIC_ENABLED != "true" || -z $AGENTIC_SECURITY_POLICY ]]; then
+  local policies=()
+  if [[ -n $WEBSITE_SECURITY_POLICY ]]; then
+    policies+=("$WEBSITE_SECURITY_POLICY")
+  fi
+  if [[ $AGENTIC_ENABLED == "true" && -n $AGENTIC_SECURITY_POLICY && $AGENTIC_SECURITY_POLICY != "$WEBSITE_SECURITY_POLICY" ]]; then
+    policies+=("$AGENTIC_SECURITY_POLICY")
+  fi
+  if [[ ${#policies[@]} -eq 0 ]]; then
     return 0
   fi
 
-  local err_file policy_type policy_err
-  local rc=0
-  err_file=$(mktemp)
-  policy_type=$(gcloud compute security-policies describe "$AGENTIC_SECURITY_POLICY" \
-    --global \
-    --project="$PROJECT_ID" \
-    --format='value(type)' 2>"$err_file") || rc=$?
-  policy_err=$(cat "$err_file")
-  rm -f "$err_file"
+  local policy err_file policy_type policy_err rc
+  for policy in "${policies[@]}"; do
+    rc=0
+    err_file=$(mktemp)
+    policy_type=$(gcloud compute security-policies describe "$policy" \
+      --global \
+      --project="$PROJECT_ID" \
+      --format='value(type)' 2>"$err_file") || rc=$?
+    policy_err=$(cat "$err_file")
+    rm -f "$err_file"
 
-  if [[ $rc -ne 0 ]]; then
-    if [[ $policy_err == *"NOT_FOUND"* || $policy_err == *"not found"* ]]; then
-      echo "Error: Cloud Armor security policy '$AGENTIC_SECURITY_POLICY' was not found in project $PROJECT_ID." >&2
-      echo "Provision '$AGENTIC_SECURITY_POLICY' (e.g. via Terraform) before attaching it to backendconfig-agentic." >&2
-    else
-      echo "Error: Failed to verify Cloud Armor security policy '$AGENTIC_SECURITY_POLICY' in project $PROJECT_ID: $policy_err" >&2
+    if [[ $rc -ne 0 ]]; then
+      if [[ $policy_err == *"NOT_FOUND"* || $policy_err == *"not found"* ]]; then
+        echo "Error: Cloud Armor security policy '$policy' was not found in project $PROJECT_ID." >&2
+        echo "Provision '$policy' (e.g. via Terraform) before attaching it to a BackendConfig." >&2
+      else
+        echo "Error: Failed to verify Cloud Armor security policy '$policy' in project $PROJECT_ID: $policy_err" >&2
+      fi
+      exit 1
     fi
-    exit 1
-  fi
 
-  policy_type="${policy_type%$'\r'}"
-  if [[ -n $policy_type && $policy_type != "CLOUD_ARMOR" ]]; then
-    echo "Error: Cloud Armor security policy '$AGENTIC_SECURITY_POLICY' in project $PROJECT_ID has type '$policy_type'; BackendConfig requires a backend security policy (type 'CLOUD_ARMOR')." >&2
-    exit 1
-  fi
+    policy_type="${policy_type%$'\r'}"
+    if [[ -n $policy_type && $policy_type != "CLOUD_ARMOR" ]]; then
+      echo "Error: Cloud Armor security policy '$policy' in project $PROJECT_ID has type '$policy_type'; BackendConfig requires a backend security policy (type 'CLOUD_ARMOR')." >&2
+      exit 1
+    fi
+  done
 }
 
 # Fail fast if applying backendconfig.yaml would strip spec.securityPolicy.name from a live BackendConfig.
@@ -213,7 +228,9 @@ function guard_live_backendconfig_security_policy {
     rendered_policy=$(BC_NAME="$bc_name" yq eval -N -r 'select(.metadata.name == strenv(BC_NAME)) | .spec.securityPolicy.name // ""' backendconfig.yaml)
     if [[ -z $rendered_policy ]]; then
       echo "Error: Live BackendConfig '$bc_name' in project $PROJECT_ID has spec.securityPolicy.name='$live_policy', which would be stripped by applying backendconfig.yaml." >&2
-      if [[ $bc_name == "backendconfig-agentic" ]]; then
+      if [[ $bc_name == "backendconfig" ]]; then
+        echo "Set 'website.securityPolicy: \"$live_policy\"' in $CONFIG_YAML to preserve it declaratively." >&2
+      elif [[ $bc_name == "backendconfig-agentic" ]]; then
         echo "Set 'agentic.securityPolicy: \"$live_policy\"' in $CONFIG_YAML to preserve it declaratively." >&2
       else
         echo "Preserve spec.securityPolicy on '$bc_name' to keep it attached." >&2
@@ -244,7 +261,32 @@ function normalize_cert_list {
   printf '%s\n' "$raw" | tr ',' '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | sed '/^$/d' | LC_ALL=C sort -u | paste -s -d ',' -
 }
 
-# Fail fast if applying mci.yaml would change live website-mci pre-shared-certs.
+# Fail fast if any SSL certificate referenced in mci.yaml pre-shared-certs does not exist in GCP.
+function verify_pre_shared_certs_exist {
+  if [[ -z $PRE_SHARED_CERTS ]]; then
+    return 0
+  fi
+
+  local cert cert_err
+  local certs=()
+  IFS=',' read -r -a certs <<< "$PRE_SHARED_CERTS"
+  for cert in "${certs[@]}"; do
+    if ! cert_err=$(gcloud compute ssl-certificates describe "$cert" \
+      --global \
+      --project="$PROJECT_ID" \
+      --format=none 2>&1); then
+      if [[ $cert_err == *"NOT_FOUND"* || $cert_err == *"not found"* ]]; then
+        echo "Error: Global SSL certificate '$cert' (from ingress.certName in $CONFIG_YAML) was not found in project $PROJECT_ID." >&2
+        echo "Verify existing certificates with: gcloud compute ssl-certificates list --global --project=$PROJECT_ID" >&2
+      else
+        echo "Error: Failed to verify global SSL certificate '$cert' in project $PROJECT_ID: $cert_err" >&2
+      fi
+      exit 1
+    fi
+  done
+}
+
+# Fail fast if applying mci.yaml would change live website-mci pre-shared-certs unless --force-cert-change is set.
 function guard_live_mci_pre_shared_certs {
   if [[ -z $EXISTING_MCI ]]; then
     return 0
@@ -260,9 +302,13 @@ function guard_live_mci_pre_shared_certs {
   norm_live=$(normalize_cert_list "$live_certs")
   norm_rendered=$(normalize_cert_list "$rendered_certs")
   if [[ $norm_live != "$norm_rendered" ]]; then
-    echo "Error: Rendered website-mci pre-shared-certs ('${rendered_certs:-<unset>}') does not match live website-mci ('$live_certs') in project $PROJECT_ID." >&2
-    echo "Update the rendered pre-shared-certs configuration to match the live certificates before applying to avoid breaking HTTPS/TLS." >&2
-    exit 1
+    if [[ $FORCE_CERT_CHANGE == "true" ]]; then
+      echo "Warning: Replacing live website-mci pre-shared-certs ('$live_certs' -> '${rendered_certs:-<unset>}') in project $PROJECT_ID (--force-cert-change specified)." >&2
+    else
+      echo "Error: Rendered website-mci pre-shared-certs ('${rendered_certs:-<unset>}') does not match live website-mci ('$live_certs') in project $PROJECT_ID." >&2
+      echo "Verify $CONFIG_YAML (.ingress.certName) matches the live certificates, or re-run with --force-cert-change to intentionally update the ingress certificates." >&2
+      exit 1
+    fi
   fi
 }
 
@@ -367,12 +413,16 @@ function warn_gce_agentic_iap_mismatch {
   fi
 }
 
-# Parse command-line options (supporting both -d and --dry-run, plus combined short flags).
+# Parse command-line options (supporting both short and long flags, plus combined short flags).
+FORCE_CERT_CHANGE=""
 NORMALIZED_ARGS=()
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --dry-run)
       NORMALIZED_ARGS+=("-d")
+      ;;
+    --force-cert-change)
+      FORCE_CERT_CHANGE=true
       ;;
     --help)
       NORMALIZED_ARGS+=("-h")
@@ -462,14 +512,49 @@ DISCOVER_BASE_PATH=$(get_helm_value '.agentic.discover.basePath')
 DISCOVER_BASE_PATH="${DISCOVER_BASE_PATH%/}"
 WEBSITE_IAP_ENABLED=$(get_helm_value '.website.iap.enabled')
 AGENTIC_IAP_ENABLED=$(get_helm_value '.agentic.iap.enabled')
+WEBSITE_SECURITY_POLICY=$(get_helm_value '.website.securityPolicy // ""')
 AGENTIC_SECURITY_POLICY=$(get_helm_value '.agentic.securityPolicy // ""')
-SECURITY_POLICY_NAME_REGEX='^[a-z]([-a-z0-9]{0,61}[a-z0-9])?$'
+RFC1035_LABEL_REGEX='^[a-z]([-a-z0-9]{0,61}[a-z0-9])?$'
+if [[ -n $WEBSITE_SECURITY_POLICY && ! $WEBSITE_SECURITY_POLICY =~ $RFC1035_LABEL_REGEX ]]; then
+  echo "Error: 'website.securityPolicy' in $CONFIG_YAML ('$WEBSITE_SECURITY_POLICY') must be a valid Cloud Armor policy name (RFC 1035 lowercase label, 1-63 chars, no '/')." >&2
+  exit 1
+fi
 if [[ $AGENTIC_ENABLED == "true" && -n $AGENTIC_SECURITY_POLICY ]]; then
-  if [[ ! $AGENTIC_SECURITY_POLICY =~ $SECURITY_POLICY_NAME_REGEX ]]; then
+  if [[ ! $AGENTIC_SECURITY_POLICY =~ $RFC1035_LABEL_REGEX ]]; then
     echo "Error: 'agentic.securityPolicy' in $CONFIG_YAML ('$AGENTIC_SECURITY_POLICY') must be a valid Cloud Armor policy name (RFC 1035 lowercase label, 1-63 chars, no '/')." >&2
     exit 1
   fi
 fi
+
+RAW_PRE_SHARED_CERTS=$(get_helm_value '.ingress.certName // ""')
+if [[ -z $RAW_PRE_SHARED_CERTS ]]; then
+  echo "Error: 'ingress.certName' is missing or empty in $CONFIG_YAML and $DEFAULT_VALUES_YAML." >&2
+  exit 1
+fi
+if [[ $RAW_PRE_SHARED_CERTS == *, ]]; then
+  echo "Error: 'ingress.certName' in $CONFIG_YAML ('$RAW_PRE_SHARED_CERTS') must not end with a trailing comma." >&2
+  exit 1
+fi
+PRE_SHARED_CERTS=""
+SEEN_CERTS=","
+IFS=',' read -r -a RAW_CERT_ARRAY <<< "$RAW_PRE_SHARED_CERTS"
+for raw_cert in "${RAW_CERT_ARRAY[@]}"; do
+  trimmed_cert=$(printf '%s' "$raw_cert" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+  if [[ -z $trimmed_cert || ! $trimmed_cert =~ $RFC1035_LABEL_REGEX ]]; then
+    echo "Error: 'ingress.certName' in $CONFIG_YAML ('$RAW_PRE_SHARED_CERTS') contains invalid certificate name '$trimmed_cert' (expected comma-separated RFC 1035 lowercase labels, 1-63 chars, no '/')." >&2
+    exit 1
+  fi
+  if [[ $SEEN_CERTS == *",$trimmed_cert,"* ]]; then
+    echo "Error: 'ingress.certName' in $CONFIG_YAML ('$RAW_PRE_SHARED_CERTS') contains duplicate certificate name '$trimmed_cert'." >&2
+    exit 1
+  fi
+  SEEN_CERTS+="${trimmed_cert},"
+  if [[ -n $PRE_SHARED_CERTS ]]; then
+    PRE_SHARED_CERTS+=",${trimmed_cert}"
+  else
+    PRE_SHARED_CERTS="$trimmed_cert"
+  fi
+done
 
 if [[ -z $LOCATION ]]; then
   LOCATION="us-central1"
@@ -526,6 +611,7 @@ fi
 cp backendconfig.yaml.tpl backendconfig.yaml
 cp mci.yaml.tpl mci.yaml
 IP="$IP" yq eval -i '.metadata.annotations."networking.gke.io/static-ip" = strenv(IP)' mci.yaml
+PRE_SHARED_CERTS="$PRE_SHARED_CERTS" yq eval -i '.metadata.annotations."networking.gke.io/pre-shared-certs" = strenv(PRE_SHARED_CERTS)' mci.yaml
 
 # Remove the Node.js route unless -n was specified.
 if [[ $SETUP_NODEJS != "true" ]]; then
@@ -546,10 +632,11 @@ else
   yq eval -i 'del(.spec.template.spec.rules.[].http.paths[] | select(.path == "<DISCOVER_BASE_PATH>" or .path == "<DISCOVER_BASE_PATH>/*"))' mci.yaml
 fi
 
-# Verify required IAP secret and Cloud Armor policy exist, and guard against stripping
-# live BackendConfig IAP / Cloud Armor securityPolicy or drifting MCI pre-shared-certs.
+# Verify required IAP secret, Cloud Armor policies, and SSL certificates exist, and guard against
+# stripping live BackendConfig IAP / Cloud Armor securityPolicy or drifting MCI pre-shared-certs.
 verify_iap_secret_exists
 verify_security_policy_exists
+verify_pre_shared_certs_exist
 guard_live_backendconfig_iap
 guard_live_backendconfig_security_policy
 guard_live_mci_pre_shared_certs

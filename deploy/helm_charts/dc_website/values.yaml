@@ -23,6 +23,13 @@ website:
   iap:
     enabled: false
 
+  # Optional Cloud Armor security policy name (e.g. "botcrawl-throttle")
+  # attached to backendconfig (main website only, independent of
+  # agentic.securityPolicy). Must be a valid Cloud Armor policy name
+  # (RFC 1035 lowercase label, 1-63 chars, no "/"). When empty,
+  # spec.securityPolicy is omitted so Console-managed policies are untouched.
+  securityPolicy: ""
+
   replicas: 1
 
   redis:
@@ -55,6 +62,9 @@ securityContext:
 ingress:
   name: website-ingress
   ipName: dc-website-ip
+  # GCP global SSL certificate name (or comma-separated list of certificate
+  # names, e.g. "dc-website-cert,multi-domain-2026") used for both single-cluster
+  # Ingress (pre-shared-cert) and Multi-Cluster Ingress (pre-shared-certs).
   certName: dc-website-cert
   enabled: false
 

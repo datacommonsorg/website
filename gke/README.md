@@ -210,7 +210,7 @@ where `<ENV>` refers to the name of the instance and `<REGION>` is the region of
 
 ## Update cluster config
 
-If multi-cluster ingress, multi-cluster services, or their `BackendConfig` resources need to be updated, run the following command against the Fleet **config cluster** region (for example, `us-central1`). Pass `-n` only if the environment runs the Node.js server, and pass `-d` / `--dry-run` to run all validations and live guards and preview changes with `kubectl diff` without applying. By default, the script fails fast if the resolved static IP or `pre-shared-certs` annotation differs from live `website-mci`; pass `-f` only when intentionally rotating the ingress static IP.
+If multi-cluster ingress, multi-cluster services, or their `BackendConfig` resources need to be updated, run the following command against the Fleet **config cluster** region (for example, `us-central1`). Pass `-n` only if the environment runs the Node.js server, and pass `-d` / `--dry-run` to run all validations and live guards and preview changes with `kubectl diff` without applying. By default, the script fails fast if the resolved static IP or `ingress.certName` (`pre-shared-certs`) differs from live `website-mci`; pass `-f` only when intentionally rotating the ingress static IP, or `--force-cert-change` only when intentionally updating TLS certificates.
 
 ```bash
 ./update_config_cluster.sh -e <ENV> -l <REGION>
@@ -220,7 +220,7 @@ where `<ENV>` refers to the name of the instance and `<REGION>` is the region of
 
 > **IAP note:** `update_config_cluster.sh` reads `website.iap.enabled` and `agentic.iap.enabled` independently from `deploy/helm_charts/envs/<ENV>.yaml` (sharing `iap-secret` so `/labs/discover` and main website requests share one IAP session cookie). Before applying, it validates `iap-secret` and refuses to strip `spec.iap.enabled: true` or downgrade custom `oauthclientCredentials` to Google-managed OAuth on live `BackendConfig`s; after applying, it warns if `website-mcs` and `website-agentic-mcs` have mismatched IAP settings in GCE. See [docs/iap.md](../docs/iap.md) for details.
 
-> **Cloud Armor note:** `update_config_cluster.sh` also honors `agentic.securityPolicy` from `deploy/helm_charts/envs/<ENV>.yaml` (injecting `spec.securityPolicy.name` into `backendconfig-agentic` to stay in sync with `single_cluster.yaml`), verifies the global Cloud Armor security policy exists in GCP before applying, and fails fast if applying `backendconfig.yaml` would strip an existing `spec.securityPolicy.name` from a live `BackendConfig`.
+> **Cloud Armor & SSL cert note:** `update_config_cluster.sh` also honors `website.securityPolicy`, `agentic.securityPolicy`, and `ingress.certName` (single cert or comma-separated list for `pre-shared-certs`) from `deploy/helm_charts/envs/<ENV>.yaml` to stay in sync with `single_cluster.yaml`. Before applying, it verifies each configured global `CLOUD_ARMOR` policy and global SSL certificate exists in GCP and fails fast if applying would strip a live `BackendConfig` `spec.securityPolicy.name` or change live `website-mci` `pre-shared-certs` (unless `--force-cert-change` is set).
 
 ## Add a cron testing job
 

@@ -25,6 +25,7 @@ namespace:
 
 website:
   flaskEnv: staging
+  securityPolicy: "botcrawl-throttle"
   replicas: 6
   enableModel: true
   redis:
@@ -46,6 +47,7 @@ mixer:
 
 ingress:
   enabled: false
+  certName: "website-certificate,multi-domain-2026"
 
 serviceAccount:
   name: website-ksa

@@ -20,6 +20,11 @@ spec:
     oauthclientCredentials:
       secretName: iap-secret
   {{- end }}
+  {{- if .Values.website.securityPolicy }}
+  {{- include "dc-website.validateSecurityPolicy" (dict "name" "website.securityPolicy" "value" .Values.website.securityPolicy) }}
+  securityPolicy:
+    name: {{ .Values.website.securityPolicy | quote }}
+  {{- end }}
 
 ---
 
@@ -109,7 +114,7 @@ spec:
       secretName: iap-secret
   {{- end }}
   {{- if .Values.agentic.securityPolicy }}
-  {{- include "dc-website.validateAgenticSecurityPolicy" . }}
+  {{- include "dc-website.validateSecurityPolicy" (dict "name" "agentic.securityPolicy" "value" .Values.agentic.securityPolicy) }}
   securityPolicy:
     name: {{ .Values.agentic.securityPolicy | quote }}
   {{- end }}
@@ -192,7 +197,7 @@ metadata:
     kubernetes.io/ingress.allow-http: "false"
     {{- else }}
     kubernetes.io/ingress.global-static-ip-name: {{ .Values.ingress.ipName }}
-    ingress.gcp.kubernetes.io/pre-shared-cert: {{ .Values.ingress.certName }}
+    ingress.gcp.kubernetes.io/pre-shared-cert: {{ .Values.ingress.certName | quote }}
     {{- end }}
 spec:
   defaultBackend:

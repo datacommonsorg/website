@@ -18,7 +18,8 @@ metadata:
   name: website-mci
   namespace: website
   annotations:
-    # multi-domain is the certificate name, it is set in setup_ssl.sh
+    # Populated from ingress.certName in deploy/helm_charts/envs/<ENV>.yaml by
+    # gke/update_config_cluster.sh (defaults to dc-website-cert from values.yaml).
     networking.gke.io/pre-shared-certs: dc-website-cert
     networking.gke.io/static-ip: <IP>
 spec:
