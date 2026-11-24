@@ -19,11 +19,12 @@
 set -e
 
 function help {
-  echo "Usage: $0 -e <ENV> [-l <REGION>] [-n] [-f]"
-  echo "  -e <ENV>     Instance environment as defined under ../deploy/helm_charts/envs"
-  echo "  -l <REGION>  GKE region of the config cluster (default: us-central1)"
-  echo "  -n           Setup nodejs service"
-  echo "  -f           Allow replacing a live website-mci static IP if it differs from resolved IP"
+  echo "Usage: $0 -e <ENV> [-l <REGION>] [-n] [-f] [-d|--dry-run]"
+  echo "  -e <ENV>       Instance environment as defined under ../deploy/helm_charts/envs"
+  echo "  -l <REGION>    GKE region of the config cluster (default: us-central1)"
+  echo "  -n             Setup nodejs service"
+  echo "  -f             Allow replacing a live website-mci static IP if it differs from resolved IP"
+  echo "  -d, --dry-run  Run all validations and live guards, then preview changes via kubectl diff without applying"
   exit 1
 }
 
@@ -145,6 +146,89 @@ function guard_live_backendconfig_iap {
   done <<< "$bc_names"
 }
 
+# Inject spec.securityPolicy.name into rendered backendconfig-agentic when configured in Helm config.
+# When empty, spec.securityPolicy is omitted so Console-managed policies are left untouched.
+function apply_security_policy_to_backendconfig {
+  if [[ $AGENTIC_ENABLED == "true" && -n $AGENTIC_SECURITY_POLICY ]]; then
+    POLICY_NAME="$AGENTIC_SECURITY_POLICY" yq eval -i \
+      'with(select(.metadata.name == "backendconfig-agentic"); .spec.securityPolicy.name = strenv(POLICY_NAME))' \
+      backendconfig.yaml
+  fi
+}
+
+# Fail fast if rendered backendconfig-agentic references a missing or non-backend Cloud Armor policy.
+function verify_security_policy_exists {
+  if [[ $AGENTIC_ENABLED != "true" || -z $AGENTIC_SECURITY_POLICY ]]; then
+    return 0
+  fi
+
+  local err_file policy_type policy_err
+  local rc=0
+  err_file=$(mktemp)
+  policy_type=$(gcloud compute security-policies describe "$AGENTIC_SECURITY_POLICY" \
+    --global \
+    --project="$PROJECT_ID" \
+    --format='value(type)' 2>"$err_file") || rc=$?
+  policy_err=$(cat "$err_file")
+  rm -f "$err_file"
+
+  if [[ $rc -ne 0 ]]; then
+    if [[ $policy_err == *"NOT_FOUND"* || $policy_err == *"not found"* ]]; then
+      echo "Error: Cloud Armor security policy '$AGENTIC_SECURITY_POLICY' was not found in project $PROJECT_ID." >&2
+      echo "Provision '$AGENTIC_SECURITY_POLICY' (e.g. via Terraform) before attaching it to backendconfig-agentic." >&2
+    else
+      echo "Error: Failed to verify Cloud Armor security policy '$AGENTIC_SECURITY_POLICY' in project $PROJECT_ID: $policy_err" >&2
+    fi
+    exit 1
+  fi
+
+  policy_type="${policy_type%$'\r'}"
+  if [[ -n $policy_type && $policy_type != "CLOUD_ARMOR" ]]; then
+    echo "Error: Cloud Armor security policy '$AGENTIC_SECURITY_POLICY' in project $PROJECT_ID has type '$policy_type'; BackendConfig requires a backend security policy (type 'CLOUD_ARMOR')." >&2
+    exit 1
+  fi
+}
+
+# Fail fast if applying backendconfig.yaml would strip spec.securityPolicy.name from a live BackendConfig.
+function guard_live_backendconfig_security_policy {
+  local bc_names
+  bc_names=$(yq eval -N -r '.metadata.name // ""' backendconfig.yaml)
+  if [[ -z $bc_names ]]; then
+    echo "Error: No BackendConfig resources found in rendered backendconfig.yaml." >&2
+    exit 1
+  fi
+
+  local bc_name live_bc live_policy rendered_policy
+  while IFS= read -r bc_name; do
+    [[ -z $bc_name ]] && continue
+
+    live_bc=$(kubectl get backendconfig "$bc_name" -n website --ignore-not-found -o yaml)
+    [[ -z $live_bc ]] && continue
+
+    live_policy=$(yq eval -r '.spec.securityPolicy.name // ""' - <<< "$live_bc")
+    if [[ -z $live_policy ]]; then
+      continue
+    fi
+
+    rendered_policy=$(BC_NAME="$bc_name" yq eval -N -r 'select(.metadata.name == strenv(BC_NAME)) | .spec.securityPolicy.name // ""' backendconfig.yaml)
+    if [[ -z $rendered_policy ]]; then
+      echo "Error: Live BackendConfig '$bc_name' in project $PROJECT_ID has spec.securityPolicy.name='$live_policy', which would be stripped by applying backendconfig.yaml." >&2
+      if [[ $bc_name == "backendconfig-agentic" ]]; then
+        echo "Set 'agentic.securityPolicy: \"$live_policy\"' in $CONFIG_YAML to preserve it declaratively." >&2
+      else
+        echo "Preserve spec.securityPolicy on '$bc_name' to keep it attached." >&2
+      fi
+      echo "If intentionally detaching '$live_policy', note that removing spec.securityPolicy alone leaves it attached in GCE:" >&2
+      echo '  1. Set spec.securityPolicy.name="" on the live BackendConfig and wait for GCE reconciliation' >&2
+      echo '     (or detach it on the GCE BackendService directly).' >&2
+      echo '  2. Then remove spec.securityPolicy from the live BackendConfig.' >&2
+      exit 1
+    elif [[ $live_policy != "$rendered_policy" ]]; then
+      echo "Note: Updating BackendConfig '$bc_name' Cloud Armor securityPolicy from '$live_policy' to '$rendered_policy'." >&2
+    fi
+  done <<< "$bc_names"
+}
+
 # Filter a GCE backend-services JSON array to entries matching one MultiClusterService name.
 function filter_gce_backends {
   local bs_json="$1"
@@ -152,6 +236,34 @@ function filter_gce_backends {
   local pattern="^mci-.*-website-${mcs_name}$"
   PATTERN="$pattern" yq eval -p=json -o=json \
     '[.[] | select(.name | test(strenv(PATTERN)))]' <<< "$bs_json"
+}
+
+# Normalize a comma-separated pre-shared-certs annotation into a canonical sorted list.
+function normalize_cert_list {
+  local raw="$1"
+  printf '%s\n' "$raw" | tr ',' '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | sed '/^$/d' | LC_ALL=C sort -u | paste -s -d ',' -
+}
+
+# Fail fast if applying mci.yaml would change live website-mci pre-shared-certs.
+function guard_live_mci_pre_shared_certs {
+  if [[ -z $EXISTING_MCI ]]; then
+    return 0
+  fi
+
+  local live_certs rendered_certs norm_live norm_rendered
+  live_certs=$(yq eval -r '.metadata.annotations."networking.gke.io/pre-shared-certs" // ""' - <<< "$EXISTING_MCI")
+  if [[ -z $live_certs ]]; then
+    return 0
+  fi
+
+  rendered_certs=$(yq eval -r '.metadata.annotations."networking.gke.io/pre-shared-certs" // ""' mci.yaml)
+  norm_live=$(normalize_cert_list "$live_certs")
+  norm_rendered=$(normalize_cert_list "$rendered_certs")
+  if [[ $norm_live != "$norm_rendered" ]]; then
+    echo "Error: Rendered website-mci pre-shared-certs ('${rendered_certs:-<unset>}') does not match live website-mci ('$live_certs') in project $PROJECT_ID." >&2
+    echo "Update the rendered pre-shared-certs configuration to match the live certificates before applying to avoid breaking HTTPS/TLS." >&2
+    exit 1
+  fi
 }
 
 # Warn if the main website MCI backend has IAP enabled (in Helm or live GCE) while
@@ -255,13 +367,43 @@ function warn_gce_agentic_iap_mismatch {
   fi
 }
 
-# Parse command-line options.
+# Parse command-line options (supporting both -d and --dry-run, plus combined short flags).
+NORMALIZED_ARGS=()
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --dry-run)
+      NORMALIZED_ARGS+=("-d")
+      ;;
+    --help)
+      NORMALIZED_ARGS+=("-h")
+      ;;
+    --)
+      NORMALIZED_ARGS+=("$@")
+      break
+      ;;
+    --*)
+      echo "Unknown option: $1" >&2
+      help
+      ;;
+    *)
+      NORMALIZED_ARGS+=("$1")
+      ;;
+  esac
+  shift
+done
+if [[ ${#NORMALIZED_ARGS[@]} -gt 0 ]]; then
+  set -- "${NORMALIZED_ARGS[@]}"
+else
+  set --
+fi
+
 ENV=""
 LOCATION=""
 SETUP_NODEJS=""
 FORCE_IP_CHANGE=""
+DRY_RUN=""
 OPTIND=1
-while getopts ":e:l:nf?" OPTION; do
+while getopts ":e:l:nfdh?" OPTION; do
   case $OPTION in
     e)
       ENV=$OPTARG
@@ -274,6 +416,9 @@ while getopts ":e:l:nf?" OPTION; do
       ;;
     f)
       FORCE_IP_CHANGE=true
+      ;;
+    d)
+      DRY_RUN=true
       ;;
     *)
       help
@@ -317,6 +462,14 @@ DISCOVER_BASE_PATH=$(get_helm_value '.agentic.discover.basePath')
 DISCOVER_BASE_PATH="${DISCOVER_BASE_PATH%/}"
 WEBSITE_IAP_ENABLED=$(get_helm_value '.website.iap.enabled')
 AGENTIC_IAP_ENABLED=$(get_helm_value '.agentic.iap.enabled')
+AGENTIC_SECURITY_POLICY=$(get_helm_value '.agentic.securityPolicy // ""')
+SECURITY_POLICY_NAME_REGEX='^[a-z]([-a-z0-9]{0,61}[a-z0-9])?$'
+if [[ $AGENTIC_ENABLED == "true" && -n $AGENTIC_SECURITY_POLICY ]]; then
+  if [[ ! $AGENTIC_SECURITY_POLICY =~ $SECURITY_POLICY_NAME_REGEX ]]; then
+    echo "Error: 'agentic.securityPolicy' in $CONFIG_YAML ('$AGENTIC_SECURITY_POLICY') must be a valid Cloud Armor policy name (RFC 1035 lowercase label, 1-63 chars, no '/')." >&2
+    exit 1
+  fi
+fi
 
 if [[ -z $LOCATION ]]; then
   LOCATION="us-central1"
@@ -384,6 +537,7 @@ if [[ $AGENTIC_ENABLED != "true" ]]; then
   yq eval -i 'select(.metadata.name != "backendconfig-agentic")' backendconfig.yaml
 fi
 apply_iap_to_backendconfig
+apply_security_policy_to_backendconfig
 if [[ $AGENTIC_ENABLED == "true" && $DISCOVER_ENABLED == "true" ]]; then
   DISCOVER_WILDCARD_PATH="${DISCOVER_BASE_PATH}/*"
   DISCOVER_BASE_PATH="$DISCOVER_BASE_PATH" yq eval -i '(.spec.template.spec.rules.[].http.paths[] | select(.path == "<DISCOVER_BASE_PATH>").path) = strenv(DISCOVER_BASE_PATH)' mci.yaml
@@ -392,20 +546,48 @@ else
   yq eval -i 'del(.spec.template.spec.rules.[].http.paths[] | select(.path == "<DISCOVER_BASE_PATH>" or .path == "<DISCOVER_BASE_PATH>/*"))' mci.yaml
 fi
 
-# Verify required IAP secret exists and guard against stripping IAP from live BackendConfigs before applying.
+# Verify required IAP secret and Cloud Armor policy exist, and guard against stripping
+# live BackendConfig IAP / Cloud Armor securityPolicy or drifting MCI pre-shared-certs.
 verify_iap_secret_exists
+verify_security_policy_exists
 guard_live_backendconfig_iap
+guard_live_backendconfig_security_policy
+guard_live_mci_pre_shared_certs
 
-# Apply Multi-Cluster Ingress, Multi-Cluster Services, and BackendConfigs.
-kubectl apply -f backendconfig.yaml
-kubectl apply -f mci.yaml
-kubectl apply -f website_mcs.yaml
+# Collect manifests to apply (or preview via kubectl diff in --dry-run mode).
+MANIFESTS=(backendconfig.yaml mci.yaml website_mcs.yaml)
 if [[ $SETUP_NODEJS == "true" ]]; then
-  kubectl apply -f website_nodejs_mcs.yaml
+  MANIFESTS+=(website_nodejs_mcs.yaml)
 fi
 if [[ $AGENTIC_ENABLED == "true" ]]; then
-  kubectl apply -f website_agentic_mcs.yaml
+  MANIFESTS+=(website_agentic_mcs.yaml)
 fi
+
+if [[ $DRY_RUN == "true" ]]; then
+  echo "Dry run (-d/--dry-run): all pre-apply validations and guards passed; previewing changes with kubectl diff..."
+  has_diffs="false"
+  for manifest in "${MANIFESTS[@]}"; do
+    diff_rc=0
+    kubectl diff -f "$manifest" || diff_rc=$?
+    if [[ $diff_rc -eq 1 ]]; then
+      has_diffs="true"
+    elif [[ $diff_rc -ne 0 ]]; then
+      echo "Error: kubectl diff failed for $manifest (exit code $diff_rc)." >&2
+      exit "$diff_rc"
+    fi
+  done
+  if [[ $has_diffs != "true" ]]; then
+    echo "No differences detected against live cluster resources."
+  fi
+  warn_gce_agentic_iap_mismatch
+  echo "Dry run complete; no changes were applied."
+  exit 0
+fi
+
+# Apply Multi-Cluster Ingress, Multi-Cluster Services, and BackendConfigs.
+for manifest in "${MANIFESTS[@]}"; do
+  kubectl apply -f "$manifest"
+done
 
 warn_gce_agentic_iap_mismatch
 

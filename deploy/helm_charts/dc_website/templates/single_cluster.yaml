@@ -108,6 +108,11 @@ spec:
     oauthclientCredentials:
       secretName: iap-secret
   {{- end }}
+  {{- if .Values.agentic.securityPolicy }}
+  {{- include "dc-website.validateAgenticSecurityPolicy" . }}
+  securityPolicy:
+    name: {{ .Values.agentic.securityPolicy | quote }}
+  {{- end }}
 
 ---
 

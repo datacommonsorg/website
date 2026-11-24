@@ -176,6 +176,15 @@ agentic:
   dcApiKeySecret: "mixer-api-key"
   transcriptHmacSecretName: "agentic-transcript-hmac-secret"
   modelArmorLocation: "us-central1"
+  # Optional Cloud Armor security policy name (e.g. "discover-armor-policy")
+  # attached to backendconfig-agentic (both single-cluster Helm and MCI).
+  # Must be a policy name without "/" (not a full resource URL). When empty,
+  # spec.securityPolicy is omitted so Console-managed policies are untouched.
+  securityPolicy: ""
+  # Optional public reCAPTCHA Enterprise WAF site keys injected into agentic
+  # containers (provisioned via gke/setup_recaptcha.sh).
+  recaptchaSessionSiteKey: ""
+  recaptchaCheckboxSiteKey: ""
   # IAP (Identity-Aware Proxy) config for backendconfig-agentic (independent of
   # website.iap). Shares the custom OAuth credentials in K8s secret `iap-secret`
   # with `website.iap` so browser requests across /labs/discover and
