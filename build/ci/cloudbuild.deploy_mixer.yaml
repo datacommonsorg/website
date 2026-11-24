@@ -33,26 +33,25 @@ steps:
 
         # 1. DETERMINE MIXER IMAGE HASH
         echo "Fetching latest mixer image hash..."
-        mixer_githash="$(gcloud container images list-tags us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer \
+        mixer_githash="$$(gcloud container images list-tags us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer \
           --project=datcom-ci \
           --filter="NOT tags ~ ^dev-" --sort-by=~TIMESTAMP --limit=1 \
           --format='get(tags)' | tr ';' '\n' | grep -E '^[0-9a-f]{7,40}$' | head -n 1)"
 
-        if [[ -z "$mixer_githash" ]]; then
+        if [[ -z "$$mixer_githash" ]]; then
           echo "ERROR: Could not determine the mixer image hash from Artifact Registry. Exiting."
           exit 1
         fi
-        echo "Found latest mixer image hash: $mixer_githash"
+        echo "Found latest mixer image hash: $$mixer_githash"
 
         # Update mixer submodule to the specific hash
-        echo "Updating mixer submodule to $mixer_githash"
+        echo "Updating mixer submodule to $$mixer_githash"
         git -C mixer fetch origin
-        git -C mixer checkout "$mixer_githash"
+        git -C mixer checkout "$$mixer_githash"
 
         # 2. CREATE DEPLOYMENT RELEASE
-        # Use standard bash variable syntax ($variable or ${variable})
-        release_name="release-${mixer_githash}-$(date +%Y%m%d-%H%M%S)"
-        echo "Creating release: ${release_name}"
+        release_name="release-$${mixer_githash}-$$(date +%Y%m%d-%H%M%S)"
+        echo "Creating release: $${release_name}"
 
         gcloud deploy apply --file=deploy/helm_charts/clouddeploy.yaml \
           --region=us-central1 \
@@ -60,16 +59,16 @@ steps:
 
         # Run the deployment creation.
         images_arr=(
-          "gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:${mixer_githash}"
+          "gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:$${mixer_githash}"
         )
-        images_str=$(IFS=,; echo "${images_arr[*]}")
+        images_str=$$(IFS=,; echo "$${images_arr[*]}")
 
-        gcloud deploy releases create "${release_name}" \
+        gcloud deploy releases create "$${release_name}" \
           --delivery-pipeline=datacommons-mixer \
           --region=us-central1 \
           --skaffold-file=skaffold.yaml \
-          --images="${images_str}" \
-          --deploy-parameters="MIXER_GITHASH=${mixer_githash}" \
+          --images="$${images_str}" \
+          --deploy-parameters="MIXER_GITHASH=$${mixer_githash}" \
           --project=datcom-ci
 
-        echo "Successfully created release ${release_name}."
+        echo "Successfully created release $${release_name}."
