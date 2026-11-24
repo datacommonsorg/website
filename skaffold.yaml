@@ -156,11 +156,6 @@ profiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
-            setValues:
-              serviceAccount.name: mixer-ksa
-              ingress.enabled: "true"
-              mixer.hostProject: "datcom-mixer-dev-316822"
-              mixer.serviceName: "dev.api.datacommons.org"
             setValueTemplates:
               mixer.githash: '{{ default "" .MIXER_GITHASH }}'
 
@@ -253,13 +248,6 @@ profiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
-            setValues:
-              serviceAccount.name: mixer-ksa
-              ingress.enabled: "true"
-              mixer.hostProject: "datcom-mixer-autopush"
-              project: datcom-mixer-autopush
-              cluster_prefix: mixer
-              mixer.serviceName: "autopush.api.datacommons.org"
             setValueTemplates:
               mixer.githash: '{{ default "" .MIXER_GITHASH }}'
 
@@ -363,12 +351,6 @@ profiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
-            setValues:
-              serviceGroups.svg.nodePool: pool-2
-              serviceAccount.name: mixer-ksa
-              ingress.enabled: "true"
-              mixer.hostProject: "datcom-mixer-staging"
-              mixer.serviceName: "staging.api.datacommons.org"
             setValueTemplates:
               mixer.githash: '{{ default "" .MIXER_GITHASH }}'
   - name: mixer-prod
@@ -394,11 +376,6 @@ profiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
-            setValues:
-              serviceAccount.name: mixer-ksa
-              ingress.enabled: "true"
-              mixer.hostProject: "datcom-mixer"
-              mixer.serviceName: "api.datacommons.org"
             setValueTemplates:
               mixer.githash: '{{ default "" .MIXER_GITHASH }}'
 
