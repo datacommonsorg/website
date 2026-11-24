@@ -13,16 +13,53 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-CONFIG_YAML="../deploy/helm_charts/envs/$1.yaml"
+set -e
 
-PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
+if [[ -z $1 ]]; then
+  echo "Usage: $0 <ENV>" >&2
+  exit 1
+fi
 
-gcloud config set project $PROJECT_ID
+# Resolve and validate the Helm environment configuration.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CONFIG_YAML="$SCRIPT_DIR/../deploy/helm_charts/envs/$1.yaml"
 
-# Create a static IP address for the API
-gcloud compute addresses create dc-website-ip --global
+if [[ ! -f $CONFIG_YAML ]]; then
+  echo "Error: Environment config not found: $CONFIG_YAML" >&2
+  exit 1
+fi
 
-# Record the IP address.
-export IP=$(gcloud compute addresses list --global --filter='name:dc-website-ip' --format='value(ADDRESS)')
+# Read and validate the target GCP project ID.
+PROJECT_ID=$(yq eval -r '.project // ""' "$CONFIG_YAML")
+if [[ -z $PROJECT_ID ]]; then
+  echo "Error: 'project' is missing or empty in $CONFIG_YAML" >&2
+  exit 1
+fi
 
-yq eval -i '.ip = env(IP)' $CONFIG_YAML
+# Guard against overwriting an already-configured .ip in the environment configuration.
+EXISTING_IP=$(yq eval -r '.ip // ""' "$CONFIG_YAML")
+if [[ -n $EXISTING_IP ]]; then
+  MATCHING_ADDR=$(gcloud compute addresses list --global --project="$PROJECT_ID" --filter="address=$EXISTING_IP" --format='value(name)')
+  if [[ -n $MATCHING_ADDR ]]; then
+    echo "Static IP $EXISTING_IP (resource '$MATCHING_ADDR') is already configured in $CONFIG_YAML; skipping creation."
+    exit 0
+  fi
+  echo "Error: $CONFIG_YAML already defines .ip ($EXISTING_IP), which is not a global address in project $PROJECT_ID." >&2
+  echo "Clear '.ip' in $CONFIG_YAML before running $0 to allocate a new 'dc-website-ip' address." >&2
+  exit 1
+fi
+
+# Create a static IP address for the API if it does not already exist.
+IP=$(gcloud compute addresses list --global --project="$PROJECT_ID" --filter='name=dc-website-ip' --format='value(ADDRESS)')
+if [[ -z $IP ]]; then
+  gcloud compute addresses create dc-website-ip --global --project="$PROJECT_ID"
+  IP=$(gcloud compute addresses list --global --project="$PROJECT_ID" --filter='name=dc-website-ip' --format='value(ADDRESS)')
+fi
+if [[ -z $IP ]]; then
+  echo "Error: Static IP 'dc-website-ip' not found after creation in project $PROJECT_ID" >&2
+  exit 1
+fi
+
+# Record the resolved IP address in the environment configuration.
+IP="$IP" yq eval -i '.ip = strenv(IP)' "$CONFIG_YAML"
+

@@ -32,3 +32,27 @@ spec:
     enabled: true
     oauthclientCredentials:
       secretName: iap-secret
+
+---
+
+# BackendConfig for agentic apps (e.g. Discover) sharing the same custom IAP
+# OAuth client (`iap-secret`) as `backendconfig` so both backends share one
+# IAP session cookie on the same domain.
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: backendconfig-agentic
+  namespace: website
+spec:
+  timeoutSec: 600
+  connectionDraining:
+    drainingTimeoutSec: 120
+  healthCheck:
+    checkIntervalSec: 15
+    port: 8080
+    type: HTTP
+    requestPath: /healthz
+  iap:
+    enabled: true
+    oauthclientCredentials:
+      secretName: iap-secret

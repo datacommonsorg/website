@@ -102,6 +102,17 @@ spec:
     port: 8080
     type: HTTP
     requestPath: /healthz
+  {{- if and .Values.agentic.iap .Values.agentic.iap.enabled }}
+  iap:
+    enabled: true
+    oauthclientCredentials:
+      secretName: iap-secret
+  {{- end }}
+  {{- if .Values.agentic.securityPolicy }}
+  {{- include "dc-website.validateAgenticSecurityPolicy" . }}
+  securityPolicy:
+    name: {{ .Values.agentic.securityPolicy | quote }}
+  {{- end }}
 
 ---
 

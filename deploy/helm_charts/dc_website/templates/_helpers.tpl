@@ -43,6 +43,38 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
+Validate agentic.securityPolicy when set (RFC 1035 lowercase label, 1-63 chars).
+Shared so staging/prod (ingress.enabled: false) are validated alongside single-cluster charts.
+*/}}
+{{- define "dc-website.validateAgenticSecurityPolicy" -}}
+{{- $policy := .Values.agentic.securityPolicy -}}
+{{- if $policy -}}
+  {{- $err := printf "Invalid agentic.securityPolicy %v: must be a Cloud Armor policy name (RFC 1035 lowercase label, 1-63 chars, no '/')" $policy -}}
+  {{- if not (kindIs "string" $policy) -}}
+    {{- fail $err -}}
+  {{- else if not (regexMatch "^[a-z]([-a-z0-9]{0,61}[a-z0-9])?$" $policy) -}}
+    {{- fail $err -}}
+  {{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Validate an optional reCAPTCHA Enterprise site key ID (characters [A-Za-z0-9_-]+).
+Expects a dict with "name" (values path for error messages) and "value".
+*/}}
+{{- define "dc-website.validateRecaptchaSiteKey" -}}
+{{- $key := .value -}}
+{{- if $key -}}
+  {{- $err := printf "Invalid %s %v: must be a site key ID matching [A-Za-z0-9_-]+" .name $key -}}
+  {{- if not (kindIs "string" $key) -}}
+    {{- fail $err -}}
+  {{- else if not (regexMatch "^[A-Za-z0-9_-]+$" $key) -}}
+    {{- fail $err -}}
+  {{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Selector labels
 */}}
 {{- define "dc-website.selectorLabels" -}}
