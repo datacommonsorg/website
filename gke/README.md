@@ -198,6 +198,8 @@ If multi-cluster ingress, multi-cluster services, or their `BackendConfig` resou
 
 where `<ENV>` refers to the name of the instance and `<REGION>` is the region of the cluster.
 
+> **IAP note:** `update_config_cluster.sh` honors independent `website.iap.enabled` and `agentic.iap.enabled` flags from `deploy/helm_charts/envs/<ENV>.yaml` (both sharing `iap-secret` so `/labs/discover` and main website requests share one IAP session cookie), verifies `iap-secret` exists, fails fast if applying `backendconfig.yaml` would strip `spec.iap.enabled: true` or downgrade custom `oauthclientCredentials` to Google-managed OAuth on a live `BackendConfig`, and warns if `website-mcs` and `website-agentic-mcs` have mismatched IAP enablement or OAuth client IDs in GCE. See [docs/iap.md](../docs/iap.md) for details.
+
 ## Add a cron testing job
 
 Note: By default, the added cron testing job will run every 4 hours. If you want the job to run on a different schedule, update the `schedule` field in [cron_testing_job.yaml.tpl](./cron_testing_job.yaml.tpl) before setting up the job. Specific test suites (Sanity, Adversarial, Node.js Query) can be controlled via `enableSanity`, `enableAdversarial`, and `enableNodejs` under `cronTesting` in the environment Helm charts. Note that `enableNodejs` defaults to `false` pending Node.js server deprecation.

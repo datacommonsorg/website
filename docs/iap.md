@@ -35,8 +35,46 @@ Follow [documentation](https://cloud.google.com/iap/docs/enabling-kubernetes-how
 
 ### Configure BackendConfig
 
-Create a kubenetest secret, replace `client_id_key` and `client_secret_key` with
-the actual key from OAuth setup.
+#### Preferred: Declarative Helm / Multi-Cluster Ingress config
+
+Configure IAP in `deploy/helm_charts/envs/<ENV>.yaml` so both single-cluster
+Helm rollouts and `gke/update_config_cluster.sh` stay in sync:
+
+- **`website.iap.enabled: true`**: Enables IAP on `backendconfig` (main website)
+  using custom OAuth credentials stored in Kubernetes secret `iap-secret`
+  (create the secret below first).
+- **`agentic.iap.enabled: true`**: Independently enables IAP on
+  `backendconfig-agentic` (agentic apps such as `/labs/discover`), sharing the
+  same Kubernetes secret `iap-secret` so browser requests across `/labs/discover`
+  and `/datacommons.js` + `/api/*` share one IAP session cookie on the same
+  domain.
+
+When either flag is `false` (default), `spec.iap` is omitted from the rendered
+`BackendConfig` so Console-managed IAP settings on existing GCE backend services
+are preserved.
+
+> **Note for Multi-Cluster Ingress (MCI) environments:** IAP is configured per
+> GCE `BackendService`, and Cloud IAP scopes browser session cookies per OAuth
+> client ID rather than per hostname. Adding or renaming a `MultiClusterService`
+> (for example, introducing `website-agentic-mcs`) creates a new GCE
+> `BackendService` with IAP disabled by default unless `agentic.iap.enabled: true`
+> is set or IAP is manually enabled on the new backend service in GCP Console.
+> Sharing the same custom OAuth client (`iap-secret`) across both
+> `backendconfig` and `backendconfig-agentic` ensures a single IAP sign-in on
+> `/labs/discover` also authenticates same-host chart script and API requests
+> routed to `website-mcs`. Also verify both backends inherit or define the same
+> `roles/iap.httpsResourceAccessor` IAM bindings.
+> `gke/update_config_cluster.sh` checks that `iap-secret` exists when either IAP
+> flag is enabled, refuses to strip an existing `spec.iap.enabled: true` or
+> downgrade custom `oauthclientCredentials` to Google-managed OAuth in-place,
+> and warns if `website-mcs` and `website-agentic-mcs` have mismatched IAP
+> enablement or OAuth client IDs in GCE.
+
+#### Manual setup with `backendconfig_iap.yaml`
+
+Create a Kubernetes secret (`iap-secret`) with your custom OAuth credentials,
+replacing `client_id_key` and `client_secret_key` with the actual values from
+OAuth setup:
 
 ```bash
 kubectl create secret generic iap-secret \
@@ -44,12 +82,15 @@ kubectl create secret generic iap-secret \
     --from-literal=client_secret=[client_secret_key] -n website
 ```
 
-Deploy backend config and service
+Deploy backend config and service (`backendconfig_iap.yaml` configures both
+`backendconfig` and `backendconfig-agentic` to share `iap-secret`):
 
 ```bash
 # In <REPO_ROOT>/gke
 kubectl apply -f backendconfig_iap.yaml
 kubectl apply -f website_mcs.yaml
+# [OPTIONAL] run this to deploy the agentic apps service
+kubectl apply -f website_agentic_mcs.yaml
 # [OPTIONAL] run this to deploy the nodejs service
 kubectl apply -f website_nodejs_mcs.yaml
 

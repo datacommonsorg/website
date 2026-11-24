@@ -25,6 +25,8 @@ namespace:
 
 website:
   flaskEnv: autopush
+  iap:
+    enabled: true
   replicas: 15
   nodePool: "default-pool"
   dataGemma:
@@ -121,6 +123,8 @@ agentic:
   dcApiKeySecret: "mixer-api-key"
   transcriptHmacSecretName: "agentic-transcript-hmac-secret"
   modelArmorLocation: "us-central1"
+  iap:
+    enabled: true
   discover:
     enabled: true
     debugReport: "on"
