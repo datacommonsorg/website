@@ -15,8 +15,11 @@ website:
 
   flaskEnv: "custom"
 
-  # IAP(Identity Aware Proxy) config.
-  # IAP can be enabled independently of ingress.
+  # IAP (Identity-Aware Proxy) config for backendconfig (main website only,
+  # independent of agentic.iap). Uses custom OAuth credentials in K8s secret
+  # `iap-secret` (shared with backendconfig-agentic so both backends share one
+  # IAP session cookie on the same domain). When false, spec.iap is omitted so
+  # Console-managed IAP is left untouched.
   iap:
     enabled: false
 
@@ -173,6 +176,13 @@ agentic:
   dcApiKeySecret: "mixer-api-key"
   transcriptHmacSecretName: "agentic-transcript-hmac-secret"
   modelArmorLocation: "us-central1"
+  # IAP (Identity-Aware Proxy) config for backendconfig-agentic (independent of
+  # website.iap). Shares the custom OAuth credentials in K8s secret `iap-secret`
+  # with `website.iap` so browser requests across /labs/discover and
+  # /datacommons.js + /api/* share one IAP session cookie on the same domain.
+  # When false, spec.iap is omitted so Console-managed IAP is left untouched.
+  iap:
+    enabled: false
   discover:
     enabled: true
     basePath: "/labs/discover"
