@@ -203,6 +203,9 @@ spec:
               port: 8080
 {{- end }}
 
+{{- if and .Values.agentic .Values.agentic.enabled }}
+{{- include "dc-website.validateAgenticSecurityPolicy" . }}
+{{- end }}
 {{- if and .Values.agentic .Values.agentic.enabled .Values.agentic.discover .Values.agentic.discover.enabled }}
 ---
 
@@ -301,6 +304,17 @@ spec:
               {{- else }}
               value: ""
               {{- end }}
+            {{- $sessionKey := .Values.agentic.recaptchaSessionSiteKey }}
+            {{- $checkboxKey := .Values.agentic.recaptchaCheckboxSiteKey }}
+            {{- include "dc-website.validateRecaptchaSiteKey" (dict "name" "agentic.recaptchaSessionSiteKey" "value" $sessionKey) }}
+            {{- include "dc-website.validateRecaptchaSiteKey" (dict "name" "agentic.recaptchaCheckboxSiteKey" "value" $checkboxKey) }}
+            {{- if and $sessionKey $checkboxKey (eq $sessionKey $checkboxKey) }}
+            {{- fail "Invalid agentic reCAPTCHA config: recaptchaSessionSiteKey and recaptchaCheckboxSiteKey must be distinct site key IDs" }}
+            {{- end }}
+            - name: RECAPTCHA_SESSION_SITE_KEY
+              value: {{ $sessionKey | default "" | quote }}
+            - name: RECAPTCHA_CHECKBOX_SITE_KEY
+              value: {{ $checkboxKey | default "" | quote }}
           startupProbe:
             httpGet:
               path: {{ trimSuffix "/" .Values.agentic.discover.basePath }}/healthz

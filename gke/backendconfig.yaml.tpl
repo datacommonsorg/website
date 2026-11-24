@@ -48,6 +48,9 @@ spec:
 
 ---
 
+# BackendConfig for agentic apps (e.g. Discover). Environment-specific spec.iap
+# and spec.securityPolicy fields are injected by gke/update_config_cluster.sh
+# from deploy/helm_charts/envs/<ENV>.yaml (matching single_cluster.yaml).
 apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:
