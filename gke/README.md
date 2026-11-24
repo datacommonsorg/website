@@ -190,7 +190,7 @@ where `<ENV>` refers to the name of the instance and `<REGION>` is the region of
 
 ## Update cluster config
 
-If multi-cluster ingress, multi-cluster services, or their `BackendConfig` resources need to be updated, run the following command against the Fleet **config cluster** region (for example, `us-central1`). Pass `-n` only if the environment runs the Node.js server. By default, the script fails fast if the resolved static IP differs from a live `website-mci` IP; pass `-f` only when intentionally rotating the ingress IP.
+If multi-cluster ingress, multi-cluster services, or their `BackendConfig` resources need to be updated, run the following command against the Fleet **config cluster** region (for example, `us-central1`). Pass `-n` only if the environment runs the Node.js server, and pass `-d` / `--dry-run` to run all validations and live guards and preview changes with `kubectl diff` without applying. By default, the script fails fast if the resolved static IP or `pre-shared-certs` annotation differs from live `website-mci`; pass `-f` only when intentionally rotating the ingress static IP.
 
 ```bash
 ./update_config_cluster.sh -e <ENV> -l <REGION>

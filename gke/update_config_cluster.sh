@@ -19,11 +19,12 @@
 set -e
 
 function help {
-  echo "Usage: $0 -e <ENV> [-l <REGION>] [-n] [-f]"
-  echo "  -e <ENV>     Instance environment as defined under ../deploy/helm_charts/envs"
-  echo "  -l <REGION>  GKE region of the config cluster (default: us-central1)"
-  echo "  -n           Setup nodejs service"
-  echo "  -f           Allow replacing a live website-mci static IP if it differs from resolved IP"
+  echo "Usage: $0 -e <ENV> [-l <REGION>] [-n] [-f] [-d|--dry-run]"
+  echo "  -e <ENV>       Instance environment as defined under ../deploy/helm_charts/envs"
+  echo "  -l <REGION>    GKE region of the config cluster (default: us-central1)"
+  echo "  -n             Setup nodejs service"
+  echo "  -f             Allow replacing a live website-mci static IP if it differs from resolved IP"
+  echo "  -d, --dry-run  Run all validations and live guards, then preview changes via kubectl diff without applying"
   exit 1
 }
 
@@ -237,6 +238,34 @@ function filter_gce_backends {
     '[.[] | select(.name | test(strenv(PATTERN)))]' <<< "$bs_json"
 }
 
+# Normalize a comma-separated pre-shared-certs annotation into a canonical sorted list.
+function normalize_cert_list {
+  local raw="$1"
+  printf '%s\n' "$raw" | tr ',' '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | sed '/^$/d' | LC_ALL=C sort -u | paste -s -d ',' -
+}
+
+# Fail fast if applying mci.yaml would change live website-mci pre-shared-certs.
+function guard_live_mci_pre_shared_certs {
+  if [[ -z $EXISTING_MCI ]]; then
+    return 0
+  fi
+
+  local live_certs rendered_certs norm_live norm_rendered
+  live_certs=$(yq eval -r '.metadata.annotations."networking.gke.io/pre-shared-certs" // ""' - <<< "$EXISTING_MCI")
+  if [[ -z $live_certs ]]; then
+    return 0
+  fi
+
+  rendered_certs=$(yq eval -r '.metadata.annotations."networking.gke.io/pre-shared-certs" // ""' mci.yaml)
+  norm_live=$(normalize_cert_list "$live_certs")
+  norm_rendered=$(normalize_cert_list "$rendered_certs")
+  if [[ $norm_live != "$norm_rendered" ]]; then
+    echo "Error: Rendered website-mci pre-shared-certs ('${rendered_certs:-<unset>}') does not match live website-mci ('$live_certs') in project $PROJECT_ID." >&2
+    echo "Update the rendered pre-shared-certs configuration to match the live certificates before applying to avoid breaking HTTPS/TLS." >&2
+    exit 1
+  fi
+}
+
 # Warn if the main website MCI backend has IAP enabled (in Helm or live GCE) while
 # website-agentic-mcs is missing IAP or uses a different IAP OAuth client ID (which
 # causes separate IAP session cookies on the same domain).
@@ -338,13 +367,43 @@ function warn_gce_agentic_iap_mismatch {
   fi
 }
 
-# Parse command-line options.
+# Parse command-line options (supporting both -d and --dry-run, plus combined short flags).
+NORMALIZED_ARGS=()
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --dry-run)
+      NORMALIZED_ARGS+=("-d")
+      ;;
+    --help)
+      NORMALIZED_ARGS+=("-h")
+      ;;
+    --)
+      NORMALIZED_ARGS+=("$@")
+      break
+      ;;
+    --*)
+      echo "Unknown option: $1" >&2
+      help
+      ;;
+    *)
+      NORMALIZED_ARGS+=("$1")
+      ;;
+  esac
+  shift
+done
+if [[ ${#NORMALIZED_ARGS[@]} -gt 0 ]]; then
+  set -- "${NORMALIZED_ARGS[@]}"
+else
+  set --
+fi
+
 ENV=""
 LOCATION=""
 SETUP_NODEJS=""
 FORCE_IP_CHANGE=""
+DRY_RUN=""
 OPTIND=1
-while getopts ":e:l:nf?" OPTION; do
+while getopts ":e:l:nfdh?" OPTION; do
   case $OPTION in
     e)
       ENV=$OPTARG
@@ -357,6 +416,9 @@ while getopts ":e:l:nf?" OPTION; do
       ;;
     f)
       FORCE_IP_CHANGE=true
+      ;;
+    d)
+      DRY_RUN=true
       ;;
     *)
       help
@@ -485,22 +547,47 @@ else
 fi
 
 # Verify required IAP secret and Cloud Armor policy exist, and guard against stripping
-# IAP or Cloud Armor securityPolicy from live BackendConfigs before applying.
+# live BackendConfig IAP / Cloud Armor securityPolicy or drifting MCI pre-shared-certs.
 verify_iap_secret_exists
 verify_security_policy_exists
 guard_live_backendconfig_iap
 guard_live_backendconfig_security_policy
+guard_live_mci_pre_shared_certs
 
-# Apply Multi-Cluster Ingress, Multi-Cluster Services, and BackendConfigs.
-kubectl apply -f backendconfig.yaml
-kubectl apply -f mci.yaml
-kubectl apply -f website_mcs.yaml
+# Collect manifests to apply (or preview via kubectl diff in --dry-run mode).
+MANIFESTS=(backendconfig.yaml mci.yaml website_mcs.yaml)
 if [[ $SETUP_NODEJS == "true" ]]; then
-  kubectl apply -f website_nodejs_mcs.yaml
+  MANIFESTS+=(website_nodejs_mcs.yaml)
 fi
 if [[ $AGENTIC_ENABLED == "true" ]]; then
-  kubectl apply -f website_agentic_mcs.yaml
+  MANIFESTS+=(website_agentic_mcs.yaml)
 fi
+
+if [[ $DRY_RUN == "true" ]]; then
+  echo "Dry run (-d/--dry-run): all pre-apply validations and guards passed; previewing changes with kubectl diff..."
+  has_diffs="false"
+  for manifest in "${MANIFESTS[@]}"; do
+    diff_rc=0
+    kubectl diff -f "$manifest" || diff_rc=$?
+    if [[ $diff_rc -eq 1 ]]; then
+      has_diffs="true"
+    elif [[ $diff_rc -ne 0 ]]; then
+      echo "Error: kubectl diff failed for $manifest (exit code $diff_rc)." >&2
+      exit "$diff_rc"
+    fi
+  done
+  if [[ $has_diffs != "true" ]]; then
+    echo "No differences detected against live cluster resources."
+  fi
+  warn_gce_agentic_iap_mismatch
+  echo "Dry run complete; no changes were applied."
+  exit 0
+fi
+
+# Apply Multi-Cluster Ingress, Multi-Cluster Services, and BackendConfigs.
+for manifest in "${MANIFESTS[@]}"; do
+  kubectl apply -f "$manifest"
+done
 
 warn_gce_agentic_iap_mismatch
 
