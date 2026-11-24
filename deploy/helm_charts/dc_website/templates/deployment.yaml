@@ -203,6 +203,9 @@ spec:
               port: 8080
 {{- end }}
 
+{{- if and .Values.agentic .Values.agentic.enabled }}
+{{- include "dc-website.validateAgenticSecurityPolicy" . }}
+{{- end }}
 {{- if and .Values.agentic .Values.agentic.enabled .Values.agentic.discover .Values.agentic.discover.enabled }}
 ---
 
@@ -301,24 +304,17 @@ spec:
               {{- else }}
               value: ""
               {{- end }}
+            {{- $sessionKey := .Values.agentic.recaptchaSessionSiteKey }}
+            {{- $checkboxKey := .Values.agentic.recaptchaCheckboxSiteKey }}
+            {{- include "dc-website.validateRecaptchaSiteKey" (dict "name" "agentic.recaptchaSessionSiteKey" "value" $sessionKey) }}
+            {{- include "dc-website.validateRecaptchaSiteKey" (dict "name" "agentic.recaptchaCheckboxSiteKey" "value" $checkboxKey) }}
+            {{- if and $sessionKey $checkboxKey (eq $sessionKey $checkboxKey) }}
+            {{- fail "Invalid agentic reCAPTCHA config: recaptchaSessionSiteKey and recaptchaCheckboxSiteKey must be distinct site key IDs" }}
+            {{- end }}
             - name: RECAPTCHA_SESSION_SITE_KEY
-              {{- if .Values.agentic.recaptchaSessionSiteKey }}
-              {{- if contains "/" .Values.agentic.recaptchaSessionSiteKey }}
-              {{- fail (printf "Invalid agentic.recaptchaSessionSiteKey %q: must be a site key ID without '/'" .Values.agentic.recaptchaSessionSiteKey) }}
-              {{- end }}
-              value: {{ .Values.agentic.recaptchaSessionSiteKey | quote }}
-              {{- else }}
-              value: ""
-              {{- end }}
+              value: {{ $sessionKey | default "" | quote }}
             - name: RECAPTCHA_CHECKBOX_SITE_KEY
-              {{- if .Values.agentic.recaptchaCheckboxSiteKey }}
-              {{- if contains "/" .Values.agentic.recaptchaCheckboxSiteKey }}
-              {{- fail (printf "Invalid agentic.recaptchaCheckboxSiteKey %q: must be a site key ID without '/'" .Values.agentic.recaptchaCheckboxSiteKey) }}
-              {{- end }}
-              value: {{ .Values.agentic.recaptchaCheckboxSiteKey | quote }}
-              {{- else }}
-              value: ""
-              {{- end }}
+              value: {{ $checkboxKey | default "" | quote }}
           startupProbe:
             httpGet:
               path: {{ trimSuffix "/" .Values.agentic.discover.basePath }}/healthz

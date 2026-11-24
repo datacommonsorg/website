@@ -145,34 +145,34 @@ function guard_live_backendconfig_iap {
   done <<< "$bc_names"
 }
 
-# Filter a GCE backend-services JSON array to entries matching one MultiClusterService name.
-function filter_gce_backends {
-  local bs_json="$1"
-  local mcs_name="$2"
-  local pattern="^mci-.*-website-${mcs_name}$"
-  PATTERN="$pattern" yq eval -p=json -o=json \
-    '[.[] | select(.name | test(strenv(PATTERN)))]' <<< "$bs_json"
-}
-
 # Inject spec.securityPolicy.name into rendered backendconfig-agentic when configured in Helm config.
 # When empty, spec.securityPolicy is omitted so Console-managed policies are left untouched.
 function apply_security_policy_to_backendconfig {
   if [[ $AGENTIC_ENABLED == "true" && -n $AGENTIC_SECURITY_POLICY ]]; then
-    AGENTIC_SECURITY_POLICY="$AGENTIC_SECURITY_POLICY" yq eval -i 'with(select(.metadata.name == "backendconfig-agentic"); .spec.securityPolicy.name = strenv(AGENTIC_SECURITY_POLICY))' backendconfig.yaml
+    POLICY_NAME="$AGENTIC_SECURITY_POLICY" yq eval -i \
+      'with(select(.metadata.name == "backendconfig-agentic"); .spec.securityPolicy.name = strenv(POLICY_NAME))' \
+      backendconfig.yaml
   fi
 }
 
-# Fail fast if rendered backendconfig-agentic references a Cloud Armor policy that does not exist.
+# Fail fast if rendered backendconfig-agentic references a missing or non-backend Cloud Armor policy.
 function verify_security_policy_exists {
   if [[ $AGENTIC_ENABLED != "true" || -z $AGENTIC_SECURITY_POLICY ]]; then
     return 0
   fi
-  local policy_err
-  if ! policy_err=$(gcloud compute security-policies describe "$AGENTIC_SECURITY_POLICY" \
+
+  local err_file policy_type policy_err
+  local rc=0
+  err_file=$(mktemp)
+  policy_type=$(gcloud compute security-policies describe "$AGENTIC_SECURITY_POLICY" \
     --global \
     --project="$PROJECT_ID" \
-    --format=none 2>&1); then
-    if [[ $policy_err == *"NOT_FOUND"* || $policy_err == *"was not found"* || $policy_err == *"not found"* ]]; then
+    --format='value(type)' 2>"$err_file") || rc=$?
+  policy_err=$(cat "$err_file")
+  rm -f "$err_file"
+
+  if [[ $rc -ne 0 ]]; then
+    if [[ $policy_err == *"NOT_FOUND"* || $policy_err == *"not found"* ]]; then
       echo "Error: Cloud Armor security policy '$AGENTIC_SECURITY_POLICY' was not found in project $PROJECT_ID." >&2
       echo "Provision '$AGENTIC_SECURITY_POLICY' (e.g. via Terraform) before attaching it to backendconfig-agentic." >&2
     else
@@ -180,13 +180,27 @@ function verify_security_policy_exists {
     fi
     exit 1
   fi
+
+  policy_type="${policy_type%$'\r'}"
+  if [[ -n $policy_type && $policy_type != "CLOUD_ARMOR" ]]; then
+    echo "Error: Cloud Armor security policy '$AGENTIC_SECURITY_POLICY' in project $PROJECT_ID has type '$policy_type'; BackendConfig requires a backend security policy (type 'CLOUD_ARMOR')." >&2
+    exit 1
+  fi
 }
 
 # Fail fast if applying backendconfig.yaml would strip spec.securityPolicy.name from a live BackendConfig.
 function guard_live_backendconfig_security_policy {
+  local bc_names
+  bc_names=$(yq eval -N -r '.metadata.name // ""' backendconfig.yaml)
+  if [[ -z $bc_names ]]; then
+    echo "Error: No BackendConfig resources found in rendered backendconfig.yaml." >&2
+    exit 1
+  fi
+
   local bc_name live_bc live_policy rendered_policy
   while IFS= read -r bc_name; do
     [[ -z $bc_name ]] && continue
+
     live_bc=$(kubectl get backendconfig "$bc_name" -n website --ignore-not-found -o yaml)
     [[ -z $live_bc ]] && continue
 
@@ -198,19 +212,29 @@ function guard_live_backendconfig_security_policy {
     rendered_policy=$(BC_NAME="$bc_name" yq eval -N -r 'select(.metadata.name == strenv(BC_NAME)) | .spec.securityPolicy.name // ""' backendconfig.yaml)
     if [[ -z $rendered_policy ]]; then
       echo "Error: Live BackendConfig '$bc_name' in project $PROJECT_ID has spec.securityPolicy.name='$live_policy', which would be stripped by applying backendconfig.yaml." >&2
-      case "$bc_name" in
-        backendconfig-agentic)
-          echo "Set 'agentic.securityPolicy: \"$live_policy\"' in $CONFIG_YAML to preserve it declaratively, or remove spec.securityPolicy from the live BackendConfig first if intentionally detaching it." >&2
-          ;;
-        *)
-          echo "Preserve spec.securityPolicy on '$bc_name' or remove it from the live BackendConfig first if intentionally detaching it." >&2
-          ;;
-      esac
+      if [[ $bc_name == "backendconfig-agentic" ]]; then
+        echo "Set 'agentic.securityPolicy: \"$live_policy\"' in $CONFIG_YAML to preserve it declaratively." >&2
+      else
+        echo "Preserve spec.securityPolicy on '$bc_name' to keep it attached." >&2
+      fi
+      echo "If intentionally detaching '$live_policy', note that removing spec.securityPolicy alone leaves it attached in GCE:" >&2
+      echo '  1. Set spec.securityPolicy.name="" on the live BackendConfig and wait for GCE reconciliation' >&2
+      echo '     (or detach it on the GCE BackendService directly).' >&2
+      echo '  2. Then remove spec.securityPolicy from the live BackendConfig.' >&2
       exit 1
     elif [[ $live_policy != "$rendered_policy" ]]; then
       echo "Note: Updating BackendConfig '$bc_name' Cloud Armor securityPolicy from '$live_policy' to '$rendered_policy'." >&2
     fi
-  done < <(yq eval -N -r '.metadata.name // ""' backendconfig.yaml)
+  done <<< "$bc_names"
+}
+
+# Filter a GCE backend-services JSON array to entries matching one MultiClusterService name.
+function filter_gce_backends {
+  local bs_json="$1"
+  local mcs_name="$2"
+  local pattern="^mci-.*-website-${mcs_name}$"
+  PATTERN="$pattern" yq eval -p=json -o=json \
+    '[.[] | select(.name | test(strenv(PATTERN)))]' <<< "$bs_json"
 }
 
 # Warn if the main website MCI backend has IAP enabled (in Helm or live GCE) while
@@ -377,9 +401,12 @@ DISCOVER_BASE_PATH="${DISCOVER_BASE_PATH%/}"
 WEBSITE_IAP_ENABLED=$(get_helm_value '.website.iap.enabled')
 AGENTIC_IAP_ENABLED=$(get_helm_value '.agentic.iap.enabled')
 AGENTIC_SECURITY_POLICY=$(get_helm_value '.agentic.securityPolicy // ""')
-if [[ $AGENTIC_ENABLED == "true" && $AGENTIC_SECURITY_POLICY == *"/"* ]]; then
-  echo "Error: 'agentic.securityPolicy' in $CONFIG_YAML ('$AGENTIC_SECURITY_POLICY') must be a Cloud Armor policy name without '/'." >&2
-  exit 1
+SECURITY_POLICY_NAME_REGEX='^[a-z]([-a-z0-9]{0,61}[a-z0-9])?$'
+if [[ $AGENTIC_ENABLED == "true" && -n $AGENTIC_SECURITY_POLICY ]]; then
+  if [[ ! $AGENTIC_SECURITY_POLICY =~ $SECURITY_POLICY_NAME_REGEX ]]; then
+    echo "Error: 'agentic.securityPolicy' in $CONFIG_YAML ('$AGENTIC_SECURITY_POLICY') must be a valid Cloud Armor policy name (RFC 1035 lowercase label, 1-63 chars, no '/')." >&2
+    exit 1
+  fi
 fi
 
 if [[ -z $LOCATION ]]; then
