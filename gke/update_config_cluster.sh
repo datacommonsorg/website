@@ -154,6 +154,65 @@ function filter_gce_backends {
     '[.[] | select(.name | test(strenv(PATTERN)))]' <<< "$bs_json"
 }
 
+# Inject spec.securityPolicy.name into rendered backendconfig-agentic when configured in Helm config.
+# When empty, spec.securityPolicy is omitted so Console-managed policies are left untouched.
+function apply_security_policy_to_backendconfig {
+  if [[ $AGENTIC_ENABLED == "true" && -n $AGENTIC_SECURITY_POLICY ]]; then
+    AGENTIC_SECURITY_POLICY="$AGENTIC_SECURITY_POLICY" yq eval -i 'with(select(.metadata.name == "backendconfig-agentic"); .spec.securityPolicy.name = strenv(AGENTIC_SECURITY_POLICY))' backendconfig.yaml
+  fi
+}
+
+# Fail fast if rendered backendconfig-agentic references a Cloud Armor policy that does not exist.
+function verify_security_policy_exists {
+  if [[ $AGENTIC_ENABLED != "true" || -z $AGENTIC_SECURITY_POLICY ]]; then
+    return 0
+  fi
+  local policy_err
+  if ! policy_err=$(gcloud compute security-policies describe "$AGENTIC_SECURITY_POLICY" \
+    --global \
+    --project="$PROJECT_ID" \
+    --format=none 2>&1); then
+    if [[ $policy_err == *"NOT_FOUND"* || $policy_err == *"was not found"* || $policy_err == *"not found"* ]]; then
+      echo "Error: Cloud Armor security policy '$AGENTIC_SECURITY_POLICY' was not found in project $PROJECT_ID." >&2
+      echo "Provision '$AGENTIC_SECURITY_POLICY' (e.g. via Terraform) before attaching it to backendconfig-agentic." >&2
+    else
+      echo "Error: Failed to verify Cloud Armor security policy '$AGENTIC_SECURITY_POLICY' in project $PROJECT_ID: $policy_err" >&2
+    fi
+    exit 1
+  fi
+}
+
+# Fail fast if applying backendconfig.yaml would strip spec.securityPolicy.name from a live BackendConfig.
+function guard_live_backendconfig_security_policy {
+  local bc_name live_bc live_policy rendered_policy
+  while IFS= read -r bc_name; do
+    [[ -z $bc_name ]] && continue
+    live_bc=$(kubectl get backendconfig "$bc_name" -n website --ignore-not-found -o yaml)
+    [[ -z $live_bc ]] && continue
+
+    live_policy=$(yq eval -r '.spec.securityPolicy.name // ""' - <<< "$live_bc")
+    if [[ -z $live_policy ]]; then
+      continue
+    fi
+
+    rendered_policy=$(BC_NAME="$bc_name" yq eval -N -r 'select(.metadata.name == strenv(BC_NAME)) | .spec.securityPolicy.name // ""' backendconfig.yaml)
+    if [[ -z $rendered_policy ]]; then
+      echo "Error: Live BackendConfig '$bc_name' in project $PROJECT_ID has spec.securityPolicy.name='$live_policy', which would be stripped by applying backendconfig.yaml." >&2
+      case "$bc_name" in
+        backendconfig-agentic)
+          echo "Set 'agentic.securityPolicy: \"$live_policy\"' in $CONFIG_YAML to preserve it declaratively, or remove spec.securityPolicy from the live BackendConfig first if intentionally detaching it." >&2
+          ;;
+        *)
+          echo "Preserve spec.securityPolicy on '$bc_name' or remove it from the live BackendConfig first if intentionally detaching it." >&2
+          ;;
+      esac
+      exit 1
+    elif [[ $live_policy != "$rendered_policy" ]]; then
+      echo "Note: Updating BackendConfig '$bc_name' Cloud Armor securityPolicy from '$live_policy' to '$rendered_policy'." >&2
+    fi
+  done < <(yq eval -N -r '.metadata.name // ""' backendconfig.yaml)
+}
+
 # Warn if the main website MCI backend has IAP enabled (in Helm or live GCE) while
 # website-agentic-mcs is missing IAP or uses a different IAP OAuth client ID (which
 # causes separate IAP session cookies on the same domain).
@@ -317,6 +376,11 @@ DISCOVER_BASE_PATH=$(get_helm_value '.agentic.discover.basePath')
 DISCOVER_BASE_PATH="${DISCOVER_BASE_PATH%/}"
 WEBSITE_IAP_ENABLED=$(get_helm_value '.website.iap.enabled')
 AGENTIC_IAP_ENABLED=$(get_helm_value '.agentic.iap.enabled')
+AGENTIC_SECURITY_POLICY=$(get_helm_value '.agentic.securityPolicy // ""')
+if [[ $AGENTIC_ENABLED == "true" && $AGENTIC_SECURITY_POLICY == *"/"* ]]; then
+  echo "Error: 'agentic.securityPolicy' in $CONFIG_YAML ('$AGENTIC_SECURITY_POLICY') must be a Cloud Armor policy name without '/'." >&2
+  exit 1
+fi
 
 if [[ -z $LOCATION ]]; then
   LOCATION="us-central1"
@@ -384,6 +448,7 @@ if [[ $AGENTIC_ENABLED != "true" ]]; then
   yq eval -i 'select(.metadata.name != "backendconfig-agentic")' backendconfig.yaml
 fi
 apply_iap_to_backendconfig
+apply_security_policy_to_backendconfig
 if [[ $AGENTIC_ENABLED == "true" && $DISCOVER_ENABLED == "true" ]]; then
   DISCOVER_WILDCARD_PATH="${DISCOVER_BASE_PATH}/*"
   DISCOVER_BASE_PATH="$DISCOVER_BASE_PATH" yq eval -i '(.spec.template.spec.rules.[].http.paths[] | select(.path == "<DISCOVER_BASE_PATH>").path) = strenv(DISCOVER_BASE_PATH)' mci.yaml
@@ -392,9 +457,12 @@ else
   yq eval -i 'del(.spec.template.spec.rules.[].http.paths[] | select(.path == "<DISCOVER_BASE_PATH>" or .path == "<DISCOVER_BASE_PATH>/*"))' mci.yaml
 fi
 
-# Verify required IAP secret exists and guard against stripping IAP from live BackendConfigs before applying.
+# Verify required IAP secret and Cloud Armor policy exist, and guard against stripping
+# IAP or Cloud Armor securityPolicy from live BackendConfigs before applying.
 verify_iap_secret_exists
+verify_security_policy_exists
 guard_live_backendconfig_iap
+guard_live_backendconfig_security_policy
 
 # Apply Multi-Cluster Ingress, Multi-Cluster Services, and BackendConfigs.
 kubectl apply -f backendconfig.yaml

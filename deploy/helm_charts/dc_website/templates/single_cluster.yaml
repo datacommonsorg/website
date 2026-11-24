@@ -108,6 +108,13 @@ spec:
     oauthclientCredentials:
       secretName: iap-secret
   {{- end }}
+  {{- if .Values.agentic.securityPolicy }}
+  {{- if contains "/" .Values.agentic.securityPolicy }}
+  {{- fail (printf "Invalid agentic.securityPolicy %q: must be a Cloud Armor policy name without '/'" .Values.agentic.securityPolicy) }}
+  {{- end }}
+  securityPolicy:
+    name: {{ .Values.agentic.securityPolicy | quote }}
+  {{- end }}
 
 ---
 

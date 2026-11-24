@@ -123,6 +123,9 @@ agentic:
   dcApiKeySecret: "mixer-api-key"
   transcriptHmacSecretName: "agentic-transcript-hmac-secret"
   modelArmorLocation: "us-central1"
+  securityPolicy: "discover-armor-policy"
+  recaptchaSessionSiteKey: "6LeBsCguAAAAAGKuhIU_ioeaIzFasgXdS6EZi1h6"
+  recaptchaCheckboxSiteKey: "6LciFikuAAAAAAAV0enuiYHioA8XwuuDRzzhcnx_"
   iap:
     enabled: true
   discover:

@@ -301,6 +301,24 @@ spec:
               {{- else }}
               value: ""
               {{- end }}
+            - name: RECAPTCHA_SESSION_SITE_KEY
+              {{- if .Values.agentic.recaptchaSessionSiteKey }}
+              {{- if contains "/" .Values.agentic.recaptchaSessionSiteKey }}
+              {{- fail (printf "Invalid agentic.recaptchaSessionSiteKey %q: must be a site key ID without '/'" .Values.agentic.recaptchaSessionSiteKey) }}
+              {{- end }}
+              value: {{ .Values.agentic.recaptchaSessionSiteKey | quote }}
+              {{- else }}
+              value: ""
+              {{- end }}
+            - name: RECAPTCHA_CHECKBOX_SITE_KEY
+              {{- if .Values.agentic.recaptchaCheckboxSiteKey }}
+              {{- if contains "/" .Values.agentic.recaptchaCheckboxSiteKey }}
+              {{- fail (printf "Invalid agentic.recaptchaCheckboxSiteKey %q: must be a site key ID without '/'" .Values.agentic.recaptchaCheckboxSiteKey) }}
+              {{- end }}
+              value: {{ .Values.agentic.recaptchaCheckboxSiteKey | quote }}
+              {{- else }}
+              value: ""
+              {{- end }}
           startupProbe:
             httpGet:
               path: {{ trimSuffix "/" .Values.agentic.discover.basePath }}/healthz

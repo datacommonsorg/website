@@ -200,6 +200,8 @@ where `<ENV>` refers to the name of the instance and `<REGION>` is the region of
 
 > **IAP note:** `update_config_cluster.sh` reads `website.iap.enabled` and `agentic.iap.enabled` independently from `deploy/helm_charts/envs/<ENV>.yaml` (sharing `iap-secret` so `/labs/discover` and main website requests share one IAP session cookie). Before applying, it validates `iap-secret` and refuses to strip `spec.iap.enabled: true` or downgrade custom `oauthclientCredentials` to Google-managed OAuth on live `BackendConfig`s; after applying, it warns if `website-mcs` and `website-agentic-mcs` have mismatched IAP settings in GCE. See [docs/iap.md](../docs/iap.md) for details.
 
+> **Cloud Armor note:** `update_config_cluster.sh` also honors `agentic.securityPolicy` from `deploy/helm_charts/envs/<ENV>.yaml` (injecting `spec.securityPolicy.name` into `backendconfig-agentic` to stay in sync with `single_cluster.yaml`), verifies the global Cloud Armor security policy exists in GCP before applying, and fails fast if applying `backendconfig.yaml` would strip an existing `spec.securityPolicy.name` from a live `BackendConfig`.
+
 ## Add a cron testing job
 
 Note: By default, the added cron testing job will run every 4 hours. If you want the job to run on a different schedule, update the `schedule` field in [cron_testing_job.yaml.tpl](./cron_testing_job.yaml.tpl) before setting up the job. Specific test suites (Sanity, Adversarial, Node.js Query) can be controlled via `enableSanity`, `enableAdversarial`, and `enableNodejs` under `cronTesting` in the environment Helm charts. Note that `enableNodejs` defaults to `false` pending Node.js server deprecation.
