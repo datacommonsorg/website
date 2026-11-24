@@ -25,6 +25,7 @@ namespace:
 
 website:
   flaskEnv: production
+  securityPolicy: "botcrawl-throttle"
   replicas: 150
   redis:
     enabled: true
@@ -46,6 +47,10 @@ mixer:
 
 serviceAccount:
   name: website-ksa
+
+ingress:
+  enabled: false
+  certName: "dc-website-cert,multi-domain-2026"
 
 nl:
   enabled: true

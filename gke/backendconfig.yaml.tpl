@@ -12,7 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# BackendConfig for connection timeout and healthcheck
+# BackendConfig for main website connection timeout and healthcheck.
+# Environment-specific spec.iap and spec.securityPolicy fields are injected by
+# gke/update_config_cluster.sh from deploy/helm_charts/envs/<ENV>.yaml
+# (matching single_cluster.yaml).
 
 apiVersion: cloud.google.com/v1
 kind: BackendConfig

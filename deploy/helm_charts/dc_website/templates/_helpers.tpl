@@ -43,17 +43,41 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
-Validate agentic.securityPolicy when set (RFC 1035 lowercase label, 1-63 chars).
+Validate an optional Cloud Armor security policy name (RFC 1035 lowercase label, 1-63 chars).
+Expects a dict with "name" (values path for error messages) and "value".
 Shared so staging/prod (ingress.enabled: false) are validated alongside single-cluster charts.
 */}}
-{{- define "dc-website.validateAgenticSecurityPolicy" -}}
-{{- $policy := .Values.agentic.securityPolicy -}}
+{{- define "dc-website.validateSecurityPolicy" -}}
+{{- $policy := .value -}}
 {{- if $policy -}}
-  {{- $err := printf "Invalid agentic.securityPolicy %v: must be a Cloud Armor policy name (RFC 1035 lowercase label, 1-63 chars, no '/')" $policy -}}
+  {{- $err := printf "Invalid %s %v: must be a Cloud Armor policy name (RFC 1035 lowercase label, 1-63 chars, no '/')" .name $policy -}}
   {{- if not (kindIs "string" $policy) -}}
     {{- fail $err -}}
   {{- else if not (regexMatch "^[a-z]([-a-z0-9]{0,61}[a-z0-9])?$" $policy) -}}
     {{- fail $err -}}
+  {{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Validate an optional GCP SSL certificate name or comma-separated list of certificate names
+(each entry an RFC 1035 lowercase label, 1-63 chars, no empty entries or duplicates).
+Expects a dict with "name" (values path for error messages) and "value".
+*/}}
+{{- define "dc-website.validatePreSharedCerts" -}}
+{{- $certs := .value -}}
+{{- if $certs -}}
+  {{- $err := printf "Invalid %s %v: must be a comma-separated list of GCP SSL certificate names (RFC 1035 lowercase labels, 1-63 chars, no '/', no empty or duplicate entries)" .name $certs -}}
+  {{- if not (kindIs "string" $certs) -}}
+    {{- fail $err -}}
+  {{- end -}}
+  {{- $seen := dict -}}
+  {{- range (splitList "," $certs) -}}
+    {{- $cert := trim . -}}
+    {{- if or (not $cert) (not (regexMatch "^[a-z]([-a-z0-9]{0,61}[a-z0-9])?$" $cert)) (hasKey $seen $cert) -}}
+      {{- fail $err -}}
+    {{- end -}}
+    {{- $_ := set $seen $cert true -}}
   {{- end -}}
 {{- end -}}
 {{- end -}}

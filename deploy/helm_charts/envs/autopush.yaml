@@ -59,6 +59,7 @@ serviceAccount:
 
 ingress:
   enabled: true
+  certName: "website-certificate,multi-domain-2026"
 
 nl:
   enabled: true
