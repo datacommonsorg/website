@@ -41,9 +41,9 @@ website:
         }
       }
 
-mixer:
-  serviceName: "website-esp.endpoints.datcom-website-prod.cloud.goog"
-  hostProject: "datcom-website-prod"
+ingress:
+  # MultiClusterIngress in gke/ owns external routing for staging and prod.
+  enabled: false
 
 serviceAccount:
   name: website-ksa
@@ -68,17 +68,6 @@ nl:
         location: us-central1
         prediction_endpoint_id: "430892009855647744"
     enable_reranking: false
-
-serviceGroups:
-  recon: null
-  svg:
-    replicas: 10
-  observation:
-    replicas: 100
-  node:
-    replicas: 100
-  default:
-    replicas: 50
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
