@@ -14,7 +14,9 @@
 # limitations under the License.
 
 # Renders and applies MultiClusterIngress, MultiClusterService, and
-# BackendConfig manifests to the Fleet config cluster.
+# BackendConfig manifests to the Fleet config cluster, and syncs
+# BackendConfig manifests to all other READY Fleet member clusters matching
+# cluster_prefix before applying MCI/MCS changes.
 
 set -e
 
@@ -67,6 +69,8 @@ function apply_iap_to_backendconfig {
 # Fail fast if rendered backendconfig.yaml references `iap-secret` but the K8s Secret is missing
 # or does not define non-empty `client_id` and `client_secret` keys.
 function verify_iap_secret_exists {
+  local ctx="$1"
+  local cluster_label="$2"
   local needs_secret="false"
   if [[ $WEBSITE_IAP_ENABLED == "true" ]]; then
     needs_secret="true"
@@ -78,12 +82,12 @@ function verify_iap_secret_exists {
   fi
 
   local secret_out
-  if ! secret_out=$(kubectl get secret iap-secret -n website -o yaml 2>&1); then
+  if ! secret_out=$(kubectl --context="$ctx" get secret iap-secret -n website -o yaml 2>&1); then
     if [[ $secret_out == *"NotFound"* || $secret_out == *"not found"* ]]; then
-      echo "Error: IAP is enabled in $CONFIG_YAML, but Kubernetes Secret 'iap-secret' was not found in namespace 'website' (project $PROJECT_ID)." >&2
-      echo "Create 'iap-secret' with 'client_id' and 'client_secret' (see docs/iap.md) before re-running." >&2
+      echo "Error: IAP is enabled in $CONFIG_YAML, but Kubernetes Secret 'iap-secret' was not found in namespace 'website' on cluster '$cluster_label' (project $PROJECT_ID, context '$ctx')." >&2
+      echo "Create 'iap-secret' with 'client_id' and 'client_secret' on cluster '$cluster_label' (using kubectl --context=\"$ctx\"; see docs/iap.md) before re-running." >&2
     else
-      echo "Error: Failed to verify Kubernetes Secret 'iap-secret' in namespace 'website' (project $PROJECT_ID): $secret_out" >&2
+      echo "Error: Failed to verify Kubernetes Secret 'iap-secret' in namespace 'website' on cluster '$cluster_label' (project $PROJECT_ID, context '$ctx'): $secret_out" >&2
     fi
     exit 1
   fi
@@ -92,7 +96,7 @@ function verify_iap_secret_exists {
   client_id=$(yq eval -r '.data.client_id // ""' - <<< "$secret_out")
   client_secret=$(yq eval -r '.data.client_secret // ""' - <<< "$secret_out")
   if [[ -z $client_id || -z $client_secret ]]; then
-    echo "Error: Kubernetes Secret 'iap-secret' in namespace 'website' (project $PROJECT_ID) is missing non-empty 'client_id' and/or 'client_secret' keys (see docs/iap.md)." >&2
+    echo "Error: Kubernetes Secret 'iap-secret' in namespace 'website' on cluster '$cluster_label' (project $PROJECT_ID, context '$ctx') is missing non-empty 'client_id' and/or 'client_secret' keys (update with kubectl --context=\"$ctx\"; see docs/iap.md)." >&2
     exit 1
   fi
 }
@@ -101,6 +105,8 @@ function verify_iap_secret_exists {
 # BackendConfig or downgrade custom oauthclientCredentials to Google-managed OAuth in-place
 # (unsupported by GKE BackendConfig without recreating the backend).
 function guard_live_backendconfig_iap {
+  local ctx="$1"
+  local cluster_label="$2"
   local bc_names
   bc_names=$(yq eval -N -r '.metadata.name // ""' backendconfig.yaml)
   if [[ -z $bc_names ]]; then
@@ -113,7 +119,7 @@ function guard_live_backendconfig_iap {
   while IFS= read -r bc_name; do
     [[ -z $bc_name ]] && continue
 
-    live_bc=$(kubectl get backendconfig "$bc_name" -n website --ignore-not-found -o yaml)
+    live_bc=$(kubectl --context="$ctx" get backendconfig "$bc_name" -n website --ignore-not-found -o yaml)
     [[ -z $live_bc ]] && continue
 
     live_iap=$(yq eval -r '.spec.iap.enabled // "false"' - <<< "$live_bc")
@@ -130,19 +136,19 @@ function guard_live_backendconfig_iap {
       elif [[ $bc_name == "backendconfig-agentic" ]]; then
         flag_hint="Set 'agentic.iap.enabled: true' in $CONFIG_YAML to preserve IAP declaratively"
       fi
-      echo "Error: Live BackendConfig '$bc_name' in project $PROJECT_ID has spec.iap.enabled=true, which would be stripped by applying backendconfig.yaml." >&2
-      echo "$flag_hint; to turn IAP off, disable it in GCE (or via spec.iap.enabled=false) and remove spec.iap from the live BackendConfig first." >&2
+      echo "Error: Live BackendConfig '$bc_name' on cluster '$cluster_label' (project $PROJECT_ID, context '$ctx') has spec.iap.enabled=true, which would be stripped by applying backendconfig.yaml." >&2
+      echo "$flag_hint; to turn IAP off, disable it in GCE (or via spec.iap.enabled=false) and remove spec.iap from the live BackendConfig on '$cluster_label' first (kubectl --context=\"$ctx\" -n website)." >&2
       exit 1
     fi
 
     live_secret=$(yq eval -r '.spec.iap.oauthclientCredentials.secretName // ""' - <<< "$live_bc")
     rendered_secret=$(yq eval -r '.spec.iap.oauthclientCredentials.secretName // ""' - <<< "$rendered_bc")
     if [[ -n $live_secret && -z $rendered_secret ]]; then
-      echo "Error: Live BackendConfig '$bc_name' uses custom IAP OAuth secret '$live_secret', but rendered backendconfig.yaml switches it to <Google-managed>." >&2
-      echo "GKE BackendConfig does not support switching from custom oauthclientCredentials to Google-managed OAuth in-place (requires recreating the backend); reconcile manually before re-running." >&2
+      echo "Error: Live BackendConfig '$bc_name' on cluster '$cluster_label' (project $PROJECT_ID, context '$ctx') uses custom IAP OAuth secret '$live_secret', but rendered backendconfig.yaml switches it to <Google-managed>." >&2
+      echo "GKE BackendConfig does not support switching from custom oauthclientCredentials to Google-managed OAuth in-place (requires recreating the backend); reconcile manually on '$cluster_label' (kubectl --context=\"$ctx\" -n website) before re-running." >&2
       exit 1
     elif [[ $live_secret != "$rendered_secret" ]]; then
-      echo "Note: Updating BackendConfig '$bc_name' IAP OAuth credential from '${live_secret:-<Google-managed>}' to '$rendered_secret'." >&2
+      echo "Note: Updating BackendConfig '$bc_name' on cluster '$cluster_label' IAP OAuth credential from '${live_secret:-<Google-managed>}' to '$rendered_secret'." >&2
     fi
   done <<< "$bc_names"
 }
@@ -206,6 +212,8 @@ function verify_security_policy_exists {
 
 # Fail fast if applying backendconfig.yaml would strip spec.securityPolicy.name from a live BackendConfig.
 function guard_live_backendconfig_security_policy {
+  local ctx="$1"
+  local cluster_label="$2"
   local bc_names
   bc_names=$(yq eval -N -r '.metadata.name // ""' backendconfig.yaml)
   if [[ -z $bc_names ]]; then
@@ -217,7 +225,7 @@ function guard_live_backendconfig_security_policy {
   while IFS= read -r bc_name; do
     [[ -z $bc_name ]] && continue
 
-    live_bc=$(kubectl get backendconfig "$bc_name" -n website --ignore-not-found -o yaml)
+    live_bc=$(kubectl --context="$ctx" get backendconfig "$bc_name" -n website --ignore-not-found -o yaml)
     [[ -z $live_bc ]] && continue
 
     live_policy=$(yq eval -r '.spec.securityPolicy.name // ""' - <<< "$live_bc")
@@ -227,7 +235,7 @@ function guard_live_backendconfig_security_policy {
 
     rendered_policy=$(BC_NAME="$bc_name" yq eval -N -r 'select(.metadata.name == strenv(BC_NAME)) | .spec.securityPolicy.name // ""' backendconfig.yaml)
     if [[ -z $rendered_policy ]]; then
-      echo "Error: Live BackendConfig '$bc_name' in project $PROJECT_ID has spec.securityPolicy.name='$live_policy', which would be stripped by applying backendconfig.yaml." >&2
+      echo "Error: Live BackendConfig '$bc_name' on cluster '$cluster_label' (project $PROJECT_ID, context '$ctx') has spec.securityPolicy.name='$live_policy', which would be stripped by applying backendconfig.yaml." >&2
       if [[ $bc_name == "backendconfig" ]]; then
         echo "Set 'website.securityPolicy: \"$live_policy\"' in $CONFIG_YAML to preserve it declaratively." >&2
       elif [[ $bc_name == "backendconfig-agentic" ]]; then
@@ -235,13 +243,13 @@ function guard_live_backendconfig_security_policy {
       else
         echo "Preserve spec.securityPolicy on '$bc_name' to keep it attached." >&2
       fi
-      echo "If intentionally detaching '$live_policy', note that removing spec.securityPolicy alone leaves it attached in GCE:" >&2
+      echo "If intentionally detaching '$live_policy' on cluster '$cluster_label' (kubectl --context=\"$ctx\" -n website), note that removing spec.securityPolicy alone leaves it attached in GCE:" >&2
       echo '  1. Set spec.securityPolicy.name="" on the live BackendConfig and wait for GCE reconciliation' >&2
       echo '     (or detach it on the GCE BackendService directly).' >&2
       echo '  2. Then remove spec.securityPolicy from the live BackendConfig.' >&2
       exit 1
     elif [[ $live_policy != "$rendered_policy" ]]; then
-      echo "Note: Updating BackendConfig '$bc_name' Cloud Armor securityPolicy from '$live_policy' to '$rendered_policy'." >&2
+      echo "Note: Updating BackendConfig '$bc_name' on cluster '$cluster_label' Cloud Armor securityPolicy from '$live_policy' to '$rendered_policy'." >&2
     fi
   done <<< "$bc_names"
 }
@@ -413,6 +421,170 @@ function warn_gce_agentic_iap_mismatch {
   fi
 }
 
+# ==============================================================================
+# Multi-cluster Fleet helpers
+# Each entry in MEMBER_CLUSTERS is "cluster_name|location|kubectl_context".
+# ==============================================================================
+
+# Fetch GKE credentials for one cluster and print its resolved kubectl context.
+function fetch_cluster_context {
+  local cluster="$1"
+  local location="$2"
+  if ! gcloud container clusters get-credentials "$cluster" \
+    --location="$location" --project="$PROJECT_ID" >/dev/null; then
+    echo "Error: Failed to fetch GKE credentials for cluster '$cluster' ($location) in project $PROJECT_ID." >&2
+    exit 1
+  fi
+  local ctx
+  if ! ctx=$(kubectl config current-context) || [[ -z $ctx ]]; then
+    echo "Error: Failed to resolve kubectl context for cluster '$cluster' ($location)." >&2
+    exit 1
+  fi
+  printf '%s\n' "$ctx"
+}
+
+# Discover all other READY Fleet member clusters in $PROJECT_ID matching
+# "${CLUSTER_PREFIX}-*", populate MEMBER_CLUSTERS (sorted by resource link),
+# and connect to the Fleet config cluster last so current-context stays on it.
+function discover_and_connect_clusters {
+  MEMBER_CLUSTERS=()
+
+  local memberships_json err_file memberships_err rc=0
+  err_file=$(mktemp)
+  memberships_json=$(gcloud container fleet memberships list \
+    --project="$PROJECT_ID" \
+    --format=json 2>"$err_file") || rc=$?
+  memberships_err=$(cat "$err_file")
+  rm -f "$err_file"
+  if [[ $rc -ne 0 ]]; then
+    echo "Error: Failed to list Fleet memberships in project $PROJECT_ID: $memberships_err" >&2
+    exit 1
+  fi
+
+  local entries
+  entries=$(yq eval -p=json -r '
+    sort_by(.endpoint.gkeCluster.resourceLink // "") |
+    .[] | [(.name // ""), (.state.code // ""), (.endpoint.gkeCluster.resourceLink // "")] | join("|")
+  ' <<< "${memberships_json:-[]}")
+
+  local mem_name mem_state resource_link link_project link_location link_cluster member_ctx
+  while IFS='|' read -r mem_name mem_state resource_link; do
+    [[ -z $resource_link ]] && continue
+    # GKE resourceLink uses /locations/<region-or-zone>/ (for both regional and
+    # zonal clusters) or legacy /zones/<zone>/; container.googleapis.com has no
+    # /regions/ path segment.
+    if [[ ! $resource_link =~ ^//container\.googleapis\.com/projects/([^/]+)/(locations|zones)/([^/]+)/clusters/([^/]+)$ ]]; then
+      echo "Warning: Skipping Fleet membership '${mem_name:-<unnamed>}' with unrecognized GKE resourceLink '$resource_link'." >&2
+      continue
+    fi
+    link_project="${BASH_REMATCH[1]}"
+    link_location="${BASH_REMATCH[3]}"
+    link_cluster="${BASH_REMATCH[4]}"
+
+    if [[ $link_project != "$PROJECT_ID" ]]; then
+      echo "Note: Skipping Fleet membership '${mem_name:-<unnamed>}' (project '$link_project' != '$PROJECT_ID')." >&2
+      continue
+    fi
+    if [[ $link_cluster != "${CLUSTER_PREFIX}-"* ]]; then
+      echo "Note: Skipping Fleet member cluster '$link_cluster' ($link_location): does not match prefix '${CLUSTER_PREFIX}-'." >&2
+      continue
+    fi
+    if [[ $link_cluster == "$CLUSTER_NAME" && $link_location == "$LOCATION" ]]; then
+      continue
+    fi
+    if [[ $mem_state != "READY" ]]; then
+      echo "Error: Fleet member cluster '$link_cluster' ($link_location) in project $PROJECT_ID has membership state '${mem_state:-UNKNOWN}' (expected READY); refusing to leave BackendConfig out of sync across member clusters." >&2
+      exit 1
+    fi
+
+    member_ctx=$(fetch_cluster_context "$link_cluster" "$link_location")
+    MEMBER_CLUSTERS+=("${link_cluster}|${link_location}|${member_ctx}")
+  done <<< "$entries"
+
+  CONFIG_CTX=$(fetch_cluster_context "$CLUSTER_NAME" "$LOCATION")
+  CONFIG_CLUSTER_LABEL="$CLUSTER_NAME ($LOCATION)"
+}
+
+# Warn if agentic.clusterCount in Helm config disagrees with discovered Fleet clusters.
+function warn_agentic_cluster_count_mismatch {
+  local total_clusters=$((1 + ${#MEMBER_CLUSTERS[@]}))
+  local configured_count
+  configured_count=$(get_helm_value '.agentic.clusterCount // ""')
+  if [[ $AGENTIC_ENABLED == "true" && -n $configured_count && $configured_count != "null" && $configured_count != "$total_clusters" ]]; then
+    echo "Warning: agentic.clusterCount in $CONFIG_YAML is $configured_count, but discovered $total_clusters Fleet member cluster(s) matching '${CLUSTER_PREFIX}-*' in $PROJECT_ID (dailyTokenBudget per-pod math assumes $configured_count cluster(s))." >&2
+  fi
+}
+
+# Run all live BackendConfig pre-apply guards on every cluster before applying anything.
+function validate_all_cluster_backendconfigs {
+  local entry c_name c_loc c_ctx c_label
+  for entry in "${MEMBER_CLUSTERS[@]}"; do
+    IFS='|' read -r c_name c_loc c_ctx <<< "$entry"
+    c_label="$c_name ($c_loc)"
+    echo "Validating BackendConfigs on Fleet member cluster '$c_label'..." >&2
+    verify_iap_secret_exists "$c_ctx" "$c_label"
+    guard_live_backendconfig_iap "$c_ctx" "$c_label"
+    guard_live_backendconfig_security_policy "$c_ctx" "$c_label"
+  done
+  echo "Validating BackendConfigs on Fleet config cluster '$CONFIG_CLUSTER_LABEL'..." >&2
+  verify_iap_secret_exists "$CONFIG_CTX" "$CONFIG_CLUSTER_LABEL"
+  guard_live_backendconfig_iap "$CONFIG_CTX" "$CONFIG_CLUSTER_LABEL"
+  guard_live_backendconfig_security_policy "$CONFIG_CTX" "$CONFIG_CLUSTER_LABEL"
+}
+
+# Preview kubectl diff for one cluster's manifests. Sets HAS_DIFFS="true" on any diff.
+function diff_manifests_on_cluster {
+  local ctx="$1"
+  local label="$2"
+  shift 2
+  local manifest diff_rc
+  for manifest in "$@"; do
+    diff_rc=0
+    kubectl --context="$ctx" diff -f "$manifest" || diff_rc=$?
+    if [[ $diff_rc -eq 1 ]]; then
+      HAS_DIFFS="true"
+    elif [[ $diff_rc -ne 0 ]]; then
+      echo "Error: kubectl diff failed for $manifest on cluster '$label' (exit code $diff_rc)." >&2
+      exit "$diff_rc"
+    fi
+  done
+}
+
+# Preview diffs across all non-config member clusters (BackendConfig only) and the config cluster.
+function preview_all_cluster_diffs {
+  echo "Dry run (-d/--dry-run): all pre-apply validations and guards passed; previewing changes with kubectl diff..."
+  HAS_DIFFS="false"
+  local entry c_name c_loc c_ctx
+  for entry in "${MEMBER_CLUSTERS[@]}"; do
+    IFS='|' read -r c_name c_loc c_ctx <<< "$entry"
+    echo "=== Fleet member cluster: $c_name ($c_loc) (BackendConfig only) ==="
+    diff_manifests_on_cluster "$c_ctx" "$c_name ($c_loc)" backendconfig.yaml
+  done
+  echo "=== Fleet config cluster: $CONFIG_CLUSTER_LABEL ==="
+  diff_manifests_on_cluster "$CONFIG_CTX" "$CONFIG_CLUSTER_LABEL" "${MANIFESTS[@]}"
+  if [[ $HAS_DIFFS != "true" ]]; then
+    echo "No differences detected against live cluster resources."
+  fi
+  warn_gce_agentic_iap_mismatch
+  echo "Dry run complete; no changes were applied."
+}
+
+# Apply BackendConfig to all non-config member clusters FIRST, then apply
+# BackendConfig, MCI, and MCS manifests to the Fleet config cluster.
+function apply_all_clusters {
+  local entry c_name c_loc c_ctx
+  for entry in "${MEMBER_CLUSTERS[@]}"; do
+    IFS='|' read -r c_name c_loc c_ctx <<< "$entry"
+    echo "Syncing BackendConfig to Fleet member cluster '$c_name ($c_loc)'..."
+    kubectl --context="$c_ctx" apply -f backendconfig.yaml
+  done
+  echo "Applying MCI, MCS, and BackendConfig to Fleet config cluster '$CONFIG_CLUSTER_LABEL'..."
+  local manifest
+  for manifest in "${MANIFESTS[@]}"; do
+    kubectl --context="$CONFIG_CTX" apply -f "$manifest"
+  done
+}
+
 # Parse command-line options (supporting both short and long flags, plus combined short flags).
 FORCE_CERT_CHANGE=""
 NORMALIZED_ARGS=()
@@ -575,9 +747,9 @@ if [[ $CONFIG_MEMBERSHIP != *"/locations/$LOCATION/memberships/$CLUSTER_NAME" ]]
   exit 1
 fi
 
-# Fetch credentials for the Fleet config cluster.
-gcloud container clusters get-credentials "$CLUSTER_NAME" \
-  --region="$LOCATION" --project="$PROJECT_ID"
+# Discover additional Fleet member clusters and fetch credentials (ending on the config cluster).
+discover_and_connect_clusters
+warn_agentic_cluster_count_mismatch
 
 # Resolve static IP from Helm env config first, falling back to global address 'dc-website-ip'.
 IP=$(yq eval -r '.ip // ""' "$CONFIG_YAML")
@@ -590,7 +762,7 @@ if [[ -z $IP ]]; then
 fi
 
 # Guard against unintentionally overwriting a live website-mci static IP with a stale YAML value.
-EXISTING_MCI=$(kubectl get mci website-mci -n website --ignore-not-found -o yaml)
+EXISTING_MCI=$(kubectl --context="$CONFIG_CTX" get mci website-mci -n website --ignore-not-found -o yaml)
 if [[ -n $EXISTING_MCI ]]; then
   EXISTING_STATIC_IP=$(yq eval -r '.metadata.annotations."networking.gke.io/static-ip" // ""' - <<< "$EXISTING_MCI")
   EXISTING_VIP=$(yq eval -r '.status.VIP // ""' - <<< "$EXISTING_MCI")
@@ -633,15 +805,14 @@ else
 fi
 
 # Verify required IAP secret, Cloud Armor policies, and SSL certificates exist, and guard against
-# stripping live BackendConfig IAP / Cloud Armor securityPolicy or drifting MCI pre-shared-certs.
-verify_iap_secret_exists
+# stripping live BackendConfig IAP / Cloud Armor securityPolicy on every target cluster or drifting
+# MCI pre-shared-certs on the config cluster before applying anything.
 verify_security_policy_exists
 verify_pre_shared_certs_exist
-guard_live_backendconfig_iap
-guard_live_backendconfig_security_policy
+validate_all_cluster_backendconfigs
 guard_live_mci_pre_shared_certs
 
-# Collect manifests to apply (or preview via kubectl diff in --dry-run mode).
+# Collect manifests to apply to the Fleet config cluster (or preview via kubectl diff in --dry-run mode).
 MANIFESTS=(backendconfig.yaml mci.yaml website_mcs.yaml)
 if [[ $SETUP_NODEJS == "true" ]]; then
   MANIFESTS+=(website_nodejs_mcs.yaml)
@@ -651,31 +822,11 @@ if [[ $AGENTIC_ENABLED == "true" ]]; then
 fi
 
 if [[ $DRY_RUN == "true" ]]; then
-  echo "Dry run (-d/--dry-run): all pre-apply validations and guards passed; previewing changes with kubectl diff..."
-  has_diffs="false"
-  for manifest in "${MANIFESTS[@]}"; do
-    diff_rc=0
-    kubectl diff -f "$manifest" || diff_rc=$?
-    if [[ $diff_rc -eq 1 ]]; then
-      has_diffs="true"
-    elif [[ $diff_rc -ne 0 ]]; then
-      echo "Error: kubectl diff failed for $manifest (exit code $diff_rc)." >&2
-      exit "$diff_rc"
-    fi
-  done
-  if [[ $has_diffs != "true" ]]; then
-    echo "No differences detected against live cluster resources."
-  fi
-  warn_gce_agentic_iap_mismatch
-  echo "Dry run complete; no changes were applied."
+  preview_all_cluster_diffs
   exit 0
 fi
 
-# Apply Multi-Cluster Ingress, Multi-Cluster Services, and BackendConfigs.
-for manifest in "${MANIFESTS[@]}"; do
-  kubectl apply -f "$manifest"
-done
-
+apply_all_clusters
 warn_gce_agentic_iap_mismatch
 
 # Check the status: `kubectl describe mci website-mci -n website`
