@@ -141,3 +141,5 @@ agentic:
     configBucket: "datcom-website-autopush-discover-config"
     # Environment-wide daily Gemini token cap (20M/day = 10M/pod across 2 pods in 1 cluster).
     dailyTokenBudget: 20000000
+    webComponentUrl: "https://autopush.datacommons.org/datacommons.js"
+    webComponentApiRoot: "https://autopush.datacommons.org"
