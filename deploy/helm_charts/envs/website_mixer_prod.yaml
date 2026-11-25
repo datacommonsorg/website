@@ -14,11 +14,15 @@
 
 # Overrides for datcom-website-prod's bundled dc-mixer Helm release.
 # Base defaults come from mixer/deploy/helm_charts/mixer/values.yaml.
-# Standalone mixer_prod.yaml is not inherited; consider standalone mixer configs when making shared changes.
+#
+# Standalone mixer overrides are independent and configured at
+# mixer/deploy/helm_charts/envs/mixer_prod.yaml.
 
+# ----------------------------------------------------------------------------
 # Read by scripts/deploy_cloud_esp.sh via yq (not used by Helm templates).
 project: datcom-website-prod
 cluster_prefix: website
+# ----------------------------------------------------------------------------
 
 mixer:
   hostProject: datcom-website-prod
