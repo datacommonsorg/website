@@ -77,3 +77,16 @@ class TestConfig(unittest.TestCase):
     self.assertEqual(config.GOOGLE_ANALYTICS_TAG_ID,
                      expected['GOOGLE_ANALYTICS_TAG_ID'])
     self.assertEqual(config.SCHEME, expected['SCHEME'])
+
+  @parameterized.expand([
+      ('custom', '', 'Data Commons Platform'),
+      ('custom', 'Compose', 'Data Commons Platform'),
+      ('custom_test', '', 'Data Commons Platform'),
+      ('custom_dev', '', 'Data Commons Platform (Dev)'),
+  ])
+  def test_custom_dc_name(self, env, prefix, expected_name):
+    with patch.dict(os.environ, {
+        'FLASK_ENV': env,
+        'ENV_PREFIX': prefix,
+    }):
+      self.assertEqual(libconfig.get_config().NAME, expected_name)
