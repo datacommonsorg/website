@@ -203,10 +203,16 @@ If new cluster is needed to scale, then run:
 ../scripts/deploy_gke_helm.sh -e <ENV> -l <REGION>
 ```
 
+If the environment uses Multi-Cluster Ingress, also run `./update_config_cluster.sh` against the Fleet **config cluster** region (`<CONFIG_REGION>`, for example `us-central1`; see [Update cluster config](#update-cluster-config) below) so the new Fleet member cluster receives the `BackendConfig` resources (if IAP is enabled, create `iap-secret` in the new cluster's `website` namespace first; see [docs/iap.md](../docs/iap.md)):
+
+```bash
+./update_config_cluster.sh -e <ENV> -l <CONFIG_REGION>
+```
+
 If the instance uses Redis as memcache, then should follow this [instruction](../docs/redis.md)
 to create a new Redis instance.
 
-where `<ENV>` refers to the name of the instance and `<REGION>` is the region of the cluster.
+where `<ENV>` refers to the name of the instance, `<REGION>` is the region of the new cluster, and `<CONFIG_REGION>` is the region of the Fleet config cluster.
 
 ## Update cluster config
 
