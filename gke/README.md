@@ -203,14 +203,20 @@ If new cluster is needed to scale, then run:
 ../scripts/deploy_gke_helm.sh -e <ENV> -l <REGION>
 ```
 
+If the environment uses Multi-Cluster Ingress, also run `./update_config_cluster.sh` against the Fleet **config cluster** region (`<CONFIG_REGION>`, for example `us-central1`; see [Update cluster config](#update-cluster-config) below) so the new Fleet member cluster receives the `BackendConfig` resources (if IAP is enabled, create `iap-secret` in the new cluster's `website` namespace first; see [docs/iap.md](../docs/iap.md)):
+
+```bash
+./update_config_cluster.sh -e <ENV> -l <CONFIG_REGION>
+```
+
 If the instance uses Redis as memcache, then should follow this [instruction](../docs/redis.md)
 to create a new Redis instance.
 
-where `<ENV>` refers to the name of the instance and `<REGION>` is the region of the cluster.
+where `<ENV>` refers to the name of the instance, `<REGION>` is the region of the new cluster, and `<CONFIG_REGION>` is the region of the Fleet config cluster.
 
 ## Update cluster config
 
-If multi-cluster ingress, multi-cluster services, or their `BackendConfig` resources need to be updated, run the following command against the Fleet **config cluster** region (for example, `us-central1`). Pass `-n` only if the environment runs the Node.js server, and pass `-d` / `--dry-run` to run all validations and live guards and preview changes with `kubectl diff` without applying. By default, the script fails fast if the resolved static IP or `ingress.certName` (`pre-shared-certs`) differs from live `website-mci`; pass `-f` only when intentionally rotating the ingress static IP, or `--force-cert-change` only when intentionally updating TLS certificates.
+If multi-cluster ingress, multi-cluster services, or their `BackendConfig` resources need to be updated, run the following command against the Fleet **config cluster** region (for example, `us-central1`). In multi-region environments (such as `prod`), the script automatically discovers all other `READY` Fleet member clusters matching `cluster_prefix` (for example, `website-us-west1`), runs all live `BackendConfig` guards and `--dry-run` diffs across every cluster, and applies `backendconfig.yaml` to non-config member clusters **before** applying `MultiClusterIngress`, `MultiClusterService`, and `BackendConfig` to the Fleet config cluster. Pass `-n` only if the environment runs the Node.js server, and pass `-d` / `--dry-run` to run all validations and live guards and preview changes with `kubectl diff` without applying. By default, the script fails fast if the resolved static IP or `ingress.certName` (`pre-shared-certs`) differs from live `website-mci`; pass `-f` only when intentionally rotating the ingress static IP, or `--force-cert-change` only when intentionally updating TLS certificates.
 
 ```bash
 ./update_config_cluster.sh -e <ENV> -l <REGION>
