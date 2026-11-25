@@ -16,12 +16,13 @@
 # Base defaults come from mixer/deploy/helm_charts/mixer/values.yaml.
 # Standalone mixer_autopush.yaml is not inherited; consider standalone mixer configs when making shared changes.
 
-project: "datcom-website-autopush"
-cluster_prefix: "website"
+# Read by scripts/deploy_cloud_esp.sh via yq (not used by Helm templates).
+project: datcom-website-autopush
+cluster_prefix: website
 
 mixer:
-  hostProject: "datcom-website-autopush"
-  serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"
+  hostProject: datcom-website-autopush
+  serviceName: website-esp.endpoints.datcom-website-autopush.cloud.goog
   redis:
     enabled: true
     configFile: |
@@ -38,7 +39,10 @@ esp:
 serviceAccount:
   name: website-ksa
 
-ingress: # Follow-up: set enabled: false and remove name/annotations
+# Bundled Mixer is an internal backend reached via cluster Services, so this
+# mixer-ingress-autopush resource (referencing standalone Mixer's IP/certs) is unused.
+# Follow-up: set enabled: false and remove name/annotations.
+ingress:
   enabled: true
   name: mixer-ingress-autopush
   annotations:

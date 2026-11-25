@@ -16,12 +16,13 @@
 # Base defaults come from mixer/deploy/helm_charts/mixer/values.yaml.
 # Standalone mixer_prod.yaml is not inherited; consider standalone mixer configs when making shared changes.
 
-project: "datcom-website-prod"
-cluster_prefix: "website"
+# Read by scripts/deploy_cloud_esp.sh via yq (not used by Helm templates).
+project: datcom-website-prod
+cluster_prefix: website
 
 mixer:
-  hostProject: "datcom-website-prod"
-  serviceName: "website-esp.endpoints.datcom-website-prod.cloud.goog"
+  hostProject: datcom-website-prod
+  serviceName: website-esp.endpoints.datcom-website-prod.cloud.goog
   redis:
     enabled: true
     configFile: |
@@ -37,7 +38,10 @@ esp:
 serviceAccount:
   name: website-ksa
 
-ingress: # Follow-up: set enabled: false and remove name/annotations
+# Bundled Mixer is an internal backend reached via cluster Services, so this
+# mixer-ingress-prod resource (referencing standalone Mixer's IP/certs) is unused.
+# Follow-up: set enabled: false and remove name/annotations.
+ingress:
   enabled: true
   name: mixer-ingress-prod
   annotations:

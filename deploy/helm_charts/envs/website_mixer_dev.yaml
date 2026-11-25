@@ -16,12 +16,13 @@
 # Base defaults come from mixer/deploy/helm_charts/mixer/values.yaml.
 # Standalone mixer_dev.yaml is not inherited; consider standalone mixer configs when making shared changes.
 
-project: "datcom-website-dev"
-cluster_prefix: "website"
+# Read by scripts/deploy_cloud_esp.sh via yq (not used by Helm templates).
+project: datcom-website-dev
+cluster_prefix: website
 
 mixer:
-  hostProject: "datcom-website-dev"
-  serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
+  hostProject: datcom-website-dev
+  serviceName: website-esp.endpoints.datcom-website-dev.cloud.goog
   useBaseBigtable: false
   useBranchBigtable: false
   useBigquery: false
@@ -42,7 +43,10 @@ esp:
 serviceAccount:
   name: website-ksa
 
-ingress: # Follow-up: set enabled: false and remove name/annotations
+# Bundled Mixer is an internal backend reached via cluster Services, so this
+# mixer-ingress-dev resource (referencing standalone Mixer's IP/cert) is unused.
+# Follow-up: set enabled: false and remove name/annotations.
+ingress:
   enabled: true
   name: mixer-ingress-dev
   annotations:
