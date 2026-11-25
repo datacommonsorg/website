@@ -91,3 +91,25 @@ cronTesting:
   enableNodejs: false # skip nodejs tests in staging
   nodePool: "default-pool"
   schedule: "* * 31 2 *" # invalid day for month -> never run automatically
+
+agentic:
+  enabled: true
+  replicas: 2
+  clusterCount: 1
+  mcpServerUrl: "https://staging.api.datacommons.org/mcp"
+  securityPolicy: "discover-armor-policy"
+  recaptchaSessionSiteKey: "6LcuSDIuAAAAAKOl-_3moBhBz1gLmxmkGohzufPj"
+  recaptchaCheckboxSiteKey: "6LcUczIuAAAAABxIl8j4I93tnLierJ4Y7ed3dQz1"
+  iap:
+    enabled: false
+  discover:
+    enabled: true
+    debugReport: "off"
+    cpu: "1"
+    memory: "1G"
+    modelArmorTemplateId: "discover-staging"
+    configBucket: "datcom-website-staging-discover-config"
+    # Environment-wide daily Gemini token cap (10M/day = 5M/pod across 2 pods in 1 cluster).
+    dailyTokenBudget: 10000000
+    webComponentUrl: "https://staging.datacommons.org/datacommons.js"
+    webComponentApiRoot: "https://staging.datacommons.org"
