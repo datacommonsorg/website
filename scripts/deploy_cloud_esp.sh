@@ -38,7 +38,7 @@ if [[ "$DEPLOYMENT" == "mixer" ]]; then
   ENDPOINTS_TEMPLATE_FILE="$ROOT/mixer/esp/endpoints.yaml.tmpl"
 
 elif [[ "$DEPLOYMENT" == "website" ]]; then
-  HELM_VALUES_FILE="$ROOT/deploy/helm_charts/envs/$ENV.yaml"
+  HELM_VALUES_FILE="$ROOT/deploy/helm_charts/envs/website_mixer_$ENV.yaml"
   ENDPOINTS_TEMPLATE_FILE="$ROOT/gke/endpoints.yaml.tpl"
 fi
 

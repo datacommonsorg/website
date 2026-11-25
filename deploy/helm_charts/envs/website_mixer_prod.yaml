@@ -1,0 +1,64 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Overrides for datcom-website-prod's bundled dc-mixer Helm release.
+# Base defaults come from mixer/deploy/helm_charts/mixer/values.yaml.
+#
+# Standalone mixer overrides are independent and configured at
+# mixer/deploy/helm_charts/envs/mixer_prod.yaml.
+
+# ----------------------------------------------------------------------------
+# Read by scripts/deploy_cloud_esp.sh via yq (not used by Helm templates).
+project: datcom-website-prod
+cluster_prefix: website
+# ----------------------------------------------------------------------------
+
+mixer:
+  hostProject: datcom-website-prod
+  serviceName: website-esp.endpoints.datcom-website-prod.cloud.goog
+  redis:
+    enabled: true
+    configFile: |
+      instances:
+        - region: "us-central1"
+          host: "10.212.232.163"
+          port: "6379"
+  enableOtlp: true
+
+esp:
+  transcodingIgnoreUnknownQueryParameters: true
+
+serviceAccount:
+  name: website-ksa
+
+# Bundled Mixer only serves internal cluster traffic via Kubernetes Services.
+ingress:
+  enabled: false
+
+serviceGroups:
+  svg:
+    replicas: 10
+    # Keep goMemLimit ~10% below memoryLimit when changing either value.
+    resources:
+      memoryRequest: "10Gi"
+      memoryLimit: "10Gi"
+    goMemLimit: "9GiB"
+  # Website routes /v2/resolve to default (see dc_website/values.yaml).
+  recon: null
+  node:
+    replicas: 60 # Follow-up: 100
+  observation:
+    replicas: 60 # Follow-up: 100
+  default:
+    replicas: 30 # Follow-up: 50
