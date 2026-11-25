@@ -37,14 +37,8 @@ website:
         }
       }
 
-mixer:
-  serviceName: "website-esp.endpoints.datcom-website-staging.cloud.goog"
-  hostProject: "datcom-website-staging"
-  redis:
-    enabled: true
-  enableOtlp: true
-
 ingress:
+  # MultiClusterIngress in gke/ owns external routing for staging and prod.
   enabled: false
 
 serviceAccount:
@@ -68,17 +62,6 @@ nl:
         location: us-central1
         prediction_endpoint_id: "8435477397553283072"
     enable_reranking: false
-
-serviceGroups:
-  recon: null
-  svg:
-    replicas: 2
-  node:
-    replicas: 4
-  observation:
-    replicas: 4
-  default:
-    replicas: 4
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

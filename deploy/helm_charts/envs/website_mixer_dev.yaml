@@ -1,0 +1,70 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Overrides for datcom-website-dev's bundled dc-mixer Helm release.
+# Base defaults come from mixer/deploy/helm_charts/mixer/values.yaml.
+# Standalone mixer_dev.yaml is not inherited; consider standalone mixer configs when making shared changes.
+
+project: "datcom-website-dev"
+cluster_prefix: "website"
+
+mixer:
+  hostProject: "datcom-website-dev"
+  serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
+  useBaseBigtable: false
+  useBranchBigtable: false
+  useBigquery: false
+  useSpannerGraph: true
+  redis:
+    enabled: true
+    configFile: |
+      instances:
+        - region: "us-central1"
+          host: "10.60.165.235"
+          port: "6379"
+  enableOtlp: true
+  enableMcpPreview: true
+
+esp:
+  transcodingIgnoreUnknownQueryParameters: true
+
+serviceAccount:
+  name: website-ksa
+
+ingress: # Follow-up: set enabled: false and remove name/annotations
+  enabled: true
+  name: mixer-ingress-dev
+  annotations:
+    {
+      kubernetes.io/ingress.global-static-ip-name: mixer-ip,
+      ingress.gcp.kubernetes.io/pre-shared-cert: mixer-certificate,
+    }
+
+serviceGroups:
+  svg:
+    replicas: 2 # Follow-up: 1
+    resources:
+      memoryRequest: "4G"
+      memoryLimit: "4G"
+  recon: # Follow-up: null
+    replicas: 4
+  observation:
+    replicas: 4 # Follow-up: 3
+  node:
+    replicas: 4 # Follow-up: 3
+    resources:
+      memoryRequest: "4G"
+      memoryLimit: "4G"
+  default:
+    replicas: 2 # Follow-up: 3

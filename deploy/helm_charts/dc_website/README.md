@@ -37,10 +37,6 @@ website:
   flaskEnv: custom
   secretGCPProjectID: <GCP project>
 
-mixer:
-  hostProject: <GCP project>
-  serviceName: <Cloud Endpoints service name>
-
 serviceAccount:
   name: <KSA name>
 
@@ -59,7 +55,7 @@ ingress:
 
 The GCP project id where the website is to be deployed.
 
-Same value will apply for website.gcpProjectID, website.secretGCPProjectID, mixer.hostProject.
+Same value will apply for website.gcpProjectID and website.secretGCPProjectID.
 
 #### website.domain
 
@@ -93,20 +89,11 @@ git submodule update --init --recursive
 
 TAG=$(git rev-parse --short=7 HEAD)
 
-cd mixer
-MIXER_TAG=$(git rev-parse --short=7 HEAD)
-cd ..
-
 helm upgrade --install \
   dc-website deploy/helm_charts/dc_website \
   --atomic \
   --debug \
   --timeout 10m \
-  -f values.yaml \
-  --set website.githash="$TAG" \
-  --set mixer.githash="$MIXER_TAG" \
-  --set-file mixer.schemaConfigs."base\.mcf"=mixer/deploy/mapping/base.mcf \
-  --set-file mixer.schemaConfigs."encode\.mcf"=mixer/deploy/mapping/encode.mcf \
-  --set-file kgStoreConfig.bigqueryVersion=mixer/deploy/storage/bigquery.version \
-  --set-file kgStoreConfig.baseBigtableInfo=mixer/deploy/storage/base_bigtable_info.yaml
+  -f instance-values.yaml \
+  --set website.githash="$TAG"
 ```

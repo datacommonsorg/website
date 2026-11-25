@@ -226,7 +226,7 @@ containers:
 - mixer: A Data Commons API server.
 - esp: Google Extensive Service Proxy used for endpoints management.
 
-The code for mixer lives in our [mixer repo](https://github.com/datacommonsorg/mixer) and is included in website as a [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules). **We read mixer's deployment info from the submodule.**
+The code and base Helm chart (`mixer/deploy/helm_charts/mixer`) for Mixer live in our [mixer repo](https://github.com/datacommonsorg/mixer), included here as a [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules). Per-environment Helm overrides for website's bundled Mixer live in `deploy/helm_charts/envs/website_mixer_<env>.yaml` in this repo (see [deploy/helm_charts/README.md](../deploy/helm_charts/README.md)).
 
 ### Deploy to datcom-website-dev
 
@@ -270,8 +270,7 @@ gcloud auth configure-docker
       ```
   2. This will push an image tagged with `dev-<mixer-git-hash>`.
 
-*  **Deployment Change**: If you have modified deployment configurations (e.g., `deploy/helm_charts/values.yaml`, `deploy/helm_charts/envs/*.yaml`), you **MUST** pull these changes into the `website` repository prior to deploying.
-   *  Update your local `website` repo's mixer submodule to point to your local `mixer` commit.
+*  **Deployment Change**: Website's bundled Mixer overrides live in `deploy/helm_charts/envs/website_mixer_<env>.yaml` in this repository. Only if you modify Mixer's base Helm chart (`deploy/helm_charts/mixer/`) or standalone Mixer configs (`deploy/helm_charts/envs/mixer_*.yaml`) in `mixer` do you need to update your local `website` repo's `mixer` submodule to point to your local `mixer` commit before deploying.
 
 </details>
 
@@ -413,7 +412,7 @@ For detailed debugging instructions (disabling headless mode, screenshots, flaki
 
 ### GKE config
 
-The GKE configuration is stored [here](../deploy/helm_charts/dc_website).
+GKE Helm charts and per-environment overrides live under [deploy/helm_charts](../deploy/helm_charts/README.md) (`envs/<env>.yaml` for the website server and `envs/website_mixer_<env>.yaml` for website's bundled Mixer).
 
 ### Redis memcache
 
