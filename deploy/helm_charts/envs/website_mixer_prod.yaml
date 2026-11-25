@@ -42,16 +42,9 @@ esp:
 serviceAccount:
   name: website-ksa
 
-# Bundled Mixer is an internal backend reached via cluster Services, so this
-# mixer-ingress-prod resource (referencing standalone Mixer's IP/certs) is unused.
-# Follow-up: set enabled: false and remove name/annotations.
+# Bundled Mixer only serves internal cluster traffic via Kubernetes Services.
 ingress:
-  enabled: true
-  name: mixer-ingress-prod
-  annotations:
-    {
-      ingress.gcp.kubernetes.io/pre-shared-cert: "mixer-certificate,multi-domain-2026,api-esp",
-    }
+  enabled: false
 
 serviceGroups:
   svg:
@@ -61,8 +54,8 @@ serviceGroups:
       memoryRequest: "10Gi"
       memoryLimit: "10Gi"
     goMemLimit: "9GiB"
-  recon: # Follow-up: null
-    replicas: 90
+  # Website routes /v2/resolve to default (see dc_website/values.yaml).
+  recon: null
   node:
     replicas: 60 # Follow-up: 100
   observation:

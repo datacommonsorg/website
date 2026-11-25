@@ -111,8 +111,9 @@ class DeployConfigTest(unittest.TestCase):
       self) -> None:
     # Test: Bundled Mixer per-env files satisfy Helm, ESP, and routing rules.
     # Situation: Merge mixer/values.yaml with each website_mixer_<env>.yaml.
-    # Expectation: Required ESP/Helm fields are populated, dead keys are absent,
-    #   goMemLimit uses Go units, and every routed service group is deployed.
+    # Expectation: Required ESP/Helm fields are populated, external Ingress is
+    #   disabled, goMemLimit uses Go units, and deployed service groups match
+    #   dc_website's routed service groups.
     web_base = _load_yaml('deploy/helm_charts/dc_website/values.yaml')
     routed_groups = {
         name for name, cfg in web_base['serviceGroups'].items() if cfg
@@ -150,13 +151,14 @@ class DeployConfigTest(unittest.TestCase):
 
       self.assertEqual(merged.get('serviceAccount', {}).get('name'),
                        'website-ksa')
+      self.assertFalse(merged.get('ingress', {}).get('enabled'))
 
       groups = merged.get('serviceGroups', {})
       deployed_groups = {name for name, cfg in groups.items() if cfg}
-      missing = routed_groups - deployed_groups
-      self.assertFalse(
-          missing,
-          f'website_mixer_{env}.yaml missing routed groups: {missing}',
+      self.assertEqual(
+          deployed_groups,
+          routed_groups,
+          f'website_mixer_{env}.yaml serviceGroups mismatch with dc_website',
       )
       for group_name in deployed_groups:
         group_cfg = groups[group_name]
