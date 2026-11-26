@@ -1189,10 +1189,6 @@
           "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions_Illiterate_Female",
           "indianCensus/Count_Person_Religion_ReligionNotStated_Illiterate_Female",
           "indianCensus/Count_Person_Religion_Sikh_Illiterate_Female"
-        ],
-        "socialCategory": [
-          "Count_Person_ScheduledCaste_Illiterate_Female",
-          "Count_Person_ScheduledTribe_Illiterate_Female"
         ]
       },
       "Count_Person_Literate": {
@@ -1209,12 +1205,6 @@
           "indianCensus/Count_Person_Religion_Christian_Literate",
           "indianCensus/Count_Person_Religion_Hindu_Literate",
           "indianCensus/Count_Person_Religion_Muslim_Literate"
-        ]
-      },
-      "Count_Person_Literate_Female": {
-        "placeOfResidenceClassification": [
-          "Count_Person_Literate_Rural_Female",
-          "Count_Person_Literate_Urban_Female"
         ]
       }
     },

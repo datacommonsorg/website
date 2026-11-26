@@ -140,6 +140,7 @@
                       "Annual_Emissions_CarbonDioxide_Agriculture_multiple_place_bar_block",
                       "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings_multiple_place_bar_block",
                       "Annual_Emissions_CarbonDioxide_FossilFuelOperations_multiple_place_bar_block",
+                      "Annual_Emissions_CarbonDioxide_ForestryAndLandUse_multiple_place_bar_block",
                       "Annual_Emissions_CarbonDioxide_Manufacturing_multiple_place_bar_block",
                       "Annual_Emissions_CarbonDioxide_MineralExtraction_multiple_place_bar_block",
                       "Annual_Emissions_CarbonDioxide_Power_multiple_place_bar_block",
@@ -341,7 +342,17 @@
                     },
                     "comparisonPlaces": [
                       "country/USA",
-                      "country/GHA"
+                      "country/DEU",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/ETH",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/MLI",
+                      "country/BEN",
+                      "country/RWA",
+                      "country/SOM"
                     ],
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_OilAndGasProduction_multiple_place_bar_block"
@@ -353,7 +364,6 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Germany, Morocco, Kenya, Ethiopia, Uganda, Senegal, Mali, Benin, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Amount of Emissions: Oil and Gas Production, Greenhouse Gas"
           },
           {
@@ -482,7 +492,12 @@
                       "country/KEN",
                       "country/ETH",
                       "country/GHA",
-                      "country/SEN"
+                      "country/UGA",
+                      "country/SEN",
+                      "country/MLI",
+                      "country/BEN",
+                      "country/RWA",
+                      "country/SOM"
                     ],
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_MaritimeShipping_multiple_place_bar_block"
@@ -494,7 +509,6 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Uganda, Mali, Benin, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Amount of Emissions: Maritime Shipping, Greenhouse Gas"
           },
           {
@@ -579,6 +593,10 @@
           "Annual_Emissions_CarbonDioxide_Agriculture_multiple_place_bar_block": {
             "name": "CO\u2082 Emissions from Agriculture",
             "statVar": "Annual_Emissions_CarbonDioxide_Agriculture"
+          },
+          "Annual_Emissions_CarbonDioxide_ForestryAndLandUse_multiple_place_bar_block": {
+            "name": "CO\u2082 Emissions from Forestry and Land Use",
+            "statVar": "Annual_Emissions_CarbonDioxide_ForestryAndLandUse"
           },
           "Annual_Emissions_CarbonDioxide_FossilFuelOperations_multiple_place_bar_block": {
             "name": "CO\u2082 Emissions from Fossil Fuel Operations",
@@ -779,22 +797,25 @@
           "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse",
           "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherManufacturing",
           "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherTransportation",
+          "Annual_Emissions_GreenhouseGas_CoalMining",
           "Annual_Emissions_GreenhouseGas_CopperMining",
           "Annual_Emissions_GreenhouseGas_CroplandFire",
           "Annual_Emissions_GreenhouseGas_ElectricityGeneration",
           "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant",
           "Annual_Emissions_GreenhouseGas_EntericFermentation",
+          "Annual_Emissions_GreenhouseGas_FluorchemicalProduction",
+          "Annual_Emissions_GreenhouseGas_FoodProcessingBeveragesTobbacoProduction",
           "Annual_Emissions_GreenhouseGas_ForestClearing",
           "Annual_Emissions_GreenhouseGas_ForestFire",
           "Annual_Emissions_GreenhouseGas_ForestryAndLandUse",
           "Annual_Emissions_GreenhouseGas_FuelCombustionForAviation",
-          "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking",
           "Annual_Emissions_GreenhouseGas_FuelCombustionForRailways",
-          "Annual_Emissions_GreenhouseGas_FuelCombustionForRefrigerationAirConditioning",
           "Annual_Emissions_GreenhouseGas_FuelCombustionForResidentialCommercialOnsiteHeating",
           "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles",
           "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings",
+          "Annual_Emissions_GreenhouseGas_GlassProduction",
           "Annual_Emissions_GreenhouseGas_IronMining",
+          "Annual_Emissions_GreenhouseGas_LimeProduction",
           "Annual_Emissions_GreenhouseGas_ManagedSoils",
           "Annual_Emissions_GreenhouseGas_Manufacturing",
           "Annual_Emissions_GreenhouseGas_ManureManagement",
@@ -810,7 +831,6 @@
           "Annual_Emissions_GreenhouseGas_RiceCultivation",
           "Annual_Emissions_GreenhouseGas_RockQuarry",
           "Annual_Emissions_GreenhouseGas_SandQuarry",
-          "Annual_Emissions_GreenhouseGas_SavannaFire",
           "Annual_Emissions_GreenhouseGas_ShrublandFire",
           "Annual_Emissions_GreenhouseGas_SolidFuelTransformation",
           "Annual_Emissions_GreenhouseGas_SolidWasteDisposal",
