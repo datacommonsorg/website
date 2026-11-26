@@ -212,10 +212,15 @@ else
   MODEL_ARMOR_TEMPLATE="projects/${PROJECT_ID}/locations/${MODEL_ARMOR_LOCATION}/templates/${MODEL_ARMOR_TEMPLATE_ID}"
   # `gcloud model-armor templates` does not route requests using the location in
   # the template path; set `api_endpoint_overrides/modelarmor` for this process
-  # (preserving the mTLS endpoint when Certificate-Based Access is active).
+  # (preserving the mTLS endpoint for single-region locations when
+  # Certificate-Based Access is active; multi-region endpoints such as `us` and
+  # `eu` do not publish `.rep.mtls.googleapis.com` DNS records and must use
+  # `.rep.googleapis.com`).
   USE_MTLS=$(gcloud config get-value context_aware/use_client_certificate 2>/dev/null || true)
   ALWAYS_MTLS=$(gcloud config get-value context_aware/always_use_mtls_endpoint 2>/dev/null || true)
-  if [[ "$USE_MTLS" =~ ^([Tt][Rr][Uu][Ee]|1)$ || "$ALWAYS_MTLS" =~ ^([Tt][Rr][Uu][Ee]|1)$ ]]; then
+  if [[ "$MODEL_ARMOR_LOCATION" == "us" || "$MODEL_ARMOR_LOCATION" == "eu" ]]; then
+    MODEL_ARMOR_ENDPOINT="https://modelarmor.${MODEL_ARMOR_LOCATION}.rep.googleapis.com/"
+  elif [[ "$USE_MTLS" =~ ^([Tt][Rr][Uu][Ee]|1)$ || "$ALWAYS_MTLS" =~ ^([Tt][Rr][Uu][Ee]|1)$ ]]; then
     MODEL_ARMOR_ENDPOINT="https://modelarmor.${MODEL_ARMOR_LOCATION}.rep.mtls.googleapis.com/"
   else
     MODEL_ARMOR_ENDPOINT="https://modelarmor.${MODEL_ARMOR_LOCATION}.rep.googleapis.com/"
