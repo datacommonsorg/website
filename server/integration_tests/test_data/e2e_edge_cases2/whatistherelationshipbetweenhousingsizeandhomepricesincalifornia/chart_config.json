@@ -1069,6 +1069,13 @@
         ]
       },
       "Count_HousingUnit_OwnerOccupied": {
+        "dateMovedIn": [
+          "Count_HousingUnit_MovedInDate1970To1979_OwnerOccupied",
+          "Count_HousingUnit_MovedInDate1980To1989_OwnerOccupied",
+          "Count_HousingUnit_MovedInDate1990To1999_OwnerOccupied",
+          "Count_HousingUnit_MovedInDate2000OrLater_OwnerOccupied",
+          "Count_HousingUnit_MovedInDate2000To2009_OwnerOccupied"
+        ],
         "homeValue": [
           "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
           "Count_HousingUnit_HomeValue1000000To1499999USDollar",

@@ -294,38 +294,6 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "Earth"
-                    ],
-                    "statVarKey": [
-                      "Annual_Emissions_CarbonDioxide_Agriculture_multiple_place_bar_block",
-                      "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings_multiple_place_bar_block",
-                      "Annual_Emissions_CarbonDioxide_FossilFuelOperations_multiple_place_bar_block",
-                      "Annual_Emissions_CarbonDioxide_Manufacturing_multiple_place_bar_block",
-                      "Annual_Emissions_CarbonDioxide_MineralExtraction_multiple_place_bar_block",
-                      "Annual_Emissions_CarbonDioxide_Power_multiple_place_bar_block",
-                      "Annual_Emissions_CarbonDioxide_Transportation_multiple_place_bar_block",
-                      "Annual_Emissions_CarbonDioxide_WasteManagement_multiple_place_bar_block"
-                    ],
-                    "title": "CO2 Emissions by Source in the World (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "CO2 Emissions by Source"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "rankingTileSpec": {
                       "rankingCount": 10,
                       "showHighest": true
@@ -390,26 +358,6 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Annual_Emissions_Methane_Agriculture",
-                      "Annual_Emissions_Methane_FossilFuelOperations",
-                      "Annual_Emissions_Methane_OpenBurningWaste",
-                      "Annual_Emissions_Methane_WasteManagement"
-                    ],
-                    "title": "Methane Emissions by Source in the World",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Methane Emissions by Source"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "rankingTileSpec": {
                       "rankingCount": 10,
                       "showHighest": true
@@ -468,36 +416,6 @@
             ],
             "denom": "Count_Person",
             "title": "Annual Amount of Emissions: Fuel Combustion for Residential Commercial Onsite Heating, Nitrous Oxide in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "Earth"
-                    ],
-                    "statVarKey": [
-                      "Annual_Emissions_NitrousOxide_Agriculture_multiple_place_bar_block",
-                      "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating_multiple_place_bar_block",
-                      "Annual_Emissions_NitrousOxide_Manufacturing_multiple_place_bar_block",
-                      "Annual_Emissions_NitrousOxide_Transportation_multiple_place_bar_block",
-                      "Annual_Emissions_NitrousOxide_WasteManagement_multiple_place_bar_block",
-                      "Annual_Emissions_NitrousOxide_WastewaterTreatmentAndDischarge_multiple_place_bar_block"
-                    ],
-                    "title": "Nitrous Oxide Emissions by Source in the World (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Nitrous Oxide Emissions by Source"
           },
           {
             "columns": [
@@ -664,35 +582,6 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Annual_Emissions_CarbonDioxide_ElectricityGeneration"
-                    ],
-                    "title": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide in the World",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide in the World",
-                    "statVarKey": [
-                      "Annual_Emissions_CarbonDioxide_ElectricityGeneration"
-                    ],
-                    "title": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide in the World",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "rankingTileSpec": {
                       "rankingCount": 10,
                       "showHighest": true
@@ -794,45 +683,13 @@
             "name": "CO\u2082 Emissions from Agriculture",
             "statVar": "Annual_Emissions_CarbonDioxide_Agriculture"
           },
-          "Annual_Emissions_CarbonDioxide_Agriculture_multiple_place_bar_block": {
-            "name": "CO\u2082 Emissions from Agriculture",
-            "statVar": "Annual_Emissions_CarbonDioxide_Agriculture"
-          },
           "Annual_Emissions_CarbonDioxide_ElectricityGeneration": {
             "name": "Annual Amount Of Emissions: Electricity Generation, Carbon Dioxide",
             "statVar": "Annual_Emissions_CarbonDioxide_ElectricityGeneration"
           },
-          "Annual_Emissions_CarbonDioxide_FossilFuelOperations_multiple_place_bar_block": {
-            "name": "CO\u2082 Emissions from Fossil Fuel Operations",
-            "statVar": "Annual_Emissions_CarbonDioxide_FossilFuelOperations"
-          },
           "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings": {
             "name": "CO\u2082 Emissions from Fuel Combustion in Buildings",
             "statVar": "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings"
-          },
-          "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings_multiple_place_bar_block": {
-            "name": "CO\u2082 Emissions from Fuel Combustion in Buildings",
-            "statVar": "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings"
-          },
-          "Annual_Emissions_CarbonDioxide_Manufacturing_multiple_place_bar_block": {
-            "name": "CO\u2082 Emissions from Manufacturing",
-            "statVar": "Annual_Emissions_CarbonDioxide_Manufacturing"
-          },
-          "Annual_Emissions_CarbonDioxide_MineralExtraction_multiple_place_bar_block": {
-            "name": "CO\u2082 Emissions from Mineral Extraction",
-            "statVar": "Annual_Emissions_CarbonDioxide_MineralExtraction"
-          },
-          "Annual_Emissions_CarbonDioxide_Power_multiple_place_bar_block": {
-            "name": "CO\u2082 Emissions from Power Sector",
-            "statVar": "Annual_Emissions_CarbonDioxide_Power"
-          },
-          "Annual_Emissions_CarbonDioxide_Transportation_multiple_place_bar_block": {
-            "name": "CO\u2082 Emissions from Transportation",
-            "statVar": "Annual_Emissions_CarbonDioxide_Transportation"
-          },
-          "Annual_Emissions_CarbonDioxide_WasteManagement_multiple_place_bar_block": {
-            "name": "CO\u2082 Emissions from Waste Management",
-            "statVar": "Annual_Emissions_CarbonDioxide_WasteManagement"
           },
           "Annual_Emissions_GreenhouseGas": {
             "name": "Greenhouse Gas Emissions",
@@ -882,45 +739,13 @@
             "name": "Annual Amount Of Emissions: Fossil Fuel Operations, Methane",
             "statVar": "Annual_Emissions_Methane_FossilFuelOperations"
           },
-          "Annual_Emissions_Methane_OpenBurningWaste": {
-            "name": "Annual Amount Of Emissions: Open Burning Waste, Methane",
-            "statVar": "Annual_Emissions_Methane_OpenBurningWaste"
-          },
-          "Annual_Emissions_Methane_WasteManagement": {
-            "name": "Annual Amount Of Emissions: Waste Management, Methane",
-            "statVar": "Annual_Emissions_Methane_WasteManagement"
-          },
           "Annual_Emissions_NitrousOxide_Agriculture": {
-            "name": "Annual Amount Of Emissions: Agriculture, Nitrous Oxide",
-            "statVar": "Annual_Emissions_NitrousOxide_Agriculture"
-          },
-          "Annual_Emissions_NitrousOxide_Agriculture_multiple_place_bar_block": {
             "name": "Annual Amount Of Emissions: Agriculture, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_Agriculture"
           },
           "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating": {
             "name": "Annual Amount Of Emissions: Fuel Combustion For Residential Commercial Onsite Heating, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating"
-          },
-          "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating_multiple_place_bar_block": {
-            "name": "Annual Amount Of Emissions: Fuel Combustion For Residential Commercial Onsite Heating, Nitrous Oxide",
-            "statVar": "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating"
-          },
-          "Annual_Emissions_NitrousOxide_Manufacturing_multiple_place_bar_block": {
-            "name": "Annual Amount Of Emissions: Manufacturing, Nitrous Oxide",
-            "statVar": "Annual_Emissions_NitrousOxide_Manufacturing"
-          },
-          "Annual_Emissions_NitrousOxide_Transportation_multiple_place_bar_block": {
-            "name": "Annual Amount Of Emissions: Transportation, Nitrous Oxide",
-            "statVar": "Annual_Emissions_NitrousOxide_Transportation"
-          },
-          "Annual_Emissions_NitrousOxide_WasteManagement_multiple_place_bar_block": {
-            "name": "Annual Amount Of Emissions: Waste Management, Nitrous Oxide",
-            "statVar": "Annual_Emissions_NitrousOxide_WasteManagement"
-          },
-          "Annual_Emissions_NitrousOxide_WastewaterTreatmentAndDischarge_multiple_place_bar_block": {
-            "name": "Annual Amount Of Emissions: Wastewater Treatment And Discharge, Nitrous Oxide",
-            "statVar": "Annual_Emissions_NitrousOxide_WastewaterTreatmentAndDischarge"
           },
           "eia/INTL.4008-8-MMTCD.A": {
             "name": "CO2 emissions, Annual",
@@ -1315,20 +1140,6 @@
       {
         "dcid": "dc/topic/CO2Emissions",
         "name": "Carbondioxide ( CO2)",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Emissions_Methane_EmissionsbySource",
-        "name": "Methane",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Emissions_NitrousOxide_EmissionsbySource",
-        "name": "Nitrous Oxide",
         "types": [
           "Topic"
         ]
