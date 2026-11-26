@@ -82,3 +82,19 @@ serviceGroups:
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
+
+agentic:
+  enabled: true
+  replicas: 5
+  clusterCount: 2
+  mcpServerUrl: "https://api.datacommons.org/mcp"
+  modelArmorLocation: "us"
+  securityPolicy: "discover-armor-policy"
+  recaptchaSessionSiteKey: "6LermDIuAAAAAJYOXPxajibc8CK2EAtXLoIKCdHw"
+  recaptchaCheckboxSiteKey: "6LesmDIuAAAAACYvGY28phnasRL5y4grjIhzPamb"
+  discover:
+    debugReport: "off"
+    modelArmorTemplateId: "discover-prod"
+    configBucket: "datcom-website-prod-discover-config"
+    # Environment-wide daily Gemini token cap (100M/day = 10M/pod across 5 pods x 2 clusters).
+    dailyTokenBudget: 100000000
