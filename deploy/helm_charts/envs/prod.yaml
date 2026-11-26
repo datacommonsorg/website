@@ -88,6 +88,7 @@ agentic:
   replicas: 5
   clusterCount: 2
   mcpServerUrl: "https://api.datacommons.org/mcp"
+  modelArmorLocation: "us"
   securityPolicy: "discover-armor-policy"
   recaptchaSessionSiteKey: "6LermDIuAAAAAJYOXPxajibc8CK2EAtXLoIKCdHw"
   recaptchaCheckboxSiteKey: "6LesmDIuAAAAACYvGY28phnasRL5y4grjIhzPamb"
