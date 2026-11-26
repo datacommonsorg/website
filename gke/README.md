@@ -132,13 +132,13 @@ When agentic apps are enabled on an environment (`agentic.enabled: true`), you c
    done
    ```
 
-   **Note:** While `ENABLE_CHAT` is set on the Deployment, it overrides `chat.enabled` in `gs://<CONFIG_BUCKET>/agent-config.json` (so later bucket edits will have no effect on chat availability until `ENABLE_CHAT` is cleared or overwritten by the next Cloud Deploy release). To clear the override and return control to GCS (or restore replicas after scaling down):
+   **Note:** While `ENABLE_CHAT` is set on the Deployment, it overrides `chat.enabled` in `gs://<CONFIG_BUCKET>/agent-config.json` (so later bucket edits will have no effect on chat availability until `ENABLE_CHAT` is cleared or overwritten by the next Cloud Deploy release). To clear the override and return control to GCS (or restore replicas after scaling down — set `<REPLICAS>` to `agentic.replicas` in `deploy/helm_charts/envs/<ENV>.yaml`, e.g., `2` for `autopush`/`staging` or `5` for `prod`):
 
    ```bash
    for REGION in <REGIONS>; do
      gcloud container clusters get-credentials website-${REGION} --region=${REGION} --project=<PROJECT_ID>
      kubectl set env deployment/website-agentic-apps -n website -c discover ENABLE_CHAT-
-     kubectl scale deployment/website-agentic-apps -n website --replicas=2
+     kubectl scale deployment/website-agentic-apps -n website --replicas=<REPLICAS>
    done
    ```
 
