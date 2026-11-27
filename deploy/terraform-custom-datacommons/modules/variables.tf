@@ -151,6 +151,24 @@ variable "mysql_deletion_protection" {
 
 # Data Commons Cloud Run service variables
 
+variable "mysql_use_private_ip" {
+  description = "Set Cloud Run containers to connect to MySQL using private IP (internal VPC) instead of public IP"
+  type        = bool
+  default     = false
+}
+
+# See https://docs.cloud.google.com/sql/docs/mysql/configure-private-services-access
+variable "mysql_private_ip_prefix_length" {
+  description = "The prefix length of the IP range for the Cloud SQL private connection. Google automatically selects an available address block of this size. Must be between 16 and 24."
+  type        = number
+  default     = 24
+
+  validation {
+    condition     = var.mysql_private_ip_prefix_length >= 16 && var.mysql_private_ip_prefix_length <= 24
+    error_message = "The mysql_private_ip_prefix_length must be between 16 and 24. Cloud SQL requires at least /24."
+  }
+}
+
 variable "dc_web_service_image" {
   description = "Container image for Cloud Run service"
   type        = string
